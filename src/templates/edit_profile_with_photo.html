@@ -1,0 +1,68 @@
+<ion-modal-view class="new-report-modal">
+    <ion-scroll direction="y" class="new-report-scroll">
+        <div class="new-report-slide">
+          <div class="new-report-content">
+            <div id="actual_photo_container" ng-if="actual_photo!=null">
+              <div id="actual_photo" cache-src="{{actual_photo}}" src-is="background" background-style="no-repeat center" />
+            </div>
+            <div class="category-header">
+              <h3>Editar perfil</h3>
+              <p>Aquí puedes editar tus datos.</p>
+            </div>
+            <div class="field-separator"></div>
+            <div class="field-separator"></div>
+            <div class="field-separator"></div>
+            <div class="list">
+              <div class="text-input-header">
+                <h3>Correo electrónico *</h3>
+              </div>
+              <div class="text-input-container">
+                <input style="color: #ffffff; padding-left: 10px; padding-right: 10px;" class="text-input" type="text" placeholder="Proporcionar un correo válido" ng-model="profile.new_email">
+              </div>
+              <div class="field-separator"></div>
+              <div class="text-input-header">
+                <h3>Nombre y apellido *</h3>
+              </div>
+              <div class="text-input-container">
+                <textarea class="text-input" style="color: #ffffff; padding-left: 10px; padding-right: 10px; padding-top: 10px;" placeholder="Por favor, ingrese nombre y apellido" ng-model="profile.fullname"></textarea>
+              </div>
+              <div class="field-separator"></div>
+              <div class="text-input-header">
+                <h3>Cédula de Identidad *</h3>
+              </div>
+              <div class="text-input-container">
+                <textarea class="text-input" style="color: #ffffff; padding-left: 10px; padding-right: 10px; padding-top: 10px;" placeholder="Formato 0.000.000-0" ng-model="profile.id_doc"></textarea>
+              </div>
+              <div class="field-separator"></div>
+              <div class="text-input-header">
+                <h3>Teléfono (opcional)</h3>
+              </div>
+              <div class="text-input-container">
+                <textarea class="text-input" style="color: #ffffff; padding-left: 10px; padding-right: 10px; padding-top: 10px;" placeholder="Proporcione un teléfono de contacto" ng-model="profile.telephone"></textarea>
+              </div>
+              <div class="field-separator"></div>
+              <div class="foto-header">
+                <h3>Si deseas, puedes reemplazar tu foto</h3>
+              </div>
+              <div class="foto-input-container">
+                <div class="foto-picker">
+                  <div ng-click="addImage(0,1)" class="foto-icon"></div>
+                  <div ng-click="addImage(1,1)" class="foto-text">o seleccione un archivo</div>
+                </div>
+              </div>
+              <div class="field-separator"></div>
+              <div class="foto-footer">
+                <h3>El archivo no puede pesar más de 2MB. (JPG)</h3>
+              </div>
+              <div id="error_container"></div>
+              <div class="padding">
+                <button class="form-button" ng-click="edit_profile_ok()">Guardar</button>
+                <div class="field-separator"></div>
+                <button class="form-button" ng-click="close_edit_profile_modal()">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </ionic-scroll>
+    <div id="spinner-inside-modal" class="modal-spinner"><h3>Aguarde por favor</h3><ion-spinner icon="spiral"></ion-spinner><h3 id="sent_label">Enviado: 0%</h3></div>
+</ion-modal-view>
