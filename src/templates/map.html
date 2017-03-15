@@ -1,8 +1,22 @@
 <ion-view title="PMB-Map" hide-nav-bar="true">
 
 <ion-nav-title>
-
 </ion-nav-title>
+
+<div id="topbarmenu">
+  <div id="nav-icon-lines">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div id="FilterButton">
+    Filtrar
+  </div>
+</div>
+
+<div id="expanded_menu" class="expanded_menu">
+  Menu
+</div>
 
 <div id="spinner" class="intro-spinner"><ion-spinner icon="spiral"></ion-spinner></div>
 
@@ -66,13 +80,10 @@
     </label>
   </div>
   <div class="options-bar">
-    <div id="button-faq" class="option-inactive">
-      <div class="button-faq" ng-click="help()"></div>
-    </div>
-    <div id="button-find-me" class="option-inactive">
+    <div id="button-find-me" class="option-active">
       <div class="button-find-me" ng-click="find_me()"></div>
     </div>
-    <div class="user-options">
+    <div class="user-options" style="display: none;">
       <div id="user_picture" class="user-picture" cache-src="{{user_cached_image}}" src-is="background" background-style="no-repeat center" ng-click="user_options()"></div>
     </div>
   </div>

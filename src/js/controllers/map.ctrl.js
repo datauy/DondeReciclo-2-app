@@ -168,6 +168,12 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     };
 
     $scope.$on("$ionicView.afterEnter", function() {
+      var linesmenu = document.getElementById("nav-icon-lines");
+      var expanded_menu = document.getElementById("expanded_menu");
+      linesmenu.onclick = function () {
+        $scope.toggleClassOnElement(linesmenu,"open");
+        $scope.toggleClassOnElement(expanded_menu,"open");
+      };
       //document.getElementById("spinner").style.display = "none";
       document.getElementById("foot_bar").style.display = "block";
       if(ConnectivityService.isOnline()){
@@ -192,6 +198,20 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       this.name = "";
     };
 
+  $scope.toggleClassOnElement = function (element, className){
+    if (!element || !className){
+        return;
+    }
+
+    var classString = element.className, nameIndex = classString.indexOf(className);
+    if (nameIndex == -1) {
+        classString += ' ' + className;
+    }
+    else {
+        classString = classString.substr(0, nameIndex) + classString.substr(nameIndex+className.length);
+    }
+    element.className = classString;
+  };
 
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -313,56 +333,18 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     return imageURL;
   };
 
-
-    $scope.help = function() {
-      if(ConnectivityService.isOnline()){
-        document.getElementById("spinner").style.display = "block";
-        $scope.set_active_option('button-faq');
-        $scope.hide_special_divs();
-        FaqService.all().success(function (response) {
-          $scope.faq = $sce.trustAsHtml(response);
-          document.getElementById("spinner").style.display = "none";
-          $ionicModal.fromTemplateUrl('templates/faq.html', {
-            scope: $scope,
-            hardwareBackButtonClose: false,
-            animation: 'slide-in-up',
-            //focusFirstInput: true
-          }).then(function(modal) {
-              $scope.faq_modal = modal;
-              $scope.faq_modal.show().then(function(){
-                var element = angular.element( document.querySelector( '#faq-container-div' ) );
-                var compiled = $compile(element.contents())($scope);
-              })
-            });
-        })
-      }else{
-        PopUpService.show_alert("Sin conexión a internet","Para ver la ayuda debe estar conectado a internet");
-      }
-
-    }
-
     $scope.scrollMe = function(anchor_id){
       $location.hash(anchor_id);
       var handle  = $ionicScrollDelegate.$getByHandle('content');
       handle.anchorScroll();
     }
 
-    $scope.close_faq_modal = function(){
-      $scope.faq_modal.hide();
-      $scope.faq_modal.remove();
-    }
-
     $scope.set_active_option = function(buttonid) {
-      document.getElementById("button-report").className = "option-inactive";
-      document.getElementById("button-list-reports").className = "option-inactive";
-      document.getElementById("button-faq").className = "option-inactive";
       document.getElementById("button-find-me").className = "option-inactive";
       document.getElementById(buttonid).className = "option-active";
     }
 
     $scope.hide_special_divs = function(){
-      document.getElementById("report-list-scroll").style.display = "none";
-      document.getElementById("offline-report-list-container").style.display = "none";
       document.getElementById("user-options-menu").style.display="none";
       document.getElementById('map_crosshair').style.display = "none";
       document.getElementById('map_crosshair_button').style.display = "none";
@@ -418,11 +400,11 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         buildPopup = function(data, marker) {
           var reportId = data[3],
             descripcion = data[4];
-
-          var html = '<a class="text report-link" ng-click="viewReportDetails(' + reportId + ')"><p>' + descripcion + '</p></a>';
+          //console.log(data);
+          var html = '<a class="text report-link"><p>' + descripcion + '</p></a>';
+          html = html + '<p><b>Dirección: </b>' + data[5] + '</p>';
+          html = html + '<p><b>Horario: </b>' + data[6] + '</p>';
           return html;
-
-
         },
 
         onEachFeature = function(feature, layer) {
@@ -431,14 +413,18 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           if (feature.properties) {
             reportId = feature.properties.id;
             descripcion = feature.properties.title;
-            html = '<a class="text report-link" ng-click="viewReportDetails(' + reportId + ')"><p>' + descripcion + '</p></a>';
+            html = '<a class="text report-link"><p>' + descripcion + '</p></a>';
+            html = html + '<p><b>Dirección: </b>' + feature.properties.direccion + '</p>';
+            html = html + '<p><b>Horario: </b>' + feature.properties.horario + '</p>';
+            console.log(html);
             var compiled = $compile(html)($scope);
             layer.bindPopup(compiled[0]);
           }
         },
 
         l = new L.LayerJSON({
-          url: baseURL + "/ajax_geo?bbox={bbox}" /*"ajax_geo?bbox={bbox}"*/ ,
+          //url: baseURL + "/ajax_geo?bbox={bbox}" /*"ajax_geo?bbox={bbox}"*/ ,
+          url: baseURL + "/centros_de_reciclaje.json",
           locAsGeoJSON: true /*locAsArray:true*/,
           onEachFeature: onEachFeature
         });
@@ -456,7 +442,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       l.on('layeradd', function(e) {
         e.layer.eachLayer(function(_layer) {
           var markerIcon = L.icon({
-            iconUrl: baseURL + "/" + _layer.feature.properties.pin_url,
+            iconUrl: baseURL + _layer.feature.properties.pin_url,
             iconSize: [29, 34],
             iconAnchor: [8, 8],
             popupAnchor: [0, -8]
@@ -895,7 +881,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                 $scope.map.markers.now = {
                   lat:position.coords.latitude,
                   lng:position.coords.longitude,
-                  message: "<p align='center'>Te encuentras aquí <br/> <a ng-click='new_report(1);'>Iniciar reporte en tu posición actual</a></p>",
+                  //message: "<p align='center'>Te encuentras aquí <br/> <a ng-click='new_report(1);'>Iniciar reporte en tu posición actual</a></p>",
                   focus: true,
                   draggable: false,
                   getMessageScope: function() { return $scope; }
@@ -922,11 +908,11 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       /**
        * Detect user long-pressing on map to add new location
        */
-      $scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
+      /*$scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
         $scope.hide_special_divs();
         LocationsService.save_new_report_position(locationEvent.leafletEvent.latlng.lat,locationEvent.leafletEvent.latlng.lng);
         $scope.new_report(1);
-      });
+      });*/
 
 
   }

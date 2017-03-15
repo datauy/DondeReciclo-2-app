@@ -27,16 +27,16 @@
        var layer = L.Proj.geoJson(_geoJson, {
          'pointToLayer': function(feature, latlng) {
            _latlng = latlng;
-           var htmlPopUp = "<p align='center'>"+feature.properties.nombre+" <br/> <a ng-click='new_report_from_latlon("+_latlng.lat+","+_latlng.lng+");'>Iniciar reporte aquí</a></p>";
-           var compiled = $compile(htmlPopUp)(scope);
-           return L.marker(latlng).bindPopup(compiled[0]);
+           /*var htmlPopUp = "<p align='center'>"+feature.properties.nombre+" <br/> <a ng-click='new_report_from_latlon("+_latlng.lat+","+_latlng.lng+");'>Iniciar reporte aquí</a></p>";
+           var compiled = $compile(htmlPopUp)(scope);*/
+           return L.marker(latlng);
          }
        });
        layer.addTo(map);
        // console.log(JSON.stringify(layer));
 
        map.setView(_latlng, 18);
-       layer.openPopup();
+       //layer.openPopup();
      });
    };
 
