@@ -4,7 +4,7 @@
 </ion-nav-title>
 
 <div id="topbarmenu">
-  <div id="nav-icon-lines">
+  <div id="nav-icon-lines" ng-click="clickOnMenuIcon()">
     <span></span>
     <span></span>
     <span></span>
@@ -25,36 +25,6 @@
     <leaflet defaults="map.defaults" center="map.center" markers="map.markers" ng-if="map"></leaflet>
 
   </ion-content>
-
-  <div id="map_crosshair">
-  </div>
-  <div id="map_crosshair_button">
-    <button class="custom-html-modal-button" ng-click="startReportFromCrosshairs()">Reportar</button>
-  </div>
-
-  <ion-scroll direction="y" id="report-list-scroll">
-    <div id="report-list">
-      <div id="report-container-{{report.properties.id}}" ng-click="goToReport(report)" ng-repeat="report in reports track by $index" class="report-inside-list">
-        <div cache-src="{{baseURL}}{{getOnlyCategoryIconURL(report.properties.category_url)}}" src-is="background" background-style="no-repeat center" class="report-in-list-icon">
-        </div>
-        <div class="report-in-list-info">
-          <p id="report-title-{{report.properties.id}}" style="color: {{report.properties.color}};" class="report-in-list-title">{{report.properties.title}}</p>
-          <p id="report-category-{{report.properties.id}}" class="report-in-list-category">{{report.properties.category}}</p>
-          <p id="report-date-{{report.properties.id}}" class="report-in-list-date">{{report.properties.date}}</p>
-          <div class="report-mini-icons">
-            <img class="report-mini-icon" ng-if="report.properties.fixed" src="./img/icon-resuelto.png" />
-            <img class="report-mini-icon" ng-if="report.properties.has_photo" src="./img/icon-camera.png" />
-            <img class="report-mini-icon" ng-if="report.properties.has_comment" src="./img/icon-comments.png" />
-            <img class="report-mini-icon" src="./img/icon-tags.png" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </ion-scroll>
-  <div id="offline-report-list-container">
-
-  </div>
-
 
 <div id="foot_bar" class="foot-bar">
   <div class="street-search-bar">

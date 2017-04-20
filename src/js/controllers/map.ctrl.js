@@ -167,28 +167,34 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       };
     };
 
-    $scope.$on("$ionicView.afterEnter", function() {
+    $scope.clickOnMenuIcon = function(){
       var linesmenu = document.getElementById("nav-icon-lines");
       var expanded_menu = document.getElementById("expanded_menu");
-      linesmenu.onclick = function () {
-        $scope.toggleClassOnElement(linesmenu,"open");
-        $scope.toggleClassOnElement(expanded_menu,"open");
-      };
-      //document.getElementById("spinner").style.display = "none";
-      document.getElementById("foot_bar").style.display = "block";
-      if(ConnectivityService.isOnline()){
-        $scope.create_online_map();
-        $scope.addPinsLayer();
-        //$scope.addMapControls();
-      }else{
-        $scope.create_offline_map();
-      }
+      $scope.toggleClassOnElement(linesmenu,"open");
+      $scope.toggleClassOnElement(expanded_menu,"open");
+    };
 
-        $scope.map.center = {
-          lat: -34.901113,
-          lng: -56.164531,
-          zoom: 14
-        };
+    $scope.$on("$ionicView.afterEnter", function() {
+      //document.getElementById("spinner").style.display = "none";
+      document.addEventListener("deviceready", function () {
+        var footbar = document.getElementById("foot_bar");
+        if(footbar){
+          document.getElementById("foot_bar").style.display = "block";
+        }
+        if(ConnectivityService.isOnline()){
+          $scope.create_online_map();
+          $scope.addPinsLayer();
+          //$scope.addMapControls();
+        }else{
+          $scope.create_offline_map();
+        }
+
+          $scope.map.center = {
+            lat: -34.901113,
+            lng: -56.164531,
+            zoom: 14
+          };
+      }, false);
     });
 
     var Location = function() {
@@ -407,6 +413,23 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           return html;
         },
 
+        prefilterData = function(feature, layer){
+          if(feature.geometry) {
+            if(feature.geometry.coordinates){
+              var _latlng;
+              layer = L.Proj.geoJson(_geoJson, {
+                'pointToLayer': function(feature, latlng) {
+                  _latlng = latlng;
+                  /*var htmlPopUp = "<p align='center'>"+feature.properties.nombre+" <br/> <a ng-click='new_report_from_latlon("+_latlng.lat+","+_latlng.lng+");'>Iniciar reporte aquí</a></p>";
+                  var compiled = $compile(htmlPopUp)(scope);*/
+                  return L.marker(latlng);
+                }
+              });
+            }
+
+          }
+        },
+
         onEachFeature = function(feature, layer) {
           // does this feature have a property named popupContent?
           var html, reportId, descripcion;
@@ -416,7 +439,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
             html = '<a class="text report-link"><p>' + descripcion + '</p></a>';
             html = html + '<p><b>Dirección: </b>' + feature.properties.direccion + '</p>';
             html = html + '<p><b>Horario: </b>' + feature.properties.horario + '</p>';
-            console.log(html);
+            //console.log(html);
             var compiled = $compile(html)($scope);
             layer.bindPopup(compiled[0]);
           }
@@ -424,7 +447,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
         l = new L.LayerJSON({
           //url: baseURL + "/ajax_geo?bbox={bbox}" /*"ajax_geo?bbox={bbox}"*/ ,
-          url: baseURL + "/centros_de_reciclaje.json",
+          url: baseURL + "/centros_de_reciclaje_v2.json",
+          filterData: prefilterData,
           locAsGeoJSON: true /*locAsArray:true*/,
           onEachFeature: onEachFeature
         });
