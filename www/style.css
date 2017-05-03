@@ -858,17 +858,23 @@ body {
 }
 
 #expanded_menu{
-  width: 45%;
-  height: 40%;
-  background-color: rgba(148,201,44,0.7);
+  width: 100%;
+  height: 89%;
+  background-color: rgba(148,201,44,1);
   z-index: 99999999999999;
   position: absolute;
   top: 70px;
-  left: 25px;
+  left: 0;
   color: #FFFFFF;
   font-size: 16pt;
   padding-left: 15px;
   padding-top: 15px;
+}
+
+.leaflet-control-container .leaflet-top .leaflet-routing-container,.leaflet-control-container .leaflet-top .leaflet-routing-container.leaflet-routing-container-hide{
+  margin-top: 100px !important;
+  width: 40%;
+  height: 40%;
 }
 
 .expanded_menu{

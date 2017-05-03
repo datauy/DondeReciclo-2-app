@@ -30,7 +30,7 @@ pmb_im.app = angular.module('pmb_im', ['ionic','ionic.wizard','ion-autocomplete'
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       //cordova.plugins.Keyboard.disableScroll(false);
     }
-    $cordovaKeyboard.hideAccessoryBar(true)
+    //$cordovaKeyboard.hideAccessoryBar(true)
     //$cordovaKeyboard.disableScroll(false)
     ionic.Platform.isFullScreen = false;
     if (window.StatusBar) {

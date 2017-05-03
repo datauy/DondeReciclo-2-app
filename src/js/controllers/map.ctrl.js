@@ -79,7 +79,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.abuse_message = null;
 
     $scope.$on("$ionicView.beforeEnter", function() {
-
       DBService.initDB();
       if(ConnectivityService.isOnline()){
         $scope.check_user_logged();
@@ -118,6 +117,14 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         });
       }
       else {
+        $scope.check_user_logged();
+        $scope.addPinsLayer();
+        $scope.create_online_map();
+        $scope.map.center = {
+            lat: -34.901113,
+            lng: -56.164531,
+            zoom: 14
+          };
         window.addEventListener("online", function(e) {
           $scope.check_user_logged();
           $scope.addPinsLayer();
@@ -153,7 +160,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.map = {
         defaults: {
           tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-          minZoom: 12,
+          minZoom: 14,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
@@ -192,7 +199,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           $scope.map.center = {
             lat: -34.901113,
             lng: -56.164531,
-            zoom: 14
+            zoom: 16
           };
       }, false);
     });
@@ -352,8 +359,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.hide_special_divs = function(){
       document.getElementById("user-options-menu").style.display="none";
-      document.getElementById('map_crosshair').style.display = "none";
-      document.getElementById('map_crosshair_button').style.display = "none";
+      //document.getElementById('map_crosshair').style.display = "none";
+      //document.getElementById('map_crosshair_button').style.display = "none";
     }
 
     /**
@@ -366,7 +373,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         .then(function(position) {
           $scope.map.center.lat = position.coords.latitude;
           $scope.map.center.lng = position.coords.longitude;
-          $scope.map.center.zoom = 15;
+          $scope.map.center.zoom = 16;
 
           $scope.map.markers.now = {
             lat: position.coords.latitude,
@@ -403,59 +410,60 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.addPinsLayer = function() {
       var baseURL = ConfigService.baseURL;
-        buildPopup = function(data, marker) {
-          var reportId = data[3],
-            descripcion = data[4];
-          //console.log(data);
-          var html = '<a class="text report-link"><p>' + descripcion + '</p></a>';
-          html = html + '<p><b>Dirección: </b>' + data[5] + '</p>';
-          html = html + '<p><b>Horario: </b>' + data[6] + '</p>';
-          return html;
-        },
-
-        prefilterData = function(feature, layer){
-          if(feature.geometry) {
-            if(feature.geometry.coordinates){
-              var _latlng;
-              layer = L.Proj.geoJson(_geoJson, {
-                'pointToLayer': function(feature, latlng) {
-                  _latlng = latlng;
-                  /*var htmlPopUp = "<p align='center'>"+feature.properties.nombre+" <br/> <a ng-click='new_report_from_latlon("+_latlng.lat+","+_latlng.lng+");'>Iniciar reporte aquí</a></p>";
-                  var compiled = $compile(htmlPopUp)(scope);*/
-                  return L.marker(latlng);
-                }
-              });
-            }
-
-          }
-        },
-
         onEachFeature = function(feature, layer) {
           // does this feature have a property named popupContent?
+          var recibeDiv = "";
+          feature.properties.recibe.forEach(function(item){
+            if(item==100){
+              recibeDiv = recibeDiv + "<div class='material'>Vidrio</div>";
+            }
+            if(item==210){
+              recibeDiv = recibeDiv + "<div class='material'>Latas</div>";
+            }
+            if(item==300){
+              recibeDiv = recibeDiv + "<div class='material'>Plástico</div>";
+            }
+            if(item==410){
+              recibeDiv = recibeDiv + "<div class='material'>Pilas</div>";
+            }
+          })
           var html, reportId, descripcion;
           if (feature.properties) {
-            reportId = feature.properties.id;
-            descripcion = feature.properties.title;
-            html = '<a class="text report-link"><p>' + descripcion + '</p></a>';
-            html = html + '<p><b>Dirección: </b>' + feature.properties.direccion + '</p>';
-            html = html + '<p><b>Horario: </b>' + feature.properties.horario + '</p>';
-            //console.log(html);
+            reportId = feature.properties.GID;
+            descripcion = feature.properties.Nombre;
+            long = feature.geometry.coordinates[0].trim();
+            lat = feature.geometry.coordinates[1].trim();
+            html = '<div class="container_popup">';
+            html = html + '<p class="container_name">' + descripcion + '</p>';
+            html = html + '<p class="container_direccion">Dirección: '+feature.properties.DIRECCION+'</p>';
+            html = html + '<p><a class="container_llegar" ng-click="goToCenter(\''+long+'\',\''+lat+'\')">Ver ruta</a></p>';
+            html = html + '<div class="container_recibe">Recibe: '+recibeDiv+'</div>';
+            html = html + '<p class="container_horario">Horario: '+feature.properties.Horario+'</p>';
+            //console.log(feature.properties);
             var compiled = $compile(html)($scope);
             layer.bindPopup(compiled[0]);
           }
-        },
+        }
 
-        l = new L.LayerJSON({
-          //url: baseURL + "/ajax_geo?bbox={bbox}" /*"ajax_geo?bbox={bbox}"*/ ,
-          url: baseURL + "/centros_de_reciclaje_v2.json",
-          filterData: prefilterData,
-          locAsGeoJSON: true /*locAsArray:true*/,
-          onEachFeature: onEachFeature
-        });
+        if($scope.lastMarkerLayer==null){
+          l = new L.LayerJSON({
+            url: baseURL + "/centros_de_reciclaje_v3.json",
+            locAsGeoJSON: true,
+            minShift: 9000000,
+            onEachFeature: onEachFeature
+          });
+          $scope.lastMarkerLayer = l;
+          console.log(l._layers);
+        }else{
+          //console.log("ya descargue el json");
+        }
+
 
       leafletData.getMap().then(function(map) {
         map.addLayer(l);
       });
+
+      $scope.lastMarkerLayer = null;
 
 
       l.on('dataloaded', function(e) { //show loaded data!
@@ -465,20 +473,58 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
       l.on('layeradd', function(e) {
         e.layer.eachLayer(function(_layer) {
+          var icon = "/img/pin-centro.png";
+          if(_layer.feature.properties.pin_url){
+            icon = _layer.feature.properties.pin_url;
+          }
           var markerIcon = L.icon({
-            iconUrl: baseURL + _layer.feature.properties.pin_url,
+            iconUrl: baseURL + icon,
             iconSize: [29, 34],
             iconAnchor: [8, 8],
             popupAnchor: [0, -8]
           });
           _layer.setIcon(markerIcon);
-          if ($scope.featureReports[_layer.feature.properties.id] === undefined) {
-            $scope.featureReports[_layer.feature.properties.id] = _layer;
+          if ($scope.featureReports[_layer.feature.properties.GID] === undefined) {
+            $scope.featureReports[_layer.feature.properties.GID] = _layer;
           }
         });
 
       });
     };
+
+    $scope.goToCenter = function(longTo,latTo){
+      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+        $cordovaGeolocation
+          .getCurrentPosition(posOptions)
+          .then(function (position) {
+                var latFrom  = position.coords.latitude;
+                var longFrom = position.coords.longitude;
+                $scope.getRoad(latFrom,longFrom,latTo,longTo);
+                //$scope.map.markers.now.openPopup();
+              }, function(err) {
+                ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
+              });
+    };
+
+    $scope.lastRoad = null;
+
+    $scope.getRoad = function(LatFrom,LongFrom,latTo,longTo){
+      leafletData.getMap().then(function(map) {
+        map.closePopup();
+        if($scope.lastRoad!=null){
+          $scope.lastRoad.spliceWaypoints(0, 2);
+          map.removeControl($scope.lastRoad)
+          $scope.lastRoad=null;
+        }
+        $scope.lastRoad = L.Routing.control({
+          waypoints: [
+            L.latLng(LatFrom,LongFrom),
+            L.latLng(latTo,longTo)
+          ],
+          language:"en"
+        }).addTo(map);
+      });
+    }
 
     // Suggestion
     $scope.model = [];
