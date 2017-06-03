@@ -1,5 +1,5 @@
 {
-  "name": "dondereciclo-app",
+  "name": "dondereciclo",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
@@ -12,7 +12,7 @@
     "Proj4Leaflet": "proj4leaflet#~0.7.2"
   },
   "version": "0.1.0",
-  "homepage": "https://github.com/datauy/PorMiBarrioAPPs/",
+  "homepage": "https://github.com/datauy/donderecicloApp/",
   "authors": [
     "DATAUY.ORG <contacto@datauy.org>"
   ],

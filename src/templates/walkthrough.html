@@ -1,0 +1,51 @@
+<ion-modal-view class="new-report-modal">
+  <div class="walkthrough_bg"></div>
+  <ion-slide-box on-slide-changed="slideHasChanged($index);">
+    <ion-slide>
+      <div class="walkthrough_slide">
+        <img src="./img/walkthrough1.svg" class="walkthrough_slide_img_1">
+        <div class="walkthrough_slide_txt_1">¡Ya diste el primer paso!</div>
+        <div class="walkthrough_slide_txt_long">
+          Con esta app, vamos a ayudarte a clasificar tus residuos para reciclaje de forma fácil y rápida.
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="walkthrough_slide">
+        <img src="./img/walkthrough2.svg" class="walkthrough_slide_img_2">
+        <div class="walkthrough_slide_txt_2">¿Qué querés reciclar?</div>
+        <div class="walkthrough_slide_txt_long">
+          Con esta app, vamos a ayudarte a clasificar tus residuos para reciclaje de forma fácil y rápida.
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="walkthrough_slide">
+        <img src="./img/walkthrough2.svg" class="walkthrough_slide_img_2">
+        <div class="walkthrough_slide_txt_2">Encontrá, informate, tirá.</div>
+        <div class="walkthrough_slide_txt_long">
+          Buscá en el mapa, consultá tipos de residuos que recibe cada punto, su horario y mucho más.
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="walkthrough_slide">
+        <img src="./img/walkthrough2.svg" class="walkthrough_slide_img_2">
+        <div class="walkthrough_slide_txt_2">Ya estas listo</div>
+        <div class="walkthrough_slide_txt_long">
+          Econtra todos los puntos de reciclaje cercanos a tu ubicacion.
+        </div>
+      </div>
+    </ion-slide>
+
+  </ion-slide-box>
+  <div class="slide_controlers">
+    <button class="prev-button" ng-click="finishWalkthrough()" ng-if="actualSliderIndex==0">Saltear</button>
+    <button class="prev-button" ng-click="previous()" ng-if="actualSliderIndex>0">Anterior</button>
+    <button class="next-button" ng-click="next()" ng-if="actualSliderIndex<3">Siguiente</button>
+    <button class="next-button" ng-click="finishWalkthrough()" ng-if="actualSliderIndex==3">Continuar</button>
+  </div>
+</ion-modal-view>

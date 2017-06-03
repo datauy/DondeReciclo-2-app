@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="23" viewBox="0 0 13 23">
+    <defs>
+        <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#B5EC45"/>
+            <stop offset="100%" stop-color="#7ED321"/>
+        </linearGradient>
+        <path id="b" d="M0 0h320v68.629H0z"/>
+        <filter id="a" width="102.5%" height="111.7%" x="-1.2%" y="-2.9%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.287109375 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(-16 -23)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="url(#c)" xlink:href="#b"/>
+        </g>
+        <g fill="#FFF">
+            <rect width="15.053" height="1.901" x="-1.368" y="5.576" rx=".95" transform="rotate(-45 6.158 6.526)"/>
+            <rect width="15.053" height="1.901" x="-.86" y="15.597" rx=".95" transform="rotate(45 6.666 16.548)"/>
+        </g>
+    </g>
+</svg>

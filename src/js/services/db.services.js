@@ -13,7 +13,9 @@ pmb_im.services.factory('DBService', ['$q', function($q) {
        deleteReport: deleteReport,
        deleteGivenReport: deleteGivenReport,
        getCategories: getCategories,
-       saveCategories: saveCategories
+       saveCategories: saveCategories,
+       getDoneWalkthrough: getDoneWalkthrough,
+       saveDoneWalkthrough: saveDoneWalkthrough
    };
 
    function saveUser(user_name, user_email, user_password, user_id_doc, user_phone, user_picture_url) {
@@ -33,6 +35,18 @@ pmb_im.services.factory('DBService', ['$q', function($q) {
            return _db.put(user);
          })
    };
+
+   function saveDoneWalkthrough() {
+      var doneWalkthrough = {
+         _id: 'done-walkthrough',
+         status: 'done'
+      };
+      return _db.put(doneWalkthrough);
+    };
+
+  function getDoneWalkthrough() {
+   return _db.get('done-walkthrough');
+  };
 
   function getUser() {
      return _db.get('user-logged');

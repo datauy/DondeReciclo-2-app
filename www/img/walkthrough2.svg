@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="223" height="154" viewBox="0 0 223 154">
+    <defs>
+        <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#B5EC45"/>
+            <stop offset="100%" stop-color="#7ED321"/>
+        </linearGradient>
+        <path id="b" d="M0 0h320v568H0z"/>
+        <filter id="a" width="102.5%" height="101.4%" x="-1.2%" y="-.4%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.287109375 0"/>
+        </filter>
+        <rect id="e" width="290" height="384" x="14" y="60" rx="7.2"/>
+        <filter id="d" width="113.1%" height="109.9%" x="-5.9%" y="-4.7%" filterUnits="objectBoundingBox">
+            <feMorphology in="SourceAlpha" operator="dilate" radius=".5" result="shadowSpreadOuter1"/>
+            <feOffset dx="2" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.215551404 0"/>
+        </filter>
+        <path id="f" d="M5.166 55.055H221.65a1.2 1.2 0 0 1 1.192 1.342l-3.41 28.718a1.2 1.2 0 0 1-1.192 1.058H1.369a1.2 1.2 0 0 1-1.19-1.357l3.797-28.718a1.2 1.2 0 0 1 1.19-1.043z"/>
+        <rect id="g" width="10.79" height="33.512" x="16.785" y="40.693" rx="1.2"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(-49 -131)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="url(#c)" xlink:href="#b"/>
+        </g>
+        <g transform="translate(-49 -131)">
+            <use fill="#000" filter="url(#d)" xlink:href="#e"/>
+            <use fill="#FFF" xlink:href="#e"/>
+        </g>
+        <g transform="translate(0 1)">
+            <use fill="#FFF" xlink:href="#f"/>
+            <path stroke="#417505" stroke-width="2.4" d="M5.166 56.255L1.37 84.973h216.87l3.41-28.718H5.166z"/>
+        </g>
+        <path fill="#B8E986" d="M16.144 66.827h194.867l-2.37 9.106H14.388z" opacity=".463"/>
+        <g transform="rotate(-28 167.344 -14.524)">
+            <use fill="#FFF" xlink:href="#g"/>
+            <rect width="8.39" height="31.112" x="17.985" y="41.893" stroke="#417505" stroke-width="2.4" rx="1.2"/>
+        </g>
+        <path fill="#FFF" stroke="#417505" stroke-width="2.4" d="M45.99 66.45l16.893-1.637 13.086 10.774 1.615 16.874L66.78 105.55l-16.892 1.637L36.8 96.413l-1.614-16.874z"/>
+        <path fill="#7ED321" d="M47.142 67.57l19.318 36.886 10.033-12.443-1.344-15.79L62.336 65.6z" opacity=".121"/>
+        <g stroke="#417505">
+            <path stroke-width="2.4" d="M78.024 35.563l3.992-2.398 5.973 2.413.04 4.027-6.696 3.227-1.628 4.03"/>
+            <path stroke-width="1.2" d="M78.815 48.009l1.11.448-.447 1.107-1.11-.448z"/>
+        </g>
+        <g stroke="#417505">
+            <path stroke-width="2.4" d="M20.949 115.514l-4.113 2.185-5.838-2.722.171-4.024 6.856-2.872 1.836-3.938"/>
+            <path stroke-width="1.2" d="M20.81 103.043l-1.086-.506.505-1.082 1.085.506z"/>
+        </g>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M210.23 25.461l-1.31 4.234-4.438-.078-1.31 4.234-4.438-.078-1.311 4.234M171.734 103.421l3.906 2.096-.923 4.34 3.905 2.095-.923 4.34 3.906 2.096"/>
+        <g stroke="#417505" stroke-linejoin="round" stroke-width="2.527">
+            <path d="M161.835 39.892l-20.527-8.713 8.27-28.995 27.37 11.618z"/>
+            <path stroke-linecap="round" d="M173 20.514l8.876 3.768-11.761 11.785L165.247 34"/>
+        </g>
+        <g stroke="#417505" stroke-width="2.808">
+            <path d="M128.945 101.68l13.985 4.01-.697 2.429-13.984-4.01zM131.465 105.382l-12.217 17.153-6.769 23.606 20.956 6.009 6.57-22.913-1.498-21.788z"/>
+        </g>
+        <path fill="#7ED321" d="M200.22 105.126l-.047-7.181-7.146 3.641zM43.382 37.071l6.065-3.845-6.875-4.131z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.331" d="M200.22 105.126l-.047-7.181-7.146 3.641zM43.382 37.071l6.065-3.845-6.875-4.131z"/>
+        <path stroke="#417505" stroke-width="2.6" d="M118.762 126.45l8.011 2.063-4.664 14.826-7.729-2.199"/>
+    </g>
+</svg>

@@ -1,12 +1,12 @@
 {
   "name": "dondereciclo-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Ionic app for DondeReciclo project",
   "author": "DATAUY.ORG <contacto@datauy.org>",
   "license": "OpenSource",
   "repository": {
     "type": "git",
-    "url": "https://github.com/datauy/PorMiBarrioAPPs/"
+    "url": "https://github.com/datauy/donderecicloApp/"
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"

@@ -11,7 +11,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   'ConfigService',
   'PMBService',
   'LocationsService',
-  'ReportService',
+  'ContainerService',
+  'MapService',
   'FaqService',
   'CategoriesService',
   'AuthService',
@@ -45,7 +46,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     ConfigService,
     PMBService,
     LocationsService,
-    ReportService,
+    ContainerService,
+    MapService,
     FaqService,
     CategoriesService,
     AuthService,
@@ -78,14 +80,18 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.abuse_subject = null;
     $scope.abuse_message = null;
 
+    $scope.actualSliderIndex=0;
+
     $scope.$on("$ionicView.beforeEnter", function() {
       DBService.initDB();
-      if(ConnectivityService.isOnline()){
-        $scope.check_user_logged();
-      }else{
-        $scope.set_offline_user();
-      }
       $scope.set_network_events();
+      $scope.find_me();
+      $scope.walkthrough();
+    });
+
+    $ionicPlatform.onHardwareBackButton(function() {
+       e.stopPropagation();
+       $scope.hide_special_divs;
     });
 
     $scope.openWebsite = function(url) {
@@ -107,32 +113,27 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.set_network_events = function() {
       if(ionic.Platform.isWebView()){
         $scope.$on('$cordovaNetwork:online', function(event, networkState){
-          $scope.check_user_logged();
           $scope.addPinsLayer();
           $scope.create_online_map();
         });
         $scope.$on('$cordovaNetwork:offline', function(event, networkState){
           $scope.create_offline_map();
-          $scope.set_offline_user();
         });
       }
       else {
-        $scope.check_user_logged();
         $scope.addPinsLayer();
         $scope.create_online_map();
         $scope.map.center = {
             lat: -34.901113,
             lng: -56.164531,
-            zoom: 14
+            zoom: 18
           };
         window.addEventListener("online", function(e) {
-          $scope.check_user_logged();
           $scope.addPinsLayer();
           $scope.create_online_map();
         }, false);
         window.addEventListener("offline", function(e) {
           $scope.create_offline_map();
-          $scope.set_offline_user();
         }, false);
       }
     };
@@ -152,15 +153,19 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
               enable: ['context'],
               logic: 'emit'
             }
-          }
+          },
+          center:{}
         };
     };
 
     $scope.create_online_map = function(){
+      if($scope.map!=null){
+        return false;
+      }
       $scope.map = {
         defaults: {
           tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-          minZoom: 14,
+          minZoom: 16,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
@@ -181,28 +186,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.toggleClassOnElement(expanded_menu,"open");
     };
 
-    $scope.$on("$ionicView.afterEnter", function() {
-      //document.getElementById("spinner").style.display = "none";
-      document.addEventListener("deviceready", function () {
-        var footbar = document.getElementById("foot_bar");
-        if(footbar){
-          document.getElementById("foot_bar").style.display = "block";
-        }
-        if(ConnectivityService.isOnline()){
-          $scope.create_online_map();
-          $scope.addPinsLayer();
-          //$scope.addMapControls();
-        }else{
-          $scope.create_offline_map();
-        }
-
-          $scope.map.center = {
-            lat: -34.901113,
-            lng: -56.164531,
-            zoom: 16
-          };
-      }, false);
-    });
 
     var Location = function() {
       if (!(this instanceof Location)) return new Location();
@@ -215,7 +198,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     if (!element || !className){
         return;
     }
-
     var classString = element.className, nameIndex = classString.indexOf(className);
     if (nameIndex == -1) {
         classString += ' ' + className;
@@ -228,123 +210,14 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
+    $scope.actualSliderIndex = $ionicSlideBoxDelegate.currentIndex();
   };
 
   $scope.previous = function() {
     $ionicSlideBoxDelegate.previous();
+    $scope.actualSliderIndex = $ionicSlideBoxDelegate.currentIndex();
   };
 
-
-  $scope.image = null;
-
-  $scope.addImage = function(isFromAlbum, isUserPhoto) {
-
-    $scope.isUserPhoto = isUserPhoto;
-
-    var source = Camera.PictureSourceType.CAMERA;
-    var fix_orientation = true;
-    var save_to_gallery = true;
-    if(isFromAlbum==1){
-      source = Camera.PictureSourceType.PHOTOLIBRARY;
-      fix_orientation = false;
-      save_to_gallery = false;
-    }
-
-    var options = {
-      quality: 90,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: source,
-      allowEdit: false,
-      correctOrientation : fix_orientation,
-      encodingType: Camera.EncodingType.JPEG,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: save_to_gallery,
-      targetWidth: 350,
-      targetHeight: 350
-    };
-
-
-    $cordovaCamera.getPicture(options).then(function(imageData) {
-      onImageSuccess(imageData);
-
-      function onImageSuccess(fileURI) {
-        //alert(fileURI);
-        window.FilePath.resolveNativePath(fileURI, function(result) {
-          // onSuccess code
-          //alert(result);
-          fileURI = 'file://' + result;
-          if(result.startsWith("file://")){
-            fileURI = result;
-          }
-          if($scope.isUserPhoto==1){
-            //UserService.add_photo(fileURI);
-            $scope.profile.picture_url = fileURI;
-          }else{
-            $scope.report.file = fileURI;
-          }
-          $scope.imgURI = fileURI;
-          //createFileEntry(fileURI);
-        }, function(error) {
-          alert("Error resolveNativePath" + error);
-        });
-
-      }
-
-      function createFileEntry(fileURI) {
-        window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
-      }
-
-      // 5
-      function copyFile(fileEntry) {
-        var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
-        var newName = makeid() + name;
-
-        window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
-            fileEntry.copyTo(
-              fileSystem2,
-              newName,
-              onCopySuccess,
-              fail
-            );
-          },
-          fail);
-      }
-
-      // 6
-      function onCopySuccess(entry) {
-        $scope.$apply(function() {
-          $scope.image = entry.nativeURL;
-        });
-      }
-
-      function fail(error) {
-
-      }
-
-      function makeid() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 5; i++) {
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
-      }
-
-    }, function(err) {
-      //console.log(err);
-    });
-  };
-
-  $scope.urlForImage = function() {
-    var imageURL = "http://placehold.it/200x200";
-    if ($scope.image) {
-      var name = $scope.image.substr($scope.image.lastIndexOf('/') + 1);
-      imageURL = cordova.file.dataDirectory + name;
-    }
-    //console.log("ImageURL = " + imageURL);
-    return imageURL;
-  };
 
     $scope.scrollMe = function(anchor_id){
       $location.hash(anchor_id);
@@ -353,113 +226,71 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.set_active_option = function(buttonid) {
-      document.getElementById("button-find-me").className = "option-inactive";
-      document.getElementById(buttonid).className = "option-active";
     }
 
     $scope.hide_special_divs = function(){
-      document.getElementById("user-options-menu").style.display="none";
-      //document.getElementById('map_crosshair').style.display = "none";
-      //document.getElementById('map_crosshair_button').style.display = "none";
+      var container_details = document.getElementById("container_details");
+      if(container_details){
+        container_details.className = "";
+      }
+      var navback = document.getElementById("navigation_back");
+      if(navback){
+        navback.className = "hidden";
+      }
+      var navigation_menu = document.getElementById("navigation_menu");
+      if(navigation_menu){
+        navigation_menu.className = "";
+      }
     }
-
-    /**
-     * Center map on user's current position
-     */
-    $scope.locate = function() {
-
-      $cordovaGeolocation
-        .getCurrentPosition()
-        .then(function(position) {
-          $scope.map.center.lat = position.coords.latitude;
-          $scope.map.center.lng = position.coords.longitude;
-          $scope.map.center.zoom = 16;
-
-          $scope.map.markers.now = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            message: "You Are Here",
-            focus: true,
-            draggable: false
-          };
-
-        }, function(err) {
-          // error
-          //console.log("Location error!");
-          //console.log(err);
-        });
-
-    };
 
 
     $scope.addMapControls = function() {
-
       document.getElementById('map_crosshair').style.display = "block";
       document.getElementById('map_crosshair_button').style.display = "block";
-
     };
 
     $scope.startReportFromCrosshairs = function(){
-      leafletData.getMap().then(function(map) {
-        var latlon = map.getCenter();
-        LocationsService.save_new_report_position(latlon.lat,latlon.lng);
-        $scope.new_report(1);
-        //console.log(latlon);
-      });
     }
 
     $scope.addPinsLayer = function() {
+      if($scope.jsonLayer!=null){
+        return false;
+      }
       var baseURL = ConfigService.baseURL;
         onEachFeature = function(feature, layer) {
-          // does this feature have a property named popupContent?
-          var recibeDiv = "";
-          feature.properties.recibe.forEach(function(item){
-            if(item==100){
-              recibeDiv = recibeDiv + "<div class='material'>Vidrio</div>";
-            }
-            if(item==210){
-              recibeDiv = recibeDiv + "<div class='material'>Latas</div>";
-            }
-            if(item==300){
-              recibeDiv = recibeDiv + "<div class='material'>Plástico</div>";
-            }
-            if(item==410){
-              recibeDiv = recibeDiv + "<div class='material'>Pilas</div>";
-            }
-          })
           var html, reportId, descripcion;
           if (feature.properties) {
-            reportId = feature.properties.GID;
-            descripcion = feature.properties.Nombre;
-            long = feature.geometry.coordinates[0].trim();
-            lat = feature.geometry.coordinates[1].trim();
-            html = '<div class="container_popup">';
-            html = html + '<p class="container_name">' + descripcion + '</p>';
-            html = html + '<p class="container_direccion">Dirección: '+feature.properties.DIRECCION+'</p>';
-            html = html + '<p><a class="container_llegar" ng-click="goToCenter(\''+long+'\',\''+lat+'\')">Ver ruta</a></p>';
-            html = html + '<div class="container_recibe">Recibe: '+recibeDiv+'</div>';
-            html = html + '<p class="container_horario">Horario: '+feature.properties.Horario+'</p>';
-            //console.log(feature.properties);
-            var compiled = $compile(html)($scope);
-            layer.bindPopup(compiled[0]);
+            layer.on('click', function(e) {
+                $scope.selected_container = ContainerService.build(e.target.feature.properties);
+                $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
+                //console.log($scope.selected_container);
+                var containerDetails = document.getElementById("container_details");
+                containerDetails.className = "open";
+                var backMenu = document.getElementById("navigation_back");
+                backMenu.className="";
+                var menu = document.getElementById("navigation_menu");
+                menu.className = "hidden";
+                $scope.goToCenter($scope.selected_container.lon,$scope.selected_container.lat);
+
+            });
           }
         }
 
-        if($scope.lastMarkerLayer==null){
-          l = new L.LayerJSON({
-            url: baseURL + "/centros_de_reciclaje_v3.json",
-            locAsGeoJSON: true,
-            minShift: 9000000,
-            onEachFeature: onEachFeature
-          });
-          $scope.lastMarkerLayer = l;
-          console.log(l._layers);
-        }else{
-          //console.log("ya descargue el json");
-        }
+        l = new L.LayerJSON({
+          url: baseURL + "/datauy/get_containers_json/" + "{bbox}",
+          locAsGeoJSON: true,
+          minShift: 5,
+          //updateOutBounds: false,
+          precision: 10,
+          onEachFeature: onEachFeature
+        });
 
 
       leafletData.getMap().then(function(map) {
+        if($scope.jsonLayer!=null){
+          map.removeLayer($scope.jsonLayer);
+        }
+        $scope.jsonLayer = l;
         map.addLayer(l);
       });
 
@@ -473,7 +304,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
       l.on('layeradd', function(e) {
         e.layer.eachLayer(function(_layer) {
-          var icon = "/img/pin-centro.png";
+          var icon = "/img/pin-container.svg";
           if(_layer.feature.properties.pin_url){
             icon = _layer.feature.properties.pin_url;
           }
@@ -493,7 +324,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     };
 
     $scope.goToCenter = function(longTo,latTo){
-      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+      var posOptions = {timeout: 5000, enableHighAccuracy: true};
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {
@@ -502,15 +333,91 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                 $scope.getRoad(latFrom,longFrom,latTo,longTo);
                 //$scope.map.markers.now.openPopup();
               }, function(err) {
-                ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
+                //Move a little the map center because the map view is smaller (report list is displayed)
+                latTo = latTo - 0.0006;
+                MapService.centerMapOnCoords(latTo,longTo,17);
+                //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
               });
     };
 
     $scope.lastRoad = null;
 
+    $scope.nav_back = function(){
+      $scope.hide_special_divs();
+      if($scope.lastRoad!=null){
+        $scope.lastRoad.spliceWaypoints(0, 2);
+        leafletData.getMap().then(function(map) {
+          map.removeControl($scope.lastRoad)
+          $scope.lastRoad=null;
+        });
+      }
+    }
+
+    $scope.walkthrough = function(){
+      if($scope.walkthrough_modal!=null){
+        return false;
+      }
+      var doneWalkthrough = DBService.getDoneWalkthrough();
+      doneWalkthrough.then(function (doc) {
+        if(doc.status!=null && doc.status=="done"){
+          //Ya lo vió una vez
+          //$scope.openWalkThroughModal();
+        }else{
+          $scope.openWalkThroughModal();
+        }
+      }).catch(function (err) {
+        $scope.openWalkThroughModal();
+      });
+    }
+
+    $scope.openWalkThroughModal = function(){
+      $ionicModal.fromTemplateUrl('templates/walkthrough.html', {
+        scope: $scope,
+        hardwareBackButtonClose: false,
+        animation: 'slide-in-up',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.walkthrough_modal = modal;
+          $scope.walkthrough_modal.show();
+      });
+    }
+
+    $scope.finishWalkthrough = function(){
+      $scope.walkthrough_modal.hide();
+      $scope.walkthrough_modal.remove();
+      DBService.saveDoneWalkthrough();
+    }
+
+    $scope.openMainMenu = function(){
+      $ionicModal.fromTemplateUrl('templates/main_menu.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'slide-in-up',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.main_menu_modal = modal;
+          $scope.main_menu_modal.show();
+      });
+    }
+
+    $scope.closeMainMenu = function(){
+      $scope.main_menu_modal.hide();
+      $scope.main_menu_modal.remove();
+    }
+
     $scope.getRoad = function(LatFrom,LongFrom,latTo,longTo){
       leafletData.getMap().then(function(map) {
         map.closePopup();
+        var markerIcon = L.icon({
+          iconUrl: "./img/me.svg",
+          iconSize: [29, 34],
+          iconAnchor: [8, 8],
+          popupAnchor: [0, -8]
+        });
+        if($scope.now_marker!=null){
+          map.removeLayer($scope.now_marker);
+        }
+        $scope.now_marker = L.marker([LatFrom, LongFrom], {icon: markerIcon}).addTo(map);
         if($scope.lastRoad!=null){
           $scope.lastRoad.spliceWaypoints(0, 2);
           map.removeControl($scope.lastRoad)
@@ -521,8 +428,19 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
             L.latLng(LatFrom,LongFrom),
             L.latLng(latTo,longTo)
           ],
-          language:"en"
+          language:"es",
+          router: L.Routing.mapbox('pk.eyJ1IjoibGl0b3hwZXJhbG9jYSIsImEiOiJjajNhdHUzbTMwMTQwMnFwaGRidmc2emZ5In0.dED4D4_LBjRc-sGa5zt5Yg'),
+          createMarker: function (i, start, n){
+            return null;
+          },
+          lineOptions: {
+             styles: [{color: '#4c4c4c', opacity: 1, weight: 5}]
+          },
+          fitSelectedRoutes: false
         }).addTo(map);
+        //Move a little the map center because the map view is smaller (report list is displayed)
+        latTo = latTo - 0.0008;
+        MapService.centerMapOnCoords(latTo,longTo,17);
       });
     }
 
@@ -645,292 +563,22 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       document.getElementById("user-options-menu").style.display="none";
     }
 
-    $scope.show_edit_profile_modal = function(){
-      //Cargar el modal con la info del usuario logueado y con el submit a edit_profile_ok
-      $scope.profile = new Array();
-      $scope.profile.email = UserService.email;
-      $scope.profile.password = "";
-      $scope.profile.fullname = UserService.name;
-      $scope.profile.new_email = UserService.email;
-      $scope.profile.id_doc = UserService.identity_document;
-      $scope.profile.telephone = UserService.phone;
-      $scope.profile.picture_url = null;
-      if(UserService.picture_url!=null){
-        $scope.actual_photo = UserService.picture_url;
-        if($scope.actual_photo=="url(./img/icon-user-anonymous.png)"){
-          $scope.actual_photo = "./img/icon-user-anonymous.png";
-        }
-        $ionicModal.fromTemplateUrl('templates/edit_profile_with_photo.html', {
-            scope: $scope,
-            hardwareBackButtonClose: false,
-            animation: 'slide-in-up',
-            //focusFirstInput: true
-          }).then(function(modal) {
-              document.getElementById("user-options-menu").style.display="none";
-              $scope.edit_profile_modal = modal;
-              document.getElementById("foot_bar").style.display = "none";
-              $scope.edit_profile_modal.show();
-          });
-      }else{
-        $scope.actual_photo = null;
-        $ionicModal.fromTemplateUrl('templates/edit_profile.html', {
-            scope: $scope,
-            hardwareBackButtonClose: false,
-            animation: 'slide-in-up',
-            //focusFirstInput: true
-          }).then(function(modal) {
-              $scope.hide_special_divs();
-              $scope.edit_profile_modal = modal;
-              document.getElementById("foot_bar").style.display = "none";
-              $scope.edit_profile_modal.show();
-          });
-      }
-    }
-
-    $scope.close_edit_profile_modal = function(){
-      //Cargar el modal con la info del usuario logueado y con el submit a update_user
-      document.getElementById("foot_bar").style.display = "block";
-      $scope.edit_profile_modal.hide();
-      $scope.edit_profile_modal.remove();
-    }
-
-    $scope.edit_profile_ok = function(){
-      $scope.edit_profile(UserService.email,UserService.password,$scope.profile.fullname,$scope.profile.new_email,$scope.profile.id_doc,$scope.profile.telephone,$scope.profile.picture_url);
-    }
-
-    $scope.edit_profile = function(email,password, fullname, new_email, id_doc, user_phone, user_picture_url){
-      if(ConnectivityService.isOnline()){
-        document.getElementById("spinner-inside-modal").style.display = "block";
-        var fields = new Array();
-        fields.push($scope.create_field_array("Correo electrónico","email",new_email));
-        //fields.push($scope.create_field_array("Contraseña","notNull",password));
-        fields.push($scope.create_field_array("Cédula de Identidad","iddoc_uy",id_doc));
-        fields.push($scope.create_field_array("Nombre y apellido","two_words",fullname));
-        if(ErrorService.check_fields(fields,"error_container")){
-          var edit_request = AuthService.edit_user(email,password, fullname, new_email, id_doc, user_phone, user_picture_url);
-          if(user_picture_url==null || user_picture_url==""){
-            edit_request.success(function(data, status, headers,config){
-              document.getElementById("sent_label").innerHTML = "Enviado: 100%";
-              //console.log(data);
-              if(ErrorService.http_data_response_is_successful(data,"error_container")){
-                UserService.save_user_data(data.name, data.email, password, data.identity_document, data.phone, data.picture_url);
-                document.getElementById("spinner-inside-modal").style.display = "none";
-                $scope.close_edit_profile_modal();
-                $scope.check_user_logged();
-              }else{
-                document.getElementById("spinner-inside-modal").style.display = "none";
-              }
-            })
-            .error(function(data, status, headers,config){
-              ErrorService.show_error_message("error_container",status);
-              document.getElementById("spinner-inside-modal").style.display = "none";
-            })
-          }else{
-            edit_request.then(function(result) {
-              var data = JSON.parse(result.response);
-              if(ErrorService.http_data_response_is_successful(data,"error_container")){
-                UserService.save_user_data(data.name, data.email, password, data.identity_document, data.phone, data.picture_url);
-                document.getElementById("spinner-inside-modal").style.display = "none";
-                $scope.close_edit_profile_modal();
-                $scope.check_user_logged();
-              }else{
-                document.getElementById("spinner-inside-modal").style.display = "none";
-              }
-            }, function(error) {
-              var alert = "Código: " + error.code;
-              alert = alert + " Origen: " + error.source;
-              alert = alert + " Destino: " + error.target;
-              alert = alert + " http_status: " + error.http_status;
-              alert = alert + " Body: " + error.body;
-              alert = alert + " Exception: " + error.exception;
-              ErrorService.show_error_message("error_container","Hubo un error en el envío: " + alert);
-              document.getElementById("spinner-inside-modal").style.display = "none";
-            }, function(progress) {
-                $timeout(function() {
-                  $scope.uploadProgress = (progress.loaded / progress.total) * 100;
-                  document.getElementById("sent_label").innerHTML = "Enviado: " + Math.round($scope.uploadProgress) + "%";
-                });
-            });
-          }
-        }else{
-          document.getElementById("spinner-inside-modal").style.display = "none";
-        }
-      }else{
-        PopUpService.show_alert("Sin conexión a internet","Para editar su perfil debe estar conectado a internet");
-      }
-    }
-
-
-    $scope.show_login_modal = function(){
-      //Cargar el modal con el form de login y ahi llama al sign_in
-      $scope.nonauth = new Array();
-      $scope.nonauth.email = "";
-      $scope.nonauth.password = "";
-      $ionicModal.fromTemplateUrl('templates/log_in.html', {
-          scope: $scope,
-          hardwareBackButtonClose: false,
-          animation: 'slide-in-up',
-          //focusFirstInput: true
-        }).then(function(modal) {
-            $scope.hide_special_divs();
-            $scope.login_modal = modal;
-            document.getElementById("foot_bar").style.display = "none";
-            $scope.login_modal.show();
-        });
-    }
-
-    $scope.login_ok = function(){
-      $scope.sign_in($scope.nonauth.email,$scope.nonauth.password);
-    }
-
-    $scope.close_login_modal = function(){
-      document.getElementById("foot_bar").style.display = "block";
-      $scope.login_modal.hide();
-      $scope.login_modal.remove();
-    }
-
-
-
-    $scope.show_sign_up_modal = function(){
-      //cargar el modal con el form de sign_up y de ahi llamar al sign_up
-      $scope.newuser = new Array();
-      $scope.newuser.email = "";
-      $scope.newuser.password = "";
-      $scope.newuser.fullname = "";
-      $scope.newuser.id_doc = "";
-      $scope.newuser.telephone = "";
-      $ionicModal.fromTemplateUrl('templates/sign_up.html', {
-          scope: $scope,
-          hardwareBackButtonClose: false,
-          animation: 'slide-in-up',
-          //focusFirstInput: true
-        }).then(function(modal) {
-            $scope.hide_special_divs();
-            $scope.sign_up_modal = modal;
-            document.getElementById("foot_bar").style.display = "none";
-            $scope.sign_up_modal.show();
-        });
-    }
-
-    $scope.close_sign_up_modal = function(){
-      document.getElementById("foot_bar").style.display = "block";
-      $scope.sign_up_modal.hide();
-      $scope.sign_up_modal.remove();
-    }
-
-    $scope.sign_up = function(email,fullname,password, id_doc, user_phone){
-      if(ConnectivityService.isOnline()){
-        document.getElementById("spinner-inside-modal").style.display = "block";
-        var fields = new Array();
-        fields.push($scope.create_field_array("Correo electrónico","email",email));
-        fields.push($scope.create_field_array("Contraseña","notNull",password));
-        fields.push($scope.create_field_array("Cédula de Identidad","iddoc_uy",id_doc));
-        fields.push($scope.create_field_array("Nombre y apellido","two_words",fullname));
-        if(ErrorService.check_fields(fields,"error_container")){
-          AuthService.create_user(email,fullname,password, id_doc, user_phone).then(function(resp) {
-            if(ErrorService.http_response_is_successful(resp,"error_container")){
-              UserService.save_user_data(fullname, email, password, id_doc, user_phone,null);
-              //$scope.set_user_picture(1);
-              document.getElementById("spinner-inside-modal").style.display = "none";
-              $scope.close_sign_up_modal();
-              var alertPopup = $ionicPopup.alert({
-               title: "Usuario creado con éxito",
-               template: resp.data.message
-              });
-              alertPopup.then(function(res) {
-                //return false;
-              });
-              //$scope.check_user_logged();
-            }else{
-              document.getElementById("spinner-inside-modal").style.display = "none";
-            }
-          }, function(resp) {
-            document.getElementById("spinner-inside-modal").style.display = "none";
-            ErrorService.show_error_message("error_container",resp.statusText);
-          });
-        }else{
-          document.getElementById("spinner-inside-modal").style.display = "none";
-        }
-      }else{
-        PopUpService.show_alert("Sin conexión a internet","Para iniciar registrarse debe estar conectado a internet");
-      }
-    }
-
-    $scope.sign_up_ok = function(){
-      $scope.sign_up($scope.newuser.email,$scope.newuser.fullname,$scope.newuser.password,$scope.newuser.id_doc,$scope.newuser.telephone);
-    }
 
     $scope.check_user_logged = function(){
-      var name = UserService.name;
-      if(name==null){
-          //Si Hay un usuario guardado
-          var user = DBService.getUser();
-          user.then(function (doc) {
-            if(doc.name!=null && doc.name!="" && doc.name!="undefined"){
-              $scope.sign_in_ajax(doc.email, doc.password);
-            }else{
-              $scope.set_user_picture(0);
-            }
-          }).catch(function (err) {
-            $scope.set_user_picture(0);
-          });
-      }else{
-        //Está logueado
-        if(UserService.picture_url==null || UserService.picture_url==""){
-          //El usuario no tiene foto definida
-          $scope.set_user_picture(0);
-        }else{
-          //El usuario tiene foto
-          $scope.set_user_picture(1);
-        }
-      }
+      return false;
     }
 
     $scope.set_offline_user = function(){
-      var name = UserService.name;
-      if(name==null){
-          //Si Hay un usuario guardado
-          var user = DBService.getUser();
-          user.then(function (doc) {
-            if(doc.name!=null && doc.name!="" && doc.name!="undefined"){
-              //$scope.sign_in_ajax(doc.email, doc.password);
-              UserService.save_user_data(doc.name, doc.email, doc.password, doc.identity_document, doc.phone, doc.picture_url);
-            }else{
-              $scope.set_user_picture(0);
-            }
-          }).catch(function (err) {
-            $scope.set_user_picture(0);
-          });
-      }else{
-        //Está logueado
-        if(UserService.picture_url==null || UserService.picture_url==""){
-          //El usuario no tiene foto definida
-          $scope.set_user_picture(0);
-        }else{
-          //El usuario tiene foto
-          $scope.set_user_picture(1);
-        }
-      }
     }
 
 
 
     $scope.set_user_picture = function(hasPhoto){
-      var picture = document.getElementById("user_picture");
-      if(hasPhoto==0){
-        //picture.style.backgroundImage = "url(./img/icon-user-anonymous.png)";
-        $scope.user_cached_image="./img/icon-user-anonymous.png";
-      }else{
-        if(UserService.picture_url!=null && UserService.picture_url!=""){
-          //alert(UserService.picture_url);
-          $scope.user_cached_image=UserService.picture_url;
-          //picture.style.backgroundImage = "url(" + UserService.picture_url + ")";
-        }else{
-          //picture.style.backgroundImage = "url(./img/icon-user-anonymous.png)";
-          $scope.user_cached_image="./img/icon-user-anonymous.png";
-        }
-      }
+    }
 
+    $scope.search_street = function(){
+      $scope.hide_special_divs();
+      document.getElementById("search-textbox").parentNode.click();
     }
 
     $scope.find_me = function(){
@@ -940,28 +588,29 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {
-                $scope.map.center.lat  = position.coords.latitude;
+                /*$scope.map.center.lat  = position.coords.latitude;
                 $scope.map.center.lng = position.coords.longitude;
-                LocationsService.save_new_report_position(position.coords.latitude,position.coords.longitude);
-                if(ConnectivityService.isOnline()){
-                  $scope.map.center.zoom = 18;
-                }else{
-                  $scope.map.center.zoom = 16;
+                LocationsService.save_new_report_position(position.coords.latitude,position.coords.longitude);*/
+                var zoom = 18;
+                if(!ConnectivityService.isOnline()){
+                  zoom = 16;
                 }
-                $scope.map.markers.now = {
-                  lat:position.coords.latitude,
-                  lng:position.coords.longitude,
-                  //message: "<p align='center'>Te encuentras aquí <br/> <a ng-click='new_report(1);'>Iniciar reporte en tu posición actual</a></p>",
-                  focus: true,
-                  draggable: false,
-                  getMessageScope: function() { return $scope; }
-                };
-                //$scope.map.markers.now.openPopup();
+                var markerIcon = L.icon({
+                  iconUrl: "./img/me.svg",
+                  iconSize: [29, 34],
+                  iconAnchor: [8, 8],
+                  popupAnchor: [0, -8]
+                });
+
+                leafletData.getMap().then(function(map) {
+                  if($scope.now_marker!=null){
+                    map.removeLayer($scope.now_marker);
+                  }
+                  $scope.now_marker = L.marker([position.coords.latitude, position.coords.longitude], {icon: markerIcon}).addTo(map);
+                  MapService.centerMapOnCoords(position.coords.latitude,position.coords.longitude,zoom);
+                });
               }, function(err) {
-                // error
-                //console.log("Location error!");
-                //console.log(err);
-                ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
+                //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
               });
 
           };
@@ -972,18 +621,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         this.lng  = "";
         this.name = "";
       };
-
-
-
-      /**
-       * Detect user long-pressing on map to add new location
-       */
-      /*$scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
-        $scope.hide_special_divs();
-        LocationsService.save_new_report_position(locationEvent.leafletEvent.latlng.lat,locationEvent.leafletEvent.latlng.lng);
-        $scope.new_report(1);
-      });*/
-
 
   }
 ]);

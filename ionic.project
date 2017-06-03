@@ -1,6 +1,6 @@
 {
-  "name": "dondereciclo-app",
-  "app_id": "ee41f0b9",
+  "name": "dondereciclo",
+  "app_id": "ef41b0f9",
   "proxies": [
     {
       "path": "/im",

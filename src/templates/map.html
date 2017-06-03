@@ -1,17 +1,20 @@
-<ion-view title="PMB-Map" hide-nav-bar="true">
+<ion-view title="DondeReciclo" hide-nav-bar="true">
 
-<ion-nav-title>
-</ion-nav-title>
+<div class="top_menu">
+  <div id="navigation_menu">
+    <div id="lines_button" ng-click="openMainMenu()">
+    </div>
+    <input type="text" id="search_in_dictionary" placeholder="¿Qué querés reciclar?" />
+    <div id="search_magnifying"></div>
+    <div id="menu_line"></div>
+  </div>
+  <div id="navigation_back" ng-click="nav_back()" class="hidden"></div>
+</div>
 
-<div id="topbarmenu">
-  <div id="nav-icon-lines" ng-click="clickOnMenuIcon()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div id="FilterButton">
-    Filtrar
-  </div>
+<div ng-click="find_me()" id="gps_control" class="control_over_map">
+</div>
+
+<div ng-click="search_street()" id="search_control" class="control_over_map">
 </div>
 
 <div id="expanded_menu" class="expanded_menu">
@@ -54,16 +57,26 @@
                cancel-label="Volver"/>
     </label>
   </div>
-  <div class="options-bar">
-    <div id="button-find-me" class="option-active">
-      <div class="button-find-me" ng-click="find_me()"></div>
+</div>
+
+<div id="container_details">
+  <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
+    <div class="programa">
+      {{selected_container.Programa}}
     </div>
-    <div class="user-options" style="display: none;">
-      <div id="user_picture" class="user-picture" cache-src="{{user_cached_image}}" src-is="background" background-style="no-repeat center" ng-click="user_options()"></div>
+    <div class="direccion">
+      {{selected_container.Nombre}}
     </div>
-  </div>
-  <div id="user-options-menu">
-  </div>
+    <div class="direccion2">
+      {{selected_container.Direccion}}
+    </div>
+    <div class="watch"></div>
+    <div class="horario_label">Horario</div>
+    <div class="horario_txt">{{selected_container.Horario}}</div>
+    <div class="recibe_img"></div>
+    <div class="recibe_label">Recibe</div>
+    <div class="multimaterial">Multimaterial</div>
+  </ion-scroll>
 </div>
 
 </ion-view>
