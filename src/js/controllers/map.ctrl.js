@@ -1,5 +1,4 @@
 pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
-  '$cordovaCamera',
   '$cordovaFile',
   '$cordovaGeolocation',
   '$compile',
@@ -23,7 +22,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   'ErrorService',
   '$ionicSlideBoxDelegate',
   '$ionicScrollDelegate',
-  '$cordovaNetwork',
   'PopUpService',
   '$ionicPlatform',
   'ConnectivityService',
@@ -34,7 +32,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope,
     $sce,
     _,
-    $cordovaCamera,
     $cordovaFile,
     $cordovaGeolocation,
     $compile,
@@ -58,7 +55,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     ErrorService,
     $ionicSlideBoxDelegate,
     $ionicScrollDelegate,
-    $cordovaNetwork,
     PopUpService,
     $ionicPlatform,
     ConnectivityService,
@@ -111,53 +107,13 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.set_network_events = function() {
-      if(ionic.Platform.isWebView()){
-        $scope.$on('$cordovaNetwork:online', function(event, networkState){
-          $scope.addPinsLayer();
-          $scope.create_online_map();
-        });
-        $scope.$on('$cordovaNetwork:offline', function(event, networkState){
-          $scope.create_offline_map();
-        });
-      }
-      else {
-        $scope.addPinsLayer();
-        $scope.create_online_map();
-        $scope.map.center = {
-            lat: -34.901113,
-            lng: -56.164531,
-            zoom: 18
-          };
-        window.addEventListener("online", function(e) {
-          $scope.addPinsLayer();
-          $scope.create_online_map();
-        }, false);
-        window.addEventListener("offline", function(e) {
-          $scope.create_offline_map();
-        }, false);
-      }
-    };
-
-    $scope.create_offline_map = function(){
-      alert("Debe estar conectado a internet para usar esta aplicación");
-      return false;
-      /*$scope.map = {
-          defaults: {
-            tileLayer: './offline_tiles/{z}/{x}/{y}.png',
-            //minZoom: 12,
-            minZoom: 16,
-            maxZoom: 16,
-            zoomControlPosition: 'topleft',
-          },
-          markers: {},
-          events: {
-            map: {
-              enable: ['context'],
-              logic: 'emit'
-            }
-          },
-          center:{}
-        };*/
+      $scope.create_online_map();
+      $scope.addPinsLayer();
+      $scope.map.center = {
+          lat: -34.901113,
+          lng: -56.164531,
+          zoom: 18
+        };
     };
 
     $scope.create_online_map = function(){
@@ -166,7 +122,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       }
       $scope.map = {
         defaults: {
-          tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+          tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           minZoom: 16,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
@@ -228,6 +184,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.set_active_option = function(buttonid) {
+      return false;
     }
 
     $scope.hide_special_divs = function(){
@@ -247,8 +204,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
 
     $scope.addMapControls = function() {
-      document.getElementById('map_crosshair').style.display = "block";
-      document.getElementById('map_crosshair_button').style.display = "block";
+      return false;
     };
 
     $scope.startReportFromCrosshairs = function(){
