@@ -139,7 +139,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     };
 
     $scope.create_offline_map = function(){
-      $scope.map = {
+      alert("Debe estar conectado a internet para usar esta aplicación");
+      return false;
+      /*$scope.map = {
           defaults: {
             tileLayer: './offline_tiles/{z}/{x}/{y}.png',
             //minZoom: 12,
@@ -155,7 +157,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
             }
           },
           center:{}
-        };
+        };*/
     };
 
     $scope.create_online_map = function(){
