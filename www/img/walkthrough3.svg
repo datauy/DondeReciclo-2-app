@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="168" height="149" viewBox="0 0 168 149">
+    <defs>
+        <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#B5EC45"/>
+            <stop offset="100%" stop-color="#7ED321"/>
+        </linearGradient>
+        <path id="b" d="M0 0h320v568H0z"/>
+        <filter id="a" width="102.5%" height="101.4%" x="-1.2%" y="-.4%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.287109375 0"/>
+        </filter>
+        <rect id="e" width="290" height="384" x="15" y="59.864" rx="7.2"/>
+        <filter id="d" width="113.1%" height="109.9%" x="-5.9%" y="-4.7%" filterUnits="objectBoundingBox">
+            <feMorphology in="SourceAlpha" operator="dilate" radius=".5" result="shadowSpreadOuter1"/>
+            <feOffset dx="2" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.215551404 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(-79 -145)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="url(#c)" xlink:href="#b"/>
+        </g>
+        <g transform="translate(-79 -145)">
+            <use fill="#000" filter="url(#d)" xlink:href="#e"/>
+            <use fill="#FFF" xlink:href="#e"/>
+        </g>
+        <path fill="#FFF" stroke="#417505" stroke-width="2.6" d="M83.5 12l10.96 4.54L99 27.5l-4.54 10.96L83.5 43l-10.96-4.54L68 27.5l4.54-10.96z"/>
+        <path stroke="#345F00" stroke-width="2.6" d="M2.586 84.914L80 135.74l79.162-50.826L80 42.625z"/>
+        <path fill="#DAF3BA" d="M33 87.047l47.681 31.305 48.759-31.305L80.68 61z"/>
+        <path fill="#FFF" stroke="#3A6A00" stroke-width="2.6" d="M90.445 0H77.191L54 19.96 82.001 77l30.572-57.04z"/>
+        <path fill="#FFF" stroke="#417505" stroke-width="2.6" d="M83.5 12l9.11 2.96 5.631 7.75v9.58l-5.63 7.75L83.5 43l-9.11-2.96-5.631-7.75v-9.58l5.63-7.75z"/>
+        <path fill="#7ED321" d="M82.186 12L82 41l10.536-4.371L97 26.479l-4.535-10.722z" opacity=".121"/>
+        <path fill="#7ED321" d="M131.812 40.241l6.065-3.845-6.875-4.131z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.331" d="M131.812 40.241l6.065-3.845-6.875-4.131z"/>
+        <path fill="#7ED321" d="M17.812 128.241l6.065-3.845-6.875-4.131z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.331" d="M17.812 128.241l6.065-3.845-6.875-4.131z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 21l2.985 4.613 5.268-1.57 2.984 4.613 5.267-1.571 2.985 4.613"/>
+        <path fill="#FFF" stroke="#417505" stroke-width="2.6" d="M132.5 87l10.96 4.54L148 102.5l-4.54 10.96L132.5 118l-10.96-4.54L117 102.5l4.54-10.96z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M147 54.892l5.41.972 2.45-4.919 5.41.973L162.72 47l5.41.972"/>
+        <path stroke="#417505" stroke-width="2" d="M132.672 95v9.266l5.9 3.525"/>
+        <g stroke="#417505">
+            <path stroke-width="2.4" d="M12.884 49.448l3.992-2.398 5.973 2.413.04 4.027-6.696 3.228-1.628 4.028"/>
+            <path stroke-width="1.2" d="M13.675 61.894l1.11.449-.446 1.107L13.228 63z"/>
+        </g>
+        <g stroke="#417505">
+            <path stroke-width="2.4" d="M113.884 132.448l3.992-2.398 5.973 2.413.04 4.027-6.696 3.228-1.628 4.028"/>
+            <path stroke-width="1.2" d="M114.675 144.894l1.11.449-.446 1.107-1.111-.449z"/>
+        </g>
+    </g>
+</svg>
