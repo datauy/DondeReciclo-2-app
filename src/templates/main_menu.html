@@ -1,7 +1,8 @@
 <ion-modal-view class="new-report-modal">
   <div class="main_menu_bg"></div>
+  <div class="main_menu_close" ng-click="closeMainMenu()"></div>
   <div id="menu_items">
-    <div class="menu_item first" ng-click="closeMainMenu()">
+    <div class="menu_item" ng-click="closeMainMenu()">
       Mapa
     </div>
     <div class="menu_item">
@@ -18,8 +19,12 @@
       Programas y ciclo <br/>
       de vida de los residuos
     </div>
-    <div class="menu_item">
+    <div class="menu_item" ng-click="openContact()">
       Contacto
     </div>
+    <!--<div class="menu_item" ng-click="walkthroughFromMenu()">
+      Walkthrough
+    </div>-->
+    
   </div>
 </ion-modal-view>

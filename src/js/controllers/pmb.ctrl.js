@@ -31,7 +31,7 @@ function($scope,
     if(LocationsService.initial_lat!=""){
       MapService.centerMapOnCoords(LocationsService.initial_lat, LocationsService.initial_lng, 18);
     }else{
-      MapService.centerMapOnCoords(-34.901113, -56.164531, 14);
+      MapService.centerMapOnCoords(-34.901113, -56.164531, 16);
     }
   });
 

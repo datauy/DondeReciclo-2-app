@@ -1,3 +1,222 @@
+#contact_success_img{
+  position: absolute;
+  top: 103px;
+  left: 50%;
+  width: 66.87%;
+  height: 29.75%;
+  transform: translateX(-50%);
+  background-image:    url(./img/contact_success.svg);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+.contact_result_txt{
+  width: 75%;
+  height: 40px;
+  font-family: Roboto;
+  font-size: 15.4px;
+  font-weight: 300;
+  line-height: 1.3;
+  text-align: center;
+  color: #000000;
+  position: absolute;
+  top: 59.5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.contact_result{
+  min-width: 220px;
+  height: 20px;
+  font-family: Roboto;
+  font-size: 17.6px;
+  font-weight: 500;
+  text-align: left;
+  color: #417505;
+  color: var(--dark-grass-green);
+  position: absolute;
+  top: 53.52%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.contact_error {
+  width: 100%;
+  height: 82px;
+  background-color: #ffffff;
+  border: solid 1px #d60c0c;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: 9999;
+}
+
+.contact_error_img{
+  position: relative;
+  left: 22%;
+  top: 22px;
+  background-image:    url(./img/error.svg);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 33.9px;
+  height: 28.5px;
+}
+
+.contact_error_label{
+  width: auto;
+  height: 32px;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #ef8484;
+  position: relative;
+  left: 36%;
+  top: -14px;
+}
+
+.Dejanos-tus-comentar {
+  width: auto;
+  height: 24px;
+  font-family: Roboto;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  left: 6.8%;
+  top: 105px;
+  position: absolute;
+}
+
+.Correo-Electronico {
+  width: auto;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  left: 6.8%;
+  top: 220px;
+  position: absolute;
+}
+
+#contact_email{
+  left: 6.8%;
+  top: 243px;
+  position: absolute;
+  border-radius: 8px;
+  border: solid 1px #979797;
+  padding-left: 10px;
+}
+
+.text-input{
+  width: 85%;
+  height: 38px;
+  border-radius: 8px;
+  border: solid 1px #979797;
+}
+
+.text-area {
+  width: 85%;
+  height: 16%;
+  border-radius: 8px;
+  border: solid 1px #979797;
+  position: absolute;
+}
+
+.send-button{
+  width: 85%;
+  height: 6%;
+  border-radius: 7px;
+  border: solid 1px #4990e2;
+  left: 6.8%;
+  top: 499px;
+  position: absolute;
+  background: transparent;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #4990e2;
+}
+
+.Mensaje {
+  width: auto;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  left: 6.8%;
+  top: 361px;
+  position: absolute;
+}
+
+#contact_mensaje{
+  left: 6.8%;
+  top: 384px;
+  position: absolute;
+  height: 95px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.Asunto {
+  width: auto;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  left: 6.8%;
+  top: 290px;
+  position: absolute;
+}
+
+#contact_select{
+  left: 6.8%;
+  top: 313px;
+  position: absolute;
+  background-color: transparent;
+  padding-left: 5px;
+}
+
+.text-select {
+  width: 85%;
+  height: 38px;
+  border-radius: 8px;
+  border: solid 1px #979797;
+  position: absolute;
+}
+
+.Nombre {
+  width: auto;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  left: 6.8%;
+  top: 149px;
+  position: absolute;
+}
+
+#contact_nombre{
+  left: 6.8%;
+  top: 172px;
+  position: absolute;
+  border-radius: 8px;
+  border: solid 1px #979797;
+  padding-left: 10px;
+}
+
 .main_menu_bg{
   width: 100%;
   height: 100%;
@@ -6,17 +225,27 @@
   top: 0;
   left: 0;
 }
+.main_menu_close{
+  background-image:    url(./img/close.svg);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 17px;
+  height: 17px;
+  /*object-fit: contain;*/
+  position: absolute;
+  top: 5%;
+  left: 5.6%;
+}
 #menu_items{
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: transparent;
-  top: 0;
-  left: 0;
+  top: 8%;
+  left: 6.8%;
 }
-.menu_item.first{
-    margin-top: 54px;
-}
+
 .menu_item{
   width: auto;
   height: auto;
@@ -27,7 +256,6 @@
   text-align: left;
   color: #ffffff;
   margin-top: 28px;
-  margin-left: 22px;
 }
 
 .Oval-2 {
@@ -88,30 +316,28 @@
 }
 
 .intro-logo{
-  background-image:    url(./img/logo.png);
-  background-size:     cover;
+  background-image:    url(./img/logo.svg);
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
-  width: 194px;
-  height: 190px;
-  object-fit: contain;
+  width: 52%;
+  height: 30%;
+  /*object-fit: contain;*/
   position: absolute;
  left: 50%;
  transform: translateX(-50%);
- top: 169px;
+ top: 26%;
 }
 
-.intro-loading{
-  width: auto;
-  height: 42px;
-  font-family: Roboto;
-  font-size: 21px;
-  line-height: 2;
-  letter-spacing: 1.2px;
-  text-align: center;
-  color: #ffffff;
+.intro-title{
+  background-image:    url(./img/title.svg);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 148px;
+  height: 18px;
   position: absolute;
-  top: 391px;
+  top: 63%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -122,7 +348,7 @@
   margin: 0 auto 0 auto;
   z-index: 99999;
   position: absolute;
-  top: 460px;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -151,28 +377,25 @@
 .walkthrough_slide_img_1 {
   width: 73%;
   height: 44%;
-  object-fit: contain;
   margin-top: 12%;
+  border:0;
 }
 
 .walkthrough_slide_img_2{
   width: 76%;
   height: 40%;
-  object-fit: contain;
   margin-top: 18%;
 }
 
 .walkthrough_slide_img_3{
   width: 57%;
   height: 38%;
-  object-fit: contain;
   margin-top: 22%;
 }
 
 .walkthrough_slide_img_4{
   width: 74%;
   height: 44%;
-  object-fit: contain;
   margin-top: 10%;
 }
 
@@ -301,7 +524,7 @@
   top: 23px;
   left: 16px;
   background-image:    url(./img/back_menu.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
 }
@@ -311,7 +534,7 @@
   top: 28px;
   left: 6%;
   background-image:    url(./img/3_lines.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   width: 22px;
@@ -333,7 +556,7 @@
   height: 16px;
   object-fit: contain;
   background-image:    url(./img/search.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   position: absolute;
@@ -389,7 +612,7 @@ color: white !important;
 
 #gps_control{
   background-image:    url(./img/gps_icon.png);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   position: absolute;
@@ -399,7 +622,7 @@ color: white !important;
 
 #search_control{
   background-image:    url(./img/search_icon.png);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   position: absolute;
@@ -472,7 +695,7 @@ color: white !important;
   top: 60px;
   position: relative;
   background-image:    url(./img/horario.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
 }
@@ -507,7 +730,7 @@ color: white !important;
   left: 19px;
   top: 60px;
   background-image:    url(./img/recibe.png);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
 }
@@ -1116,11 +1339,6 @@ body {
   height: 10px;
 }
 
-.text-input{
-  background-color: transparent;
-  color: #ffffff;
-  width:100%;
-}
 
 .text-input-container{
   border-color: #ffffff;

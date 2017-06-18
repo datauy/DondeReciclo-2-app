@@ -106,6 +106,50 @@ pmb_im.services.factory('ErrorService', ['$http','$ionicPopup', 'ValidationServi
         errorDiv.style.display = "block";
         return false;
       }
+    },
+
+    check_field: function (field, type, label) {
+        var ok = true;
+        if(type=="notNull"){
+          if(!ValidationService.validate_not_empty(field.value)){
+            ok = false;
+            label.innerHTML="Debes completar<br/>el campo "+field.name;
+          }
+        }
+        if(type=="email"){
+          if(!ValidationService.validate_email(field.value)){
+            ok = false;
+            label.innerHTML="El campo "+field.name+"<br/>no es un email válido";
+          }
+        }
+        if(type=="iddoc_uy"){
+          if(!ValidationService.validate_iddoc_uy(field.value)){
+            ok = false;
+          }
+        }
+        if(type=="two_words"){
+          if(!ValidationService.validate_two_words(field.value)){
+            ok = false;
+          }
+        }
+        if(type=="textarea"){
+          if(!ValidationService.validate_not_empty(field.innerHTML)){
+            ok = false;
+            label.innerHTML="Debes completar<br/>el campo "+field.name;
+          }
+        }
+        if(type=="select"){
+          if(!ValidationService.validate_not_empty(field.innerHTML)){
+            ok = false;
+            label.innerHTML="Debes completar<br/>el campo "+field.name;
+          }
+        }
+        if(!ok){
+          field.style.borderColor = "red";
+        }else{
+          field.style.borderColor = "#979797";
+        }
+        return ok;
     }
 
 

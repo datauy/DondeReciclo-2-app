@@ -8,6 +8,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   '$ionicPopup',
   'leafletData',
   'ConfigService',
+  'ContactService',
   'PMBService',
   'LocationsService',
   'ContainerService',
@@ -41,6 +42,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $ionicPopup,
     leafletData,
     ConfigService,
+    ContactService,
     PMBService,
     LocationsService,
     ContainerService,
@@ -123,7 +125,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.map = {
         defaults: {
           tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          minZoom: 16,
+          minZoom: 10,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
@@ -328,6 +330,11 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       });
     }
 
+    $scope.walkthroughFromMenu = function(){
+      $scope.closeMainMenu();
+      $scope.openWalkThroughModal();
+    }
+
     $scope.openWalkThroughModal = function(){
       $ionicModal.fromTemplateUrl('templates/walkthrough.html', {
         scope: $scope,
@@ -346,11 +353,77 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       DBService.saveDoneWalkthrough();
     }
 
+    $scope.openContact = function(){
+      if($scope.item_modal!=null){
+        $scope.item_modal.hide();
+        $scope.item_modal.remove();
+      }
+      $scope.main_menu_modal.hide();
+      $scope.main_menu_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/contact.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        focusFirstInput: true
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+      });
+    }
+
+    $scope.openContactSuccess = function(){
+      $scope.item_modal.hide();
+      $scope.item_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/contact_success.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+      });
+    }
+
+    $scope.send_contact_request = function(){
+      var name = document.getElementById("contact_nombre");
+      var email = document.getElementById("contact_email");
+      var subject = document.getElementById("contact_select");
+      var message = document.getElementById("contact_mensaje");
+      var errorLabel = document.getElementById("contact_error_label");
+      if(ErrorService.check_field(name,"notNull",errorLabel)&&
+        ErrorService.check_field(email,"notNull",errorLabel)&&
+        ErrorService.check_field(email,"email",errorLabel)&&
+        ErrorService.check_field(message,"notNull",errorLabel)){
+        ContactService.send_contact(name.value,email.value,subject[subject.selectedIndex].value,message.value).then(function (response) {
+          if(ErrorService.http_data_response_is_successful_ajax(response)){
+            $scope.openContactSuccess();
+          };
+        });
+      }else{
+        var errorContainer = document.getElementById("contact_error");
+        errorContainer.className = "contact_error";
+      }
+    }
+
+    $scope.openMainMenuFromItem = function(){
+      $scope.item_modal.hide();
+      $scope.item_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/main_menu.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.main_menu_modal = modal;
+          $scope.main_menu_modal.show();
+      });
+    }
+
     $scope.openMainMenu = function(){
       $ionicModal.fromTemplateUrl('templates/main_menu.html', {
         scope: $scope,
         hardwareBackButtonClose: true,
-        animation: 'slide-in-up',
+        animation: 'none',
         //focusFirstInput: true
       }).then(function(modal) {
           $scope.main_menu_modal = modal;
@@ -550,9 +623,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                 $scope.map.center.lng = position.coords.longitude;
                 LocationsService.save_new_report_position(position.coords.latitude,position.coords.longitude);*/
                 var zoom = 18;
-                if(!ConnectivityService.isOnline()){
-                  zoom = 16;
-                }
                 var markerIcon = L.icon({
                   iconUrl: "./img/me.svg",
                   iconSize: [29, 34],

@@ -1,0 +1,32 @@
+<ion-modal-view class="contact-modal">
+    <ion-content class="contact-scroll">
+      <div class="top_menu">
+        <div id="navigation_menu">
+          <div id="lines_button" ng-click="openMainMenuFromItem()">
+          </div>
+        </div>
+      </div>
+      <div id="contact_error" class="contact_error hidden">
+        <div class="contact_error_img">
+        </div>
+        <div id="contact_error_label" class="contact_error_label">
+        </div>
+      </div>
+      <div class="Dejanos-tus-comentar">
+        Dejanos tus comentarios
+      </div>
+      <div class="Nombre">Nombre*</div>
+      <input class="text-input" id="contact_nombre" name="Nombre" type="text"/>
+      <div class="Correo-Electronico">Correo Electronico*</div>
+      <input class="text-input" id="contact_email" name="Correo-Electronico" type="email"/>
+      <div class="Asunto">Asunto*</div>
+      <select class="text-select" id="contact_select">
+        <option value="-1" disabled selected>Seleccione una opción</option>
+        <option value="feedback">Feedback</option>
+        <option value="cempre">CEMPRE</option>
+      </select>
+      <div class="Mensaje">Mensaje*</div>
+      <textarea class="text-area" name="Mensaje" id="contact_mensaje" type="text"></textarea>
+      <button class="send-button" ng-click="send_contact_request()">Enviar</button>
+    </ion-content>
+</ion-modal-view>

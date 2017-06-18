@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="214" height="169" viewBox="0 0 214 169">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" d="M133.371 101.3l-9.329-9.323 23.324-23.306 7.774 1.553 1.555 7.77z"/>
+        <path fill="#7ED321" d="M81.162 19.216l-.074-12.071-11.288 6.12z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M81.162 19.216l-.074-12.071-11.288 6.12z"/>
+        <path fill="#7ED321" d="M184.448 51.44l2.368-7.048-7.8 1.317z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M184.448 51.44l2.368-7.048-7.8 1.317z"/>
+        <path fill="#7ED321" d="M56.806 149.68l2.367-7.049-7.8 1.317z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M56.806 149.68l1.511-4.5.856-2.549-7.8 1.317 4.22 4.452z"/>
+        <path fill="#CCEFFF" d="M116.62 26.496l3.594-6.51-7.91-.104z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M116.62 26.496l3.594-6.51-7.91-.104zM23 30l2.985 4.613 5.268-1.57 2.984 4.613 5.267-1.571 2.985 4.613M164.108 137.428l1.78 5.198 5.491-.252 1.778 5.198 5.492-.25 1.779 5.197M23.193 135.067l5.41.973 2.45-4.92 5.41.973 2.45-4.917 5.41.972M178.876 25.012l-2.985 4.614-5.267-1.571-2.984 4.613-5.268-1.571-2.985 4.613"/>
+        <path fill="#7ED321" d="M144.998 8.992l-3.886-.777-.778-3.885L142.666 2l3.887.777.777 3.884z"/>
+        <path stroke="#417505" stroke-linejoin="round" stroke-width="2.2" d="M144.998 8.992l-3.886-.777-.778-3.885L142.666 2l3.887.777.777 3.884z"/>
+        <path fill="#7ED321" d="M190.277 138.237l-3.887-.777-.778-3.885 2.333-2.33 3.887.777.777 3.885z"/>
+        <path stroke="#417505" stroke-linejoin="round" stroke-width="2.2" d="M190.277 138.237l-3.887-.777-.778-3.885 2.333-2.33 3.887.777.777 3.885z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11.895 167.901h191.31M208.702 167.901H212M2 167.901h3.298"/>
+        <path fill="#FFF" d="M144.932 113.516l2.199 6.593-2.2 6.592h-20.89l-3.298-6.592 3.299-6.593z"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M187.812 78.908l-4.398 2.747-4.398-2.747v-4.395l4.398-2.747 4.398 2.747z"/>
+        <rect width="76" height="47" x="70" y="68" stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" rx="1.43"/>
+        <path stroke="#417505" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M74 71.656L109.7 92 144 71"/>
+    </g>
+</svg>
