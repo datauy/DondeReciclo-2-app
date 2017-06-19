@@ -353,6 +353,22 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       DBService.saveDoneWalkthrough();
     }
 
+    $scope.subject = "Feedback";
+
+    $scope.openAboutProyect = function(){
+      $scope.main_menu_modal.hide();
+      $scope.main_menu_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/sobre_proyecto.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+      });
+    }
+
     $scope.openContact = function(){
       if($scope.item_modal!=null){
         $scope.item_modal.hide();
@@ -364,7 +380,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         scope: $scope,
         hardwareBackButtonClose: true,
         animation: 'none',
-        focusFirstInput: true
+        //focusFirstInput: true
       }).then(function(modal) {
           $scope.item_modal = modal;
           $scope.item_modal.show();
@@ -393,6 +409,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       if(ErrorService.check_field(name,"notNull",errorLabel)&&
         ErrorService.check_field(email,"notNull",errorLabel)&&
         ErrorService.check_field(email,"email",errorLabel)&&
+        ErrorService.check_field(subject,"select",errorLabel)&&
         ErrorService.check_field(message,"notNull",errorLabel)){
         ContactService.send_contact(name.value,email.value,subject[subject.selectedIndex].value,message.value).then(function (response) {
           if(ErrorService.http_data_response_is_successful_ajax(response)){

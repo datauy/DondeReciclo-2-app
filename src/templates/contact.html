@@ -20,10 +20,10 @@
       <div class="Correo-Electronico">Correo Electronico*</div>
       <input class="text-input" id="contact_email" name="Correo-Electronico" type="email"/>
       <div class="Asunto">Asunto*</div>
-      <select class="text-select" id="contact_select">
+      <select class="text-select" id="contact_select" ng-model="subject">
         <option value="-1" disabled selected>Seleccione una opción</option>
-        <option value="feedback">Feedback</option>
-        <option value="cempre">CEMPRE</option>
+        <option value="Feedback">Feedback</option>
+        <option value="Cempre">CEMPRE</option>
       </select>
       <div class="Mensaje">Mensaje*</div>
       <textarea class="text-area" name="Mensaje" id="contact_mensaje" type="text"></textarea>

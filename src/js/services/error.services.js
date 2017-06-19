@@ -139,9 +139,9 @@ pmb_im.services.factory('ErrorService', ['$http','$ionicPopup', 'ValidationServi
           }
         }
         if(type=="select"){
-          if(!ValidationService.validate_not_empty(field.innerHTML)){
+          if(!ValidationService.validate_not_minusone(field[field.selectedIndex].value)){
             ok = false;
-            label.innerHTML="Debes completar<br/>el campo "+field.name;
+            label.innerHTML="Debes elegir valor<br/>para el campo "+field.name;
           }
         }
         if(!ok){

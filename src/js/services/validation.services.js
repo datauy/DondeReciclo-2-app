@@ -1,6 +1,14 @@
 pmb_im.services.factory('ValidationService', ['$http','$ionicPopup', function($http,$ionicPopup) {
 
   return {
+    validate_not_minusone: function (value) {
+        if(value==-1){
+          return false;
+        }else{
+          return true;
+        }
+    },
+
     validate_not_empty: function (value) {
         if(value!=null && value!="undefined" && value!=""){
           return true;
