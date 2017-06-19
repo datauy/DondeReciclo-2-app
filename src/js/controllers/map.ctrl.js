@@ -29,6 +29,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   '$cordovaInAppBrowser',
   '$interval',
   '$cordovaKeyboard',
+  'NewsService',
   function(
     $scope,
     $sce,
@@ -62,7 +63,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     ConnectivityService,
     $cordovaInAppBrowser,
     $interval,
-    $cordovaKeyboard
+    $cordovaKeyboard,
+    NewsService
   ) {
 
       /**
@@ -355,6 +357,32 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.subject = "Feedback";
 
+    $scope.toggleGroup = function(group) {
+      if ($scope.isGroupShown(group)) {
+        $scope.shownGroup = null;
+      } else {
+        $scope.shownGroup = group;
+      }
+    };
+
+    $scope.isGroupShown = function(group) {
+      return $scope.shownGroup === group;
+    };
+
+    $scope.openProgramas = function(){
+      $scope.main_menu_modal.hide();
+      $scope.main_menu_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/programas.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+      });
+    }
+
     $scope.openAboutProyect = function(){
       $scope.main_menu_modal.hide();
       $scope.main_menu_modal.remove();
@@ -366,6 +394,33 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       }).then(function(modal) {
           $scope.item_modal = modal;
           $scope.item_modal.show();
+      });
+    }
+
+    $scope.news = null;
+
+    $scope.gotoLink = function (url) {
+      window.open(url,'_system');
+    }
+
+    $scope.openNews = function(){
+      NewsService.all().then(function (response) {
+        $scope.news = response.data.items;
+        if($scope.item_modal!=null){
+          $scope.item_modal.hide();
+          $scope.item_modal.remove();
+        }
+        $scope.main_menu_modal.hide();
+        $scope.main_menu_modal.remove();
+        $ionicModal.fromTemplateUrl('templates/news.html', {
+          scope: $scope,
+          hardwareBackButtonClose: true,
+          animation: 'none',
+          //focusFirstInput: true
+        }).then(function(modal) {
+            $scope.item_modal = modal;
+            $scope.item_modal.show();
+        });
       });
     }
 

@@ -1,0 +1,21 @@
+<ion-modal-view class="contact-modal">
+    <ion-content class="news-scroll">
+      <div class="top_menu">
+        <div id="navigation_menu">
+          <div id="lines_button" ng-click="openMainMenuFromItem()">
+          </div>
+        </div>
+      </div>
+      <div class="news_title">
+        Noticias
+      </div>
+      <div class="news-container">
+        <div class="item-container" ng-repeat="item in news track by $index">
+          <div class="news_item_title" ng-click="gotoLink('{{item.link}}')">{{item.title}}</div>
+          <div class="news_item_image" ng-click="gotoLink('{{item.link}}')" style="background-image: url({{item.image}});"></div>
+          <div class="news_item_txt">{{item.description}}</div>
+          <div class="news_item_date">{{item.date}}</div>
+        </div>
+      </div>
+    </ion-content>
+</ion-modal-view>

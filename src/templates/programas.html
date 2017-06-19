@@ -1,0 +1,47 @@
+<ion-modal-view class="contact-modal">
+    <ion-content class="programas-proyect-scroll">
+      <div class="top_menu">
+        <div id="navigation_menu">
+          <div id="lines_button" ng-click="openMainMenuFromItem()">
+          </div>
+        </div>
+      </div>
+      <div class="programs_title">
+        Programas y ciclo de vida de los residuos
+      </div>
+      <div class="programs_txt">
+        A la hora de darle un correcto destino a los residuos que generamos existen varias alternativas en el Uruguay:
+      </div>
+
+      <ion-list>
+          <div class="programa">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('tuenvasesirve')"
+                      ng-class="{active: isGroupShown('tuenvasesirve')}">
+              <div class="program_name">Tu Envase Sirve</div>
+              <div class="programa_short_txt">Plan de Gestión de Envases</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('tuenvasesirve')">
+                      CACACACA
+            </ion-item>
+          </div>
+
+          <div class="programa">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('laenergiasetransforma')"
+                      ng-class="{active: isGroupShown('laenergiasetransforma')}">
+              <div class="program_name">La Energía se Transforma</div>
+              <div class="programa_short_txt">Plan Reciclaje de Aceite</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('laenergiasetransforma')">
+                      Auaaa
+            </ion-item>
+         </div>
+
+    </ion-list>
+
+
+    </ion-content>
+</ion-modal-view>

@@ -1,3 +1,95 @@
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.news_title{
+  width: auto;
+ /*height: 24px;*/
+ font-family: Roboto;
+ font-size: 21px;
+ font-weight: 500;
+ letter-spacing: 0.2px;
+ text-align: left;
+ color: #000000;
+ position: absolute;
+ top: 105px;
+ left: 50%;
+ transform: translateX(-50%);
+}
+
+.news-container{
+  position: absolute;
+  top: 161px;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+.item-container{
+  display: table;
+  width: 87%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+  padding-bottom: 35px;
+  border-bottom: solid 1px #979797;
+}
+
+.news_item_title{
+  width: 53%;
+  /*height: 64px;*/
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  float: left;
+}
+
+.news_item_image{
+  width: 87px;
+  height: 87px;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  float: right;
+}
+
+.news_item_txt{
+  width: 53%;
+  /*height: 26px;*/
+  font-family: Roboto;
+  font-size: 11px;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #000000;
+  float: left;
+  margin-top: 5px;
+  text-transform: capitalize;
+}
+
+.news_item_date{
+  width: 53%;
+  height: 11px;
+  font-family: Roboto;
+  font-size: 10px;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #4a4a4a;
+  margin-top: 5px;
+}
+
 .about_title{
   width: 86%;
   height: 29px;
@@ -7,25 +99,23 @@
   letter-spacing: 0.3px;
   text-align: left;
   color: #000000;
-  position: absolute;
-  top: 101px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 110px;
 }
 
 .about_txt{
   width: 86%;
-  height: 162px;
+  /*height: 162px;*/
   font-family: Roboto;
   font-size: 16px;
   line-height: 1.69;
   letter-spacing: 0.2px;
   text-align: left;
   color: #000000;
-  position: absolute;
-  top: 146px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 40px;
 }
 
 .antecedentes_title{
@@ -37,25 +127,23 @@
   letter-spacing: 0.3px;
   text-align: left;
   color: #000000;
-  position: absolute;
-  top: 333px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
 }
 
 .antecedentes_txt{
   width: 86%;
-  height: 162px;
+  /*height: 162px;*/
   font-family: Roboto;
   font-size: 16px;
   line-height: 1.69;
   letter-spacing: 0.2px;
   text-align: left;
   color: #000000;
-  position: absolute;
-  top: 378px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
 }
 
 .contact-scroll{
