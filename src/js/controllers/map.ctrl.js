@@ -286,7 +286,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     };
 
     $scope.goToCenter = function(longTo,latTo){
-      var posOptions = {timeout: 5000, enableHighAccuracy: true};
+      var posOptions = {timeout: 3000, enableHighAccuracy: true};
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {
@@ -404,12 +404,14 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.openNews = function(){
+      $scope.showDiv("menu-spinner");
       NewsService.all().then(function (response) {
         $scope.news = response.data.items;
         if($scope.item_modal!=null){
           $scope.item_modal.hide();
           $scope.item_modal.remove();
         }
+        $scope.hideDiv("menu-spinner");
         $scope.main_menu_modal.hide();
         $scope.main_menu_modal.remove();
         $ionicModal.fromTemplateUrl('templates/news.html', {
@@ -424,7 +426,18 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       });
     }
 
+    $scope.showDiv = function(divId){
+      var div = document.getElementById(divId);
+      div.classList.remove("hidden");
+    }
+
+    $scope.hideDiv = function(divId, divClass){
+      var div = document.getElementById(divId);
+      div.className = div.className + " hidden";
+    }
+
     $scope.openContact = function(){
+      $scope.subject = "Feedback";
       if($scope.item_modal!=null){
         $scope.item_modal.hide();
         $scope.item_modal.remove();
@@ -687,7 +700,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.find_me = function(){
         $scope.set_active_option("button-find-me");
         $scope.hide_special_divs();
-        var posOptions = {timeout: 10000, enableHighAccuracy: true};
+        var posOptions = {timeout: 3000, enableHighAccuracy: true};
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {

@@ -7,10 +7,11 @@
         </div>
       </div>
       <div class="programs_title">
-        Programas y ciclo de vida de los residuos
+        Programas y ciclo de vida<br/>de los residuos
       </div>
       <div class="programs_txt">
-        A la hora de darle un correcto destino a los residuos que generamos existen varias alternativas en el Uruguay:
+        A la hora de darle un correcto destino a los residuos que generamos existen varias
+        alternativas en el Uruguay:
       </div>
 
       <ion-list>
@@ -23,11 +24,66 @@
             </ion-item>
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('tuenvasesirve')">
-                      CACACACA
+                      <div class="cobertura_title">Cobertura</div>
+                      <div class="cobertura_deptos">
+                        <div class="depto">
+                          Canelones
+                        </div>
+                        <div class="depto">
+                          Flores
+                        </div>
+                        <div class="depto">
+                          Maldonado
+                        </div>
+                        <br/>
+                        <div class="depto">
+                          Montevideo
+                        </div>
+                        <div class="depto">
+                          Rivera
+                        </div>
+                        <div class="depto">
+                          Rocha
+                        </div>
+                      </div>
+                      <div class="impulsan_title">Impulsan</div>
+                      <div class="impulsan_txt">
+                        Cámara de Industrias, Intendencias,<br/>
+                        MIDES, MVOTMA
+                      </div>
+                      <div class="recibe">
+                        <div class="recibe_logo"></div>
+                        <div class="recibe_title">Recibe</div>
+                      </div>
+                      <div class="recibe_txt">
+                        Materiales reciclables (todos).<br/>
+                        Si botellas de vidrio!
+                      </div>
+                      <div class="norecibe">
+                        <div class="norecibe_logo"></div>
+                        <div class="norecibe_title">Que no recibe</div>
+                      </div>
+                      <div class="norecibe_txt">
+                        Residuos Mezclados, compostables, lámparas,
+                        medicamentos, electrónicos, pilas, aceites y voluminosos.
+                      </div>
+                      <div class="condiciones_title">Condiciones de recepción (del plan):</div>
+                      <div class="condiciones_txt">
+                        Materiales mezclados, todos los envases que contenían líquido deben ir
+                        escurridos y secos.
+                      </div>
+                      <div class="condiciones_txt">
+                        Es una propuesta ambiental y social para la recuperación de envases de todo tipo,
+                        mediante la clasificación de residuos en el hogar y la participación comprometida
+                        de los ciudadanos. En el marco de la Ley de envases (Ley Nº 17.849 desde 2004) las
+                        empresas que los generan pagan un Plan de Gestión de Residuos de Envases. Según el
+                        departamento la forma de recolección puede variar (puerta a puerta), sitios de
+                        entrega voluntario o contenedores diferenciados.
+                      </div>
             </ion-item>
           </div>
 
-          <div class="programa">
+         <div class="programa">
             <ion-item class="item-stable"
                       ng-click="toggleGroup('laenergiasetransforma')"
                       ng-class="{active: isGroupShown('laenergiasetransforma')}">
@@ -36,7 +92,80 @@
             </ion-item>
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('laenergiasetransforma')">
-                      Auaaa
+                      <div class="cobertura_title">Cobertura</div>
+                      <div class="cobertura_deptos">
+                        <div class="depto">
+                          Canelones
+                        </div>
+                        <div class="depto">
+                          Maldonado
+                        </div>
+                        <div class="depto">
+                          Montevideo
+                        </div>
+                      </div>
+                      <div class="impulsan_title">Impulsan</div>
+                      <div class="impulsan_txt">
+                        ALUR, COUSA, Intendencias
+                      </div>
+                      <div class="recibe">
+                        <div class="recibe_logo"></div>
+                        <div class="recibe_title">Recibe</div>
+                      </div>
+                      <div class="recibe_txt">
+                        Aceite vegetal usado
+                      </div>
+                      <div class="condiciones_title">Condiciones de recepción (del plan):</div>
+                      <div class="condiciones_txt">
+                        Maquinas de recepción especial. Se debe depositar el aceite en recipientes especiales que se deben pedir previamente en los puntos de entrega la primera vez que se utilizan.
+                      </div>
+                      <div class="condiciones_txt">
+                        ALUR y COUSA en conjunto con las Intendencias de Montevideo, Canelones y Maldonado instalaron 22 contenedores inteligentes (ubicaciones de los mismos en la app).
+                      </div>
+                      <div class="condiciones_txt">
+                      Mediante el Proyecto “LA ENERGÍA SE TRANSFORMA” se puede reciclar aceite de fritura y transformarlo en biodiesel. Así evitamos verterlo en el desagüe y preservamos un recurso tan vital como el agua. Además estamos cuidando el aire, reduciendo en más de un 80% las emisiones de gases de efecto invernadero en comparación con el gasoil derivado del petróleo.
+                      </div>
+            </ion-item>
+         </div>
+
+         <div class="programa">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('medicamentos')"
+                      ng-class="{active: isGroupShown('medicamentos')}">
+              <div class="program_name">Medicamentos</div>
+              <div class="programa_short_txt">Ecofarma</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('medicamentos')">
+                      auaaa
+            </ion-item>
+         </div>
+
+         <div class="programa">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('computadorasycelulares')"
+                      ng-class="{active: isGroupShown('computadorasycelulares')}">
+              <div class="program_name">Computadoras y Celulares</div>
+              <div class="programa_short_txt">Antel Integra</div>
+              <div class="programa_img" id="antel_img"></div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('computadorasycelulares')">
+                      blblb
+            </ion-item>
+         </div>
+
+         <div class="programa">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('juntalamparas')"
+                      ng-class="{active: isGroupShown('juntalamparas')}">
+              <div class="program_name">Juntalámparas</div>
+              <div class="programa_short_txt">UTE</div>
+              <div class="programa_img" id="ute_img"></div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('juntalamparas')">
+                      ygoiahgoia
             </ion-item>
          </div>
 

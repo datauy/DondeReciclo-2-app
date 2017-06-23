@@ -1,5 +1,6 @@
 <ion-modal-view class="new-report-modal">
   <div class="main_menu_bg"></div>
+  <div class="main_menu_img"></div>
   <div class="main_menu_close" ng-click="closeMainMenu()"></div>
   <div id="menu_items">
     <div class="menu_item" ng-click="closeMainMenu()">
@@ -15,7 +16,7 @@
       Consejos para <br/>
       clasificar en casa
     </div>
-    <div class="menu_item" ng-click="alert('En construcción')">
+    <div class="menu_item" ng-click="openProgramas()">
       Programas y ciclo <br/>
       de vida de los residuos
     </div>
@@ -25,6 +26,6 @@
     <!--<div class="menu_item" ng-click="walkthroughFromMenu()">
       Walkthrough
     </div>-->
-
   </div>
+  <div id="menu-spinner" class="menu-spinner hidden"><ion-spinner icon="spiral"></ion-spinner></div>
 </ion-modal-view>

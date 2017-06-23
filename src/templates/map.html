@@ -17,15 +17,6 @@
 <div ng-click="search_street()" id="search_control" class="control_over_map">
 </div>
 
-<div id="expanded_menu" class="expanded_menu">
-  <p ng-click="clickOnMenuIcon()">Mapa</p>
-  <p>Sobre el proyecto</p>
-  <p>Noticias</p>
-  <p>Eventos</p>
-  <p>Consejos para clasificar en casa</p>
-  <p>Programas y ciclo de vida de los residuos</p>
-</div>
-
 <div id="spinner" class="intro-spinner"><ion-spinner icon="spiral"></ion-spinner></div>
 
   <ion-content data-tap-disabled="true">
@@ -61,7 +52,7 @@
 
 <div id="container_details">
   <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
-    <div class="programa">
+    <div class="program-name">
       {{selected_container.Programa}}
     </div>
     <div class="direccion">
