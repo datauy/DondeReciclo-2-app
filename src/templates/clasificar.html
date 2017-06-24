@@ -1,0 +1,210 @@
+<ion-modal-view class="contact-modal">
+    <ion-content class="contact-scroll" delegate-handle="content">
+      <div class="top_menu">
+        <div id="navigation_menu">
+          <div id="lines_button" ng-click="openMainMenuFromItem()">
+          </div>
+        </div>
+      </div>
+      <div class="clasificar_title">
+        ¿Cómo clasificar en casa?
+      </div>
+      <div class="clasificar_txt">
+        Proponemos 3 niveles para que clasifiques tus residuos en casa,
+        en función del compromiso que puedas asumir y las soluciones que tenés a tu alcance:
+      </div>
+      <div class="clasif_basic_title">
+        Clasificación básica:
+      </div>
+      <div class="clasif_basic_types">
+
+        <div class="trash_type_first_line reciclables" ng-click="clickTipoResiduo('tipo_reciclable')">
+          <div class="trash_type_title">
+            Materiales reciclables
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="trash_type_first_line mezclados" ng-click="clickTipoResiduo('tipo_mezclado')">
+          <div class="trash_type_title">
+            Residuos Mezclados
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+      </div>
+
+      <div class="clasif_intermedia_title">
+        Clasificación intermedia:
+      </div>
+      <div class="clasif_basic_types">
+
+        <div class="trash_type_second_line reciclables" ng-click="clickTipoResiduo('tipo_reciclable')">
+          <div class="trash_type_title">
+            Materiales reciclables
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="trash_type_second_line mezclados" ng-click="clickTipoResiduo('tipo_mezclado')">
+          <div class="trash_type_title">
+            Residuos Mezclados
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="trash_type_second_line compostables" ng-click="clickTipoResiduo('tipo_compostable')">
+          <div class="trash_type_title">
+            Residuos <span style="font-size: 9px;">Compostables</span>
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+      </div>
+      <div class="clasif_intermedia_title" style="margin-top: 155px;">
+        Clasificación avanzada:
+      </div>
+      <div class="clasif_basic_types">
+
+        <div class="trash_type_second_line reciclables" ng-click="clickTipoResiduo('tipo_reciclable')">
+          <div class="trash_type_title">
+            Materiales reciclables
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="trash_type_second_line mezclados" ng-click="clickTipoResiduo('tipo_mezclado')">
+          <div class="trash_type_title">
+            Residuos Mezclados
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="trash_type_second_line compostables" ng-click="clickTipoResiduo('tipo_compostable')">
+          <div class="trash_type_title">
+            Residuos <span style="font-size: 9px;">Compostables</span>
+          </div>
+          <div class="trash_type_img"></div>
+        </div>
+
+        <div class="avanzada_txt">
+          Se suman otros recipientes específicos, preparando la
+          disposición para otros tipos de residuos como aceite usado,
+          residuos eléctricos y electrónicos, lámparas, etc.
+        </div>
+      </div>
+      <div class="contenido_envase">
+        ¿Qué va en cada recipiente?
+      </div>
+
+      <ion-list>
+         <div class="tipo_envase reciclables">
+            <ion-item id="tipo_reciclable" class="item-stable"
+                      ng-click="toggleGroup('reciclables')"
+                      ng-class="{active: isGroupShown('reciclables')}">
+              <div class="envase_img"></div>
+              <div class="envase_name">Materiales reciclables</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('reciclables')">
+
+                      <div class="material">
+                        <div class="material_title">
+                          Plástico
+                        </div>
+                        <div class="material_txt">
+                          Botellas, Bolsas, Tapas y Envases
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Papel y Cartón
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Vidrios
+                        </div>
+                        <div class="material_txt">
+                          Botellas y Frascos
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Metales
+                        </div>
+                        <div class="material_txt">
+                          Latas, Conservas y Tapas
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Envases compuestos
+                        </div>
+                        <div class="material_txt">
+                          Latas, Conservas y Tapas
+                        </div>
+                      </div>
+
+                      <div class="envase_txt">
+                        Todos los materiales que pueden ser valorizados
+                      </div>
+            </ion-item>
+         </div>
+
+         <div id="tipo_mezclado" class="tipo_envase mezclados">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('mezclados')"
+                      ng-class="{active: isGroupShown('mezclados')}">
+              <div class="envase_img"></div>
+              <div class="envase_name">Residuos Mezclados</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('mezclados')">
+                      auaaa
+            </ion-item>
+         </div>
+
+         <div id="tipo_compostable" class="tipo_envase compostables">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup('compostables')"
+                      ng-class="{active: isGroupShown('compostables')}">
+              <div class="envase_img"></div>
+              <div class="envase_name">Residuos Compostables</div>
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isGroupShown('compostables')">
+
+                      <div class="material">
+                        <div class="material_title">
+                          Restos de alimentos
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Hojas secas
+                        </div>
+                      </div>
+
+                      <div class="material">
+                        <div class="material_title">
+                          Ramas
+                        </div>
+                      </div>
+
+                      <div class="envase_txt">
+                        Restos de alimentos, residuos vegetales de mantenimiento de jardines
+                      </div>
+
+            </ion-item>
+         </div>
+
+    </ion-list>
+
+    </ion-content>
+</ion-modal-view>

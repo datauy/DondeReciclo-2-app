@@ -1,8 +1,225 @@
+.clasificar_title{
+  padding-top: 105px;
+  width: 86.56%;
+  font-family: Roboto;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #000000;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clasificar_txt{
+  width: 86.56%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+font-family: Roboto;
+font-size: 16px;
+line-height: 1.56;
+letter-spacing: 0.2px;
+text-align: left;
+color: #000000;
+}
+
+.clasif_basic_title{
+  width: 86.56%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 27px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #4a4a4a;
+}
+
+.clasif_intermedia_title{
+  width: 86.56%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 180px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #4a4a4a;
+}
+
+.clasif_basic_types{
+  width: 86.56%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+}
+
+.trash_type_first_line{
+  width: 120px;
+  height: 131px;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.trash_type_second_line{
+  width: 82.9px;
+  height: 106px;
+  border-radius: 7px;
+  margin-left: 5px;
+  margin-right: 2px;
+  float:left;
+}
+
+.reciclables{
+  background-color: #7ed321;
+}
+
+.trash_type_first_line.reciclables{
+  float: left;
+  margin-left: 5px;
+}
+
+.mezclados{
+   background-color: #9b9b9b;
+}
+
+.compostables{
+  background-color: #8b572a;
+}
+
+.trash_type_first_line.mezclados{
+  float: right;
+  margin-right: 5px;
+}
+
+.trash_type_title{
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 13px;
+  line-height: 1.1em;
+}
+
+.trash_type_img{
+  background-image:    url(./img/clasificar.svg);
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 50px;
+  height: 63px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+}
+
+.avanzada_txt{
+  font-family: Roboto;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: left;
+  color: #484848;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 27px;
+  display: inline-block;
+  width: 96.6%;
+}
+
+.contenido_envase{
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: #4a4a4a;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 27px;
+  margin-bottom: 23px;
+  width: 100%;
+}
+
+.tipo_envase{
+  width: 86.56%;
+  border-radius: 7px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 17px;
+}
+.tipo_envase .item , .tipo_envase .item .item-stable, .tipo_envase .item .item-stable .active{
+  width: 100%;
+  background-color: transparent;;
+  border: none;
+  white-space: normal;
+  /*border: solid 1px var(--dark-grass-green);*/
+}
+
+.envase_name{
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  color: #ffffff;
+  float: left;
+  margin-left: 10px;
+}
+
+.envase_img{
+  background-image:    url(./img/clasificar.svg);
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 20.7px;
+  height: 26.8px;
+  float: left;
+}
+
+.material{
+  height: 56px;
+  border: solid 1px #ffffff;
+  margin-bottom: 15px;
+  padding-left: 17px;
+  padding-top: 8px;
+}
+
+.material_title{
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #ffffff;
+  line-height: normal;
+}
+
+.material_txt{
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  color: #284407;
+  line-height: normal;
+}
+
+.envase_txt{
+  font-family: Roboto;
+  font-size: 13px;
+  line-height: 1.31;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 26px;
+}
+
 .list .item.item-accordion {
   line-height: 38px;
   padding-top: 0;
   padding-bottom: 0;
-  transition: 0.09s all linear;
+  transition: 0.2s all linear;
 }
 .list .item.item-accordion.ng-hide {
   line-height: 0px;

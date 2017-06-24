@@ -187,6 +187,11 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       handle.anchorScroll();
     }
 
+    $scope.goTo = function(id){
+         $location.hash('item'+id);
+         $ionicScrollDelegate.anchorScroll();
+    }
+
     $scope.set_active_option = function(buttonid) {
       return false;
     }
@@ -373,6 +378,24 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.main_menu_modal.hide();
       $scope.main_menu_modal.remove();
       $ionicModal.fromTemplateUrl('templates/programas.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+      });
+    }
+
+    $scope.clickTipoResiduo = function(id){
+      $scope.scrollMe(id);
+    }
+
+    $scope.openClasificar = function(){
+      $scope.main_menu_modal.hide();
+      $scope.main_menu_modal.remove();
+      $ionicModal.fromTemplateUrl('templates/clasificar.html', {
         scope: $scope,
         hardwareBackButtonClose: true,
         animation: 'none',
