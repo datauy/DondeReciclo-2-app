@@ -107,7 +107,7 @@ color: #000000;
 
 .trash_type_img{
   background-image:    url(./img/clasificar.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   width: 50px;
@@ -115,6 +115,11 @@ color: #000000;
   margin-left: auto;
   margin-right: auto;
   margin-top: 8px;
+}
+
+.trash_type_second_line .trash_type_img{
+  width: 32.6px;
+  height: 41.7px;
 }
 
 .avanzada_txt{
@@ -172,12 +177,20 @@ color: #000000;
 
 .envase_img{
   background-image:    url(./img/clasificar.svg);
-  background-size:     cover;
+  background-size:     contain;
   background-repeat:   no-repeat;
   background-position: center center;
   width: 20.7px;
   height: 26.8px;
   float: left;
+}
+
+.material_title.notxt{
+  margin-top: 10px;
+}
+
+.material.long{
+  height: 65px;
 }
 
 .material{
@@ -949,7 +962,7 @@ color: #000000;
 
 #lines_button{
   position: absolute;
-  top: 32px;
+  top: 28px;
   left: 6%;
   background-image:    url(./img/3_lines.svg);
   background-size:     contain;
