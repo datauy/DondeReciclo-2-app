@@ -93,8 +93,10 @@ function($scope,
   };
 
   $scope.searchLocation = function(query) {
+    console.log("Se ejecuto: " + query);
     var promiseSearch;
     if (query && query.length>=2) {
+      console.log("Y entró: " + query);
 
 
       if ($scope.searchMode == "calle.lugar") {
@@ -125,6 +127,11 @@ function($scope,
     $scope.ionAutocompleteElement.controller('ionAutocomplete').showModal();
 
   };
+
+  $scope.itemsRemoved = function(callback){
+    $scope.searchMode = "calle.lugar";
+    $scope.ionAutocompleteElementSearch.attr("placeholder", "Buscar calle");
+  }
 
   $scope.itemsClicked = function(callback) {
 
@@ -160,6 +167,7 @@ function($scope,
       $scope.ionAutocompleteElement.controller('ionAutocomplete').showModal();
       $scope.preselectedSearchItems = [];
     }
+    //callback.searchItems = [];
 
   };
 

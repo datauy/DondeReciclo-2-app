@@ -1,7 +1,7 @@
 /*
  * ion-autocomplete 0.4.0
- * Copyright 2017 Danny Povolotski 
- * Copyright modifications 2017 Guy Brand 
+ * Copyright 2017 Danny Povolotski
+ * Copyright modifications 2017 Guy Brand
  * https://github.com/guylabs/ion-autocomplete
  */
 (function() {
@@ -59,7 +59,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                 this.loadingIcon = valueOrDefault($attrs.loadingIcon, undefined);
                 this.manageExternally = valueOrDefault($attrs.manageExternally, "false");
                 this.clearOnSelect = valueOrDefault($attrs.clearOnSelect, "true");
-                this.ngModelOptions = valueOrDefault($scope.$eval($attrs.ngModelOptions), {});                
+                this.ngModelOptions = valueOrDefault($scope.$eval($attrs.ngModelOptions), {});
                 this.openClass = valueOrDefault($attrs.openClass, 'ion-autocomplete-open');
                 this.closeClass = valueOrDefault($attrs.closeClass, 'ion-autocomplete-close');
 
@@ -161,7 +161,8 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                         if (ionAutocompleteController.clearOnSelect == "true") {
                             ionAutocompleteController.searchQuery = undefined;
                         }
-
+                        this.searchItems = [];
+                        this.searchQuery = undefined;
                         // return if the max selected items is not equal to 1 and the maximum amount of selected items is reached
                         if (ionAutocompleteController.maxSelectedItems != "1" &&
                             angular.isArray(ionAutocompleteController.selectedItems) &&
@@ -182,6 +183,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                             }
                         }
 
+
                         // set the view value and render it
                         ngModelController.$setViewValue(ionAutocompleteController.selectedItems);
                         ngModelController.$render();
@@ -191,6 +193,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                             ionAutocompleteController.hideModal();
                         }
 
+
                         // call items clicked callback
                         if (angular.isDefined(attrs.itemsClickedMethod)) {
                             ionAutocompleteController.itemsClickedMethod({
@@ -198,7 +201,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                                     item: item,
                                     selectedItems: angular.isArray(ionAutocompleteController.selectedItems) ? ionAutocompleteController.selectedItems.slice() : ionAutocompleteController.selectedItems,
                                     selectedItemsArray: angular.isArray(ionAutocompleteController.selectedItems) ? ionAutocompleteController.selectedItems.slice() : [ionAutocompleteController.selectedItems],
-                                    componentId: ionAutocompleteController.componentId
+                                    componentId: ionAutocompleteController.componentId,
                                 }
                             });
                         }
@@ -216,6 +219,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                             var removed = ionAutocompleteController.selectedItems.splice(index, 1)[0];
                             ionAutocompleteController.selectedItems = ionAutocompleteController.selectedItems.slice();
                         }
+
 
                         // set the view value and render it
                         ngModelController.$setViewValue(ionAutocompleteController.selectedItems);
@@ -493,7 +497,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                     // set the model value of the model
                     ngModelController.$parsers.push(function (viewValue) {
                         return ionAutocompleteController.getItemValue(viewValue, ionAutocompleteController.itemValueKey);
-                    });        
+                    });
 
                 });
 

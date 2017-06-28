@@ -368,6 +368,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       } else {
         $scope.shownGroup = group;
       }
+      $ionicScrollDelegate.resize();
     };
 
     $scope.isGroupShown = function(group) {
