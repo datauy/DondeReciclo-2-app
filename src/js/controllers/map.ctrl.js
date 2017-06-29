@@ -116,7 +116,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.map.center = {
           lat: -34.901113,
           lng: -56.164531,
-          zoom: 18
+          zoom: 15
         };
     };
 
@@ -229,6 +229,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           if (feature.properties) {
             layer.on('click', function(e) {
                 $scope.selected_container = ContainerService.build(e.target.feature.properties);
+                if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
+                  $scope.selected_container.Horario = "No especifica";
+                }
                 $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
                 //console.log($scope.selected_container);
                 var containerDetails = document.getElementById("container_details");

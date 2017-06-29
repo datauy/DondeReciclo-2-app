@@ -1,3 +1,11 @@
+.item-icon-right .icon {
+    right: 5%;
+}
+
+.item-icon-left{
+  padding-left: 16px;
+}
+
 .ion-checkmark:before {
   display: none;
   content: "";
@@ -758,14 +766,14 @@ color: #000000;
   /*object-fit: contain;*/
   position: absolute;
   top: 5%;
-  left: 5.6%;
+  left: 6.8%;
 }
 #menu_items{
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: transparent;
-  top: 8%;
+  top: 86px;
   left: 6.8%;
 }
 
@@ -779,6 +787,7 @@ color: #000000;
   text-align: left;
   color: #ffffff;
   margin-top: 28px;
+  line-height: 1.3em;
 }
 
 .Oval-2 {
@@ -1343,9 +1352,9 @@ color: white !important;
 }
 .recibe_logo{
   width: 19.7px;
-  height: 28.8px;
-  background-image:    url(./img/recibe.png);
-  background-size:     contain;
+  height: 32.8px;
+  background-image:    url(./img/recibe.svg);
+  background-size:     cover;
   background-repeat:   no-repeat;
   background-position: center center;
   float: left;
@@ -1492,12 +1501,12 @@ color: white !important;
 
 .recibe_img{
   width: 19.7px;
-  height: 28.8px;
+  height: 32.8px;
   position: relative;
   left: 19px;
   top: 60px;
-  background-image:    url(./img/recibe.png);
-  background-size:     contain;
+  background-image:    url(./img/recibe.svg);
+  background-size:     cover;
   background-repeat:   no-repeat;
   background-position: center center;
 }
