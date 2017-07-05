@@ -4,14 +4,37 @@
   <div id="navigation_menu">
     <div id="lines_button" ng-click="openMainMenu()">
     </div>
-    <input type="text" id="search_in_dictionary" placeholder="¿Qué querés reciclar?" />
+    <input type="search" id="search_in_dictionary" placeholder="¿Qué querés reciclar?"
+        ng-model="search_str"
+        ng-change="onSearchChange()" />
     <div id="search_magnifying"></div>
     <div id="menu_line"></div>
   </div>
   <div id="navigation_back" ng-click="nav_back()" class="hidden"></div>
 </div>
 
-<div ng-click="find_me()" id="gps_control" class="control_over_map">
+<div id="selected_residuo_container" class='selected_residuo hidden'>
+  <div class='residuo_name' id="selected_residuo_name"></div>
+  <div class='residuo_action' ng-click="unselect_residuo()">Cerrar</div>
+  <div class='residuo_condition' id='selected_residuo_condition'></div>
+</div>
+
+<div id="searchResults" class="hidden">
+  <ion-scroll id="searchResults_scroll" scrollX="false" scrollY="true">
+    <div class='residuo' ng-repeat="item in residuosArray">
+      <div ng-click="select_residuo({{item}})" class='residuo_name'>{{item.properties.Nombre}}</div>
+      <div ng-click="select_residuo({{item}})" class='residuo_action'>Ver</div>
+      <div class='residuo_condition'>{{item.properties.Condiciones}}</div>
+    </div>
+  </ion-scroll>
+  <div class="noResults" ng-if="residuosArray.length == 0">
+    No hay resultados que coincidan con su búsqueda.
+  </div>
+</div>
+
+
+
+<div ng-click="find_me('18')" id="gps_control" class="control_over_map">
 </div>
 
 <div ng-click="search_street()" id="search_control" class="control_over_map">

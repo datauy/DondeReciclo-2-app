@@ -30,6 +30,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   '$interval',
   '$cordovaKeyboard',
   'NewsService',
+  'ResiduosService',
   function(
     $scope,
     $sce,
@@ -64,13 +65,15 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $cordovaInAppBrowser,
     $interval,
     $cordovaKeyboard,
-    NewsService
+    NewsService,
+    ResiduosService
   ) {
 
       /**
      * Once state loaded, get put map on scope.
      */
     $scope.featureReports = {};
+    $scope.containers = {};
     $scope.baseURL = ConfigService.baseURL;
     $scope.user_cached_image = "";
     $scope.report_detail_id = null;
@@ -79,13 +82,16 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.abuse_email = null;
     $scope.abuse_subject = null;
     $scope.abuse_message = null;
+    $scope.search_str = "";
+    $scope.residuosArray = [];
+    $scope.select_residuo = null;
 
     $scope.actualSliderIndex=0;
 
     $scope.$on("$ionicView.beforeEnter", function() {
       DBService.initDB();
       $scope.set_network_events();
-      $scope.find_me();
+      $scope.find_me(16);
       $scope.walkthrough();
     });
 
@@ -116,7 +122,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.map.center = {
           lat: -34.901113,
           lng: -56.164531,
-          zoom: 15
+          zoom: 16
         };
     };
 
@@ -219,21 +225,97 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.startReportFromCrosshairs = function(){
     }
 
-    $scope.addPinsLayer = function() {
-      if($scope.jsonLayer!=null){
-        return false;
+    $scope.onSearchChange = function () {
+      var search = document.getElementById("search_in_dictionary");
+      var search_str = search.value.trim();
+      if(search_str.length>=3){
+        $scope.searchResiduosByStr(search_str);
+      }else{
+        $scope.hideSearchResults();
       }
+    }
+
+    $scope.searchResiduosByStr = function(str){
+      ResiduosService.getByStr(str).then(function(result){
+        var residuosArray = result.data.residuos;
+        $scope.residuosArray = residuosArray;
+        var residuosContainer = document.getElementById("searchResults");
+        residuosContainer.className="";
+      });
+    }
+
+    $scope.hideSearchResults = function(){
+      $scope.residuosArray = [];
+      var residuosContainer = document.getElementById("searchResults");
+      residuosContainer.className="hidden";
+      var selectedResiduosContainer = document.getElementById("selected_residuo_container");
+      selectedResiduosContainer.className="selected_residuo hidden";
+    }
+
+    $scope.select_residuo = function(residuo){
+      $scope.hideSearchResults();
+      var programas_str = residuo.properties.Programas;
+      //$scope.select_residuo = residuo;
+      document.getElementById("selected_residuo_name").innerHTML = residuo.properties.Nombre;
+      document.getElementById("selected_residuo_condition").innerHTML = residuo.properties.Condiciones;
+      var selectedResiduosContainer = document.getElementById("selected_residuo_container");
+      selectedResiduosContainer.className="selected_residuo";
+      $scope.filterPins(programas_str);
+    }
+
+    $scope.unselect_residuo = function(residuo){
+      //$scope.select_residuo = null;
+      var selectedResiduosContainer = document.getElementById("selected_residuo_container");
+      selectedResiduosContainer.className="selected_residuo hidden";
+      $scope.showAllPins();
+    }
+
+    $scope.filterPins = function(programas_str){
+      var programasIds = programas_str.split(".");
+      var keysArray = Object.keys($scope.containers);
+      keysArray.forEach(function(item){
+        var id = item.replace("progId-", "");
+        if(programasIds.indexOf(id)<0){
+          $scope.containers[item].forEach(function(layer,key){
+            layer._icon.style.display = 'none';
+          })
+        }else{
+          $scope.containers[item].forEach(function(layer,key){
+            layer._icon.style.display = 'block';
+          })
+        }
+      });
+    }
+
+    $scope.showAllPins = function(){
+      var keysArray = Object.keys($scope.containers);
+      keysArray.forEach(function(item){
+        $scope.containers[item].forEach(function(layer,key){
+          layer._icon.style.display = 'block';
+        })
+      })
+
+    }
+
+    $scope.addPinsLayer = function() {
+      /*if($scope.jsonLayer!=null){
+        return false;
+      }*/
+      $scope.containers = {};
       var baseURL = ConfigService.baseURL;
         onEachFeature = function(feature, layer) {
           var html, reportId, descripcion;
           if (feature.properties) {
+            if(!$scope.containers["progId-" + feature.properties.ProgramaSubProgID]){
+              $scope.containers["progId-" + feature.properties.ProgramaSubProgID]=[];
+            }
+            $scope.containers["progId-" + feature.properties.ProgramaSubProgID].push(layer);
             layer.on('click', function(e) {
                 $scope.selected_container = ContainerService.build(e.target.feature.properties);
                 if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
                   $scope.selected_container.Horario = "No especifica";
                 }
                 $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
-                //console.log($scope.selected_container);
                 var containerDetails = document.getElementById("container_details");
                 containerDetails.className = "open";
                 var backMenu = document.getElementById("navigation_back");
@@ -666,7 +748,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
               document.getElementById("spinner-inside-modal").style.display = "none";
             }
           }, function(resp) {
-            //console.log(err);
             //alert("Error en sign_in");
             document.getElementById("spinner-inside-modal").style.display = "none";
             ErrorService.show_error_message("error_container",resp.statusText);
@@ -692,7 +773,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         }
 
       }, function(resp) {
-        //console.log(err);
         //ErrorService.show_error_message_popup(resp.statusText);
         return 0;
       });
@@ -724,7 +804,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       document.getElementById("search-textbox").parentNode.click();
     }
 
-    $scope.find_me = function(){
+    $scope.find_me = function(zoomDef){
         $scope.set_active_option("button-find-me");
         $scope.hide_special_divs();
         var posOptions = {timeout: 3000, enableHighAccuracy: true};
@@ -734,7 +814,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                 /*$scope.map.center.lat  = position.coords.latitude;
                 $scope.map.center.lng = position.coords.longitude;
                 LocationsService.save_new_report_position(position.coords.latitude,position.coords.longitude);*/
-                var zoom = 18;
+                var zoom = zoomDef;
                 var markerIcon = L.icon({
                   iconUrl: "./img/me.svg",
                   iconSize: [29, 34],

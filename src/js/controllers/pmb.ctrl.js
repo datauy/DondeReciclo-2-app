@@ -29,9 +29,9 @@ function($scope,
     document.getElementById("spinner").style.display = "none";
     var map = leafletData.getMap();
     if(LocationsService.initial_lat!=""){
-      MapService.centerMapOnCoords(LocationsService.initial_lat, LocationsService.initial_lng, 15);
+      MapService.centerMapOnCoords(LocationsService.initial_lat, LocationsService.initial_lng, 16);
     }else{
-      MapService.centerMapOnCoords(-34.901113, -56.164531, 15);
+      MapService.centerMapOnCoords(-34.901113, -56.164531, 16);
     }
   });
 

@@ -1,3 +1,81 @@
+.residuo_name, .noResults{
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #000000;
+}
+
+.residuo_condition{
+  font-family: Roboto;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  text-align: left;
+  color: #4a4a4a;
+  width: 68.12%;
+  margin-top: -15px;
+}
+
+.residuo_action{
+  width: 60px;
+  height: 22px;
+  border-radius: 4.3px;
+  background-color: #ffffff;
+  border: solid 1.1px #e6e6e6;
+  font-family: Roboto;
+  font-size: 10.8px;
+  font-weight: 300;
+  text-align: center;
+  color: #000000;
+  position: relative;
+  left: 70.5%;
+}
+
+.residuo, .noResults{
+  margin-left: 3.75%;
+  margin-right: 3.75%;
+  width: 100%;
+  margin-top: 17.4px;
+}
+
+
+.noResults{
+  margin-top: 35.4px;
+  height: 100px;
+}
+
+
+#searchResults{
+  z-index: 99999;
+  width: 100%;
+  max-height: 190px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 68.6px;
+}
+
+.selected_residuo{
+  position: absolute;
+  top: 68.6px;
+  width: 100%;
+  height: 15%;
+  background-color: #ffffff;
+  z-index: 99998;
+  padding-left: 3.75%;
+  padding-right: 3.75%;
+  padding-top: 17.4px;
+}
+
+.selected_residuo .residuo_action{
+    left: 80.5%;
+}
+
+#searchResults_scroll{
+  width: 100%;
+  max-height: 188px;
+}
+
 .item-icon-right .icon {
     right: 5%;
 }
@@ -97,6 +175,7 @@
   text-align: left;
   color: #ffffff;
   border-bottom: solid 0.7px #ffffff;
+  border-radius: 0px;
   padding-left: 0;
 }
 
@@ -153,7 +232,7 @@ color: #000000;
   width: 86.56%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 180px;
+  margin-top: 32px;
   font-family: Roboto;
   font-size: 15px;
   font-weight: bold;
@@ -163,26 +242,28 @@ color: #000000;
 }
 
 .clasif_basic_types{
-  width: 86.56%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  margin-left: 7.2%;
+  margin-right: 7.2%;
   margin-top: 16px;
 }
 
 .trash_type_first_line{
-  width: 120px;
+  width: 39.2%;
   height: 131px;
   border-radius: 7px;
-  display: inline-block;
+  display: inline-table;
 }
 
 .trash_type_second_line{
-  width: 82.9px;
+  width: 25.81%;
   height: 106px;
   border-radius: 7px;
-  margin-left: 5px;
-  margin-right: 2px;
-  float:left;
+  display: inline-table;
+}
+
+.trash_type_second_line.mezclados, .trash_type_second_line.compostables{
+  margin-left: 4.05%;
 }
 
 .reciclables{
@@ -190,8 +271,6 @@ color: #000000;
 }
 
 .trash_type_first_line.reciclables{
-  float: left;
-  margin-left: 5px;
 }
 
 .mezclados{
@@ -203,8 +282,7 @@ color: #000000;
 }
 
 .trash_type_first_line.mezclados{
-  float: right;
-  margin-right: 5px;
+    margin-left: 6.21%;
 }
 
 .trash_type_title{
@@ -241,11 +319,8 @@ color: #000000;
   line-height: 1.45;
   text-align: left;
   color: #484848;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 27px;
-  display: inline-block;
-  width: 96.6%;
+  margin-right: 14%;
 }
 
 .contenido_envase{
@@ -285,6 +360,7 @@ color: #000000;
   color: #ffffff;
   float: left;
   margin-left: 10px;
+  margin-top: 4px;
 }
 
 .envase_img{
@@ -773,7 +849,7 @@ color: #000000;
   width: 100%;
   height: 100%;
   background-color: transparent;
-  top: 86px;
+  top: 76px;
   left: 6.8%;
 }
 
@@ -786,7 +862,7 @@ color: #000000;
   letter-spacing: 0.2px;
   text-align: left;
   color: #ffffff;
-  margin-top: 28px;
+  margin-top: 25px;
   line-height: 1.3em;
 }
 
@@ -862,11 +938,11 @@ color: #000000;
 }
 
 .intro-title{
-  background-image:    url(./img/title.svg);
+  background-image:    url(./img/title.png);
   background-size:     100% 100%;
   background-repeat:   no-repeat;
   background-position: center center;
-  width: 165px;
+  width: 148px;
   height: 18px;
   position: absolute;
   top: 63%;
@@ -1088,7 +1164,7 @@ color: #000000;
   width: 68%;
   height: 0.5px;
   border: solid 0.7px #ffffff;
-  top: 50px;
+  top: 52px;
   left: 25%;
   position: absolute;
   background-color: #ffffff;
@@ -1103,7 +1179,7 @@ color: #000000;
   background-repeat:   no-repeat;
   background-position: center center;
   position: absolute;
-  top: 29px;
+  top: 32px;
   left: 88%;
 }
 
@@ -1116,7 +1192,7 @@ color: #000000;
   text-align: left;
   color: #ffffff;
   position: absolute;
-  top: 19px;
+  top: 23px;
   left: 25%;
   background-color: transparent;
   padding: 0;
@@ -1326,9 +1402,8 @@ color: white !important;
   border-radius: 4.3px;
   background-color: #ffffff;
   border: solid 1.1px #e6e6e6;
-  padding-top: 4px;
   margin-right: 10px;
-  line-height: normal;
+  line-height: 22px;
 }
 
 .impulsan_title{
