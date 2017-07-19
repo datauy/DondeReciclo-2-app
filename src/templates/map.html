@@ -34,7 +34,7 @@
 
 
 
-<div ng-click="find_me('18')" id="gps_control" class="control_over_map">
+<div ng-click="find_me('16')" id="gps_control" class="control_over_map">
 </div>
 
 <div ng-click="search_street()" id="search_control" class="control_over_map">
@@ -73,16 +73,44 @@
   </div>
 </div>
 
+<div id="auspiciantes">
+  <ion-slide-box auto-play="true" does-continue="true" slide-interval="3000" on-slide-changed="slideHasChanged($index);">
+    <ion-slide>
+      <span class="auspiciantes_txt">
+        Apoyan esta
+        iniciativa
+      </span>
+      <div class="logo_salus">
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <span class="auspiciantes_txt">
+        Apoyan esta
+        iniciativa
+      </span>
+      <div class="logo_scjohnson">
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+
+  <div class="close_auspiciantes" ng-click="close_auspiciantes();">
+  </div>
+</div>
+
 <div id="container_details">
   <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
     <div class="program-name">
       {{selected_container.Programa}}
     </div>
+    <!--<div id="roadAddress" class="roadAddress">
+    </div>-->
     <div class="direccion">
       {{selected_container.Nombre}}
     </div>
     <div class="direccion2">
       {{selected_container.Direccion}}
+    </div>
+    <div id="distance" class="distance">
     </div>
     <div class="watch"></div>
     <div class="horario_label">Horario</div>

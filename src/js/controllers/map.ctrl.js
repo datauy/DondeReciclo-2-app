@@ -72,6 +72,14 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       /**
      * Once state loaded, get put map on scope.
      */
+     $scope.slide_auspiciantes_options = {
+       autoplay: 500,
+       loop: true,
+       speed: 1000,
+       slidesPerView: 1,
+       centeredSlides: true
+     }
+
     $scope.featureReports = {};
     $scope.containers = {};
     $scope.baseURL = ConfigService.baseURL;
@@ -133,7 +141,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.map = {
         defaults: {
           tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          minZoom: 10,
+          //tileLayer: 'http://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png',
+          minZoom: 15,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
@@ -237,10 +246,14 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.searchResiduosByStr = function(str){
       ResiduosService.getByStr(str).then(function(result){
-        var residuosArray = result.data.residuos;
-        $scope.residuosArray = residuosArray;
-        var residuosContainer = document.getElementById("searchResults");
-        residuosContainer.className="";
+        var search = document.getElementById("search_in_dictionary");
+        var search_str = search.value.trim();
+        if(search_str.length>=3){
+          var residuosArray = result.data.residuos;
+          $scope.residuosArray = residuosArray;
+          var residuosContainer = document.getElementById("searchResults");
+          residuosContainer.className="";
+        }
       });
     }
 
@@ -356,13 +369,13 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
       l.on('layeradd', function(e) {
         e.layer.eachLayer(function(_layer) {
-          var icon = "/img/pin-container.svg";
+          var icon = "./img/icons/" + $scope.getIconNameFromContainerProperty(_layer.feature.properties.Contenedor);
           if(_layer.feature.properties.pin_url){
             icon = _layer.feature.properties.pin_url;
           }
           var markerIcon = L.icon({
-            iconUrl: baseURL + icon,
-            iconSize: [29, 34],
+            iconUrl: icon,
+            iconSize: [23, 35],
             iconAnchor: [8, 8],
             popupAnchor: [0, -8]
           });
@@ -375,7 +388,28 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       });
     };
 
+    $scope.getIconNameFromContainerProperty = function(str){
+      if(!str){
+        str = "generico";
+      }
+      str = str.toLowerCase();
+      str = str.trim();
+      str = str.replace(" ", "_");
+      str = str.replace(" ", "_");
+      str = str.replace(" ", "_");
+      str = str.replace(".", "_");
+      str = str.replace("/", "_");
+      str = str.replace("á", "a");
+      str = str.replace("%C3%A1", "a");
+      str = str.replace("%20", "_");
+      str = str.replace("boca ancha","boca_ancha");
+      str = str.replace("ó","o");
+      str = str + ".png";
+      return str;
+    }
+
     $scope.goToCenter = function(longTo,latTo){
+      document.getElementById("distance").innerHTML="";
       var posOptions = {timeout: 3000, enableHighAccuracy: true};
         $cordovaGeolocation
           .getCurrentPosition(posOptions)
@@ -387,7 +421,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
               }, function(err) {
                 //Move a little the map center because the map view is smaller (report list is displayed)
                 latTo = latTo - 0.0006;
-                MapService.centerMapOnCoords(latTo,longTo,17);
+                MapService.centerMapOnCoords(latTo,longTo,16);
                 //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
               });
     };
@@ -630,6 +664,11 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.main_menu_modal.remove();
     }
 
+    $scope.close_auspiciantes = function(){
+      document.getElementById("auspiciantes").innerHTML="";
+      document.getElementById("auspiciantes").className="hidden";
+    }
+
     $scope.getRoad = function(LatFrom,LongFrom,latTo,longTo){
       leafletData.getMap().then(function(map) {
         map.closePopup();
@@ -664,9 +703,23 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           fitSelectedRoutes: false
         }).addTo(map);
         //Move a little the map center because the map view is smaller (report list is displayed)
-        latTo = latTo - 0.0008;
-        MapService.centerMapOnCoords(latTo,longTo,17);
+        latTo = latTo - 0.0020;
+        MapService.centerMapOnCoords(latTo,longTo,16);
+        setTimeout(function () {
+          $scope.getDistanceFromRoad();
+          //$scope.getAddressFromRoad();
+        }, 2500);
       });
+    }
+
+    $scope.getDistanceFromRoad = function(){
+      var distanceContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h3')[0];
+      document.getElementById("distance").innerHTML = "Distancia: " + distanceContainer.innerHTML;
+    }
+
+    $scope.getAddressFromRoad = function(){
+      var addressContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h2')[0];
+      document.getElementById("roadAddress").innerHTML = addressContainer.innerHTML;
     }
 
     // Suggestion

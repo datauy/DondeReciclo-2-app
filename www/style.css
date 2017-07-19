@@ -1,3 +1,66 @@
+#auspiciantes{
+  width: 100%;
+  height: 56.9px;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+}
+
+#auspiciantes .slider-pager{
+  display: none;
+}
+
+.auspiciantes_txt{
+  width: 87px;
+  height: 30px;
+  font-family: Roboto;
+  font-size: 13px;
+  line-height: 1.15;
+  letter-spacing: 1.1px;
+  text-align: left;
+  color: #434343;
+  position: absolute;
+  left: 25%;
+  top: 12.9px;
+}
+
+.logo_salus{
+  width: 60px;
+  height: 40px;
+  background-image:    url(./img/salus.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 25%;
+  top: 7.1px;
+}
+
+.logo_scjohnson{
+  width: 98px;
+  height: 30px;
+  background-image:    url(./img/scjohnson.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 21.25%;
+  top: 12.9px;
+}
+
+.close_auspiciantes{
+  width: 8px;
+  height: 8px;
+  border: solid 0.5px #838383;
+  background-image:    url(./img/close_auspiciantes.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
 .residuo_name, .noResults{
   font-family: Roboto;
   font-size: 14px;
@@ -59,7 +122,7 @@
   position: absolute;
   top: 68.6px;
   width: 100%;
-  height: 15%;
+  height: 18%;
   background-color: #ffffff;
   z-index: 99998;
   padding-left: 3.75%;
@@ -73,7 +136,7 @@
 
 #searchResults_scroll{
   width: 100%;
-  max-height: 188px;
+  height: 188px;
 }
 
 .item-icon-right .icon {
@@ -378,7 +441,7 @@ color: #000000;
 }
 
 .material.long{
-  height: 65px;
+  height: 72px;
 }
 
 .material{
@@ -405,6 +468,7 @@ color: #000000;
   text-align: left;
   color: #284407;
   line-height: normal;
+  width: 94%;
 }
 
 .envase_txt{
@@ -1514,6 +1578,18 @@ color: white !important;
   margin-bottom: 20px;
 }
 
+.roadAddress{
+  width: auto;
+  height: 18px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  color: #000000;
+  left: 19px;
+  top: 28px;
+  position: relative;
+}
+
 .direccion {
   width: auto;
   height: 18px;
@@ -1527,6 +1603,18 @@ color: white !important;
 }
 
 .direccion2{
+  width: auto;
+  height: 18px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  color: #000000;
+  left: 19px;
+  top: 28px;
+  position: relative;
+}
+
+.distance{
   width: auto;
   height: 18px;
   font-family: Roboto;
