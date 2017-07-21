@@ -147,7 +147,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         defaults: {
           tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           //tileLayer: 'http://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png',
-          minZoom: 15,
+          minZoom: 12,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
@@ -270,22 +270,26 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       selectedResiduosContainer.className="selected_residuo hidden";
     }
 
+    $scope.selected_residuo = null;
+
     $scope.select_residuo = function(residuo){
       $scope.hideSearchResults();
       var programas_str = residuo.properties.Programas;
-      //$scope.select_residuo = residuo;
+      $scope.selected_residuo = residuo;
       document.getElementById("selected_residuo_name").innerHTML = residuo.properties.Nombre;
       document.getElementById("selected_residuo_condition").innerHTML = residuo.properties.Condiciones;
       var selectedResiduosContainer = document.getElementById("selected_residuo_container");
       selectedResiduosContainer.className="selected_residuo";
-      $scope.filterPins(programas_str);
+      //$scope.filterPins(programas_str);
+      $scope.hideOffScreenPins();
     }
 
     $scope.unselect_residuo = function(residuo){
-      //$scope.select_residuo = null;
+      $scope.selected_residuo = null;
       var selectedResiduosContainer = document.getElementById("selected_residuo_container");
       selectedResiduosContainer.className="selected_residuo hidden";
-      $scope.showAllPins();
+      //$scope.showAllPins();
+      $scope.hideOffScreenPins();
     }
 
     $scope.filterPins = function(programas_str){
@@ -316,10 +320,21 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         keysArray.forEach(function(item){
           $scope.containers[item].forEach(function(layer,key){
             var shouldBeVisible = mapBounds.contains(layer.getLatLng());
-            if (layer._icon && !shouldBeVisible) {
+            if (!shouldBeVisible) {
                 map.removeLayer(layer);
-            } else if (!layer._icon && shouldBeVisible) {
-                map.addLayer(layer);
+            } else if (shouldBeVisible) {
+                if($scope.selected_residuo){
+                  var programas_str = $scope.selected_residuo.properties.Programas;
+                  var programasIds = programas_str.split(".");
+                  var id = layer.feature.properties.ProgramaSubProgID;
+                  if(programasIds.indexOf(id)<0){
+                    map.removeLayer(layer);
+                  }else{
+                    map.addLayer(layer);
+                  }
+                }else{
+                  map.addLayer(layer);
+                }
             }
           })
         });
