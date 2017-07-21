@@ -26,7 +26,6 @@ function($scope,
 
   //$scope.$on('$ionicView.afterEnter', function(){ //This is fired twice in a row
   $scope.$on("$ionicView.afterEnter", function() {
-    document.getElementById("spinner").style.display = "none";
     var map = leafletData.getMap();
     if(LocationsService.initial_lat!=""){
       MapService.centerMapOnCoords(LocationsService.initial_lat, LocationsService.initial_lng, 16);

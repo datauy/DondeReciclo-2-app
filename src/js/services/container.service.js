@@ -1,6 +1,6 @@
 pmb_im.services.factory('ContainerService', ['$http', 'leafletData','ConfigService', function($http, leafletData, ConfigService) {
 
-  var baseURL = ConfigService.baseURL + "/report/ajax/";
+  var baseURL = ConfigService.baseURL + "/datauy/get_containers_json/" + "all";
 
 
   /**
@@ -8,6 +8,10 @@ pmb_im.services.factory('ContainerService', ['$http', 'leafletData','ConfigServi
    */
   function Container(_data) {
     angular.extend(this, _data);
+  }
+
+  Container.getAll = function(){
+    return $http.get(baseURL, { params: {}});
   }
 
   Container.getById = function(id){

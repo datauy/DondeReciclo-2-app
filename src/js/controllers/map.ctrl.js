@@ -103,6 +103,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.walkthrough();
     });
 
+
     $ionicPlatform.onHardwareBackButton(function() {
        e.stopPropagation();
        $scope.hide_special_divs;
@@ -126,12 +127,16 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.set_network_events = function() {
       $scope.create_online_map();
-      $scope.addPinsLayer();
+      //$scope.addPinsLayer();
+      $scope.loadPinsLayer();
       $scope.map.center = {
           lat: -34.901113,
           lng: -56.164531,
           zoom: 16
         };
+      leafletData.getMap().then(function(map) {
+        map.on('moveend', $scope.hideOffScreenPins);
+      });
     };
 
     $scope.create_online_map = function(){
@@ -290,12 +295,43 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         var id = item.replace("progId-", "");
         if(programasIds.indexOf(id)<0){
           $scope.containers[item].forEach(function(layer,key){
-            layer._icon.style.display = 'none';
+            if(layer._icon){
+              layer._icon.style.display = 'none';
+            }
           })
         }else{
           $scope.containers[item].forEach(function(layer,key){
-            layer._icon.style.display = 'block';
+            if(layer._icon){
+              layer._icon.style.display = 'block';
+            }
           })
+        }
+      });
+    }
+
+    $scope.hideOffScreenPins = function() {
+      leafletData.getMap().then(function(map) {
+        var mapBounds = map.getBounds();
+        var keysArray = Object.keys($scope.containers);
+        keysArray.forEach(function(item){
+          $scope.containers[item].forEach(function(layer,key){
+            var shouldBeVisible = mapBounds.contains(layer.getLatLng());
+            if (layer._icon && !shouldBeVisible) {
+                map.removeLayer(layer);
+            } else if (!layer._icon && shouldBeVisible) {
+                map.addLayer(layer);
+            }
+          })
+        });
+      });
+    }
+
+    $scope.checkPinVisibility = function(layer){
+      leafletData.getMap().then(function(map) {
+        var mapBounds = map.getBounds();
+        var shouldBeVisible = mapBounds.contains(layer.getLatLng());
+        if (layer._icon && !shouldBeVisible) {
+            map.removeLayer(layer);
         }
       });
     }
@@ -304,10 +340,58 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       var keysArray = Object.keys($scope.containers);
       keysArray.forEach(function(item){
         $scope.containers[item].forEach(function(layer,key){
-          layer._icon.style.display = 'block';
+          if(layer._icon){
+            layer._icon.style.display = 'block';
+          }
         })
       })
+    }
 
+    $scope.loadPinsLayer = function(){
+      $scope.containers = {};
+      var spinner = document.getElementById("map-spinner");
+      spinner.className = "map-spinner";
+      ContainerService.getAll().then(function (response) {
+        var pinsArray = response.data.features;
+        pinsArray.forEach(function(feature){
+          if (feature.properties) {
+            var lon = feature.geometry.coordinates[0];
+            var lat = feature.geometry.coordinates[1];
+            var icon = "./img/icons/" + $scope.getIconNameFromContainerProperty(feature.properties.Contenedor);
+            if(feature.properties.pin_url){
+              icon = feature.properties.pin_url;
+            }
+            var markerIcon = L.icon({
+              iconUrl: icon,
+              iconSize: [23, 35],
+              iconAnchor: [8, 8],
+              popupAnchor: [0, -8]
+            });
+            var layer = L.marker([lat, lon], {icon: markerIcon});
+            layer.feature = feature;
+            if(!$scope.containers["progId-" + feature.properties.ProgramaSubProgID]){
+              $scope.containers["progId-" + feature.properties.ProgramaSubProgID]=[];
+            }
+            $scope.containers["progId-" + feature.properties.ProgramaSubProgID].push(layer);
+            layer.on('click', function(e) {
+                $scope.selected_container = ContainerService.build(e.target.feature.properties);
+                if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
+                  $scope.selected_container.Horario = "No especifica";
+                }
+                $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
+                var containerDetails = document.getElementById("container_details");
+                containerDetails.className = "open";
+                var backMenu = document.getElementById("navigation_back");
+                backMenu.className="";
+                var menu = document.getElementById("navigation_menu");
+                menu.className = "hidden";
+                $scope.goToCenter($scope.selected_container.lon,$scope.selected_container.lat);
+            });
+          }
+        });
+        spinner.className = "map-spinner hidden";
+        $scope.hideOffScreenPins();
+      });
     }
 
     $scope.addPinsLayer = function() {
@@ -345,6 +429,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           url: baseURL + "/datauy/get_containers_json/" + "{bbox}",
           locAsGeoJSON: true,
           minShift: 5,
+          //minShift: 9999999999, //ONLY CALLING ONCE WITH ALL PINS THEN FILTER OFFSCREEN
           //updateOutBounds: false,
           precision: 10,
           onEachFeature: onEachFeature
@@ -362,9 +447,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.lastMarkerLayer = null;
 
 
-      l.on('dataloaded', function(e) { //show loaded data!
+      /*l.on('dataloaded', function(e) { //show loaded data!
         $scope.reports = e.data.features;
-      });
+      });*/
 
 
       l.on('layeradd', function(e) {
@@ -380,9 +465,10 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
             popupAnchor: [0, -8]
           });
           _layer.setIcon(markerIcon);
-          if ($scope.featureReports[_layer.feature.properties.GID] === undefined) {
+          //$scope.checkPinVisibility(_layer);
+          /*if ($scope.featureReports[_layer.feature.properties.GID] === undefined) {
             $scope.featureReports[_layer.feature.properties.GID] = _layer;
-          }
+          }*/
         });
 
       });

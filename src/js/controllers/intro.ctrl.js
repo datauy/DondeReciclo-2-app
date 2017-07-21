@@ -8,7 +8,9 @@ pmb_im.controllers.controller('IntroCtrl', ['$scope', '$state',
   function($scope, $state, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicPopup, LocationsService, DBService) {
 
   var db = DBService.initDB();
-  db.info().then(console.log.bind(console));
+  db.info().then(
+    //console.log.bind(console)
+  );
 
   $scope.geolocate = function() {
       var located = false;
