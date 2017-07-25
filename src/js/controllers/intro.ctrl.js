@@ -19,8 +19,8 @@ pmb_im.controllers.controller('IntroCtrl', ['$scope', '$state',
           $state.go("app.map");
         }
       }, 4000);*/
-      ionic.Platform.ready(function() {
-        var device = ionic.Platform.device();
+      $ionicPlatform.ready(function() {
+        //var device = ionic.Platform.device();
         //alert(device.platform);
         var posOptions = {timeout: 3500, enableHighAccuracy: true, maximumAge:60000};
         $cordovaGeolocation

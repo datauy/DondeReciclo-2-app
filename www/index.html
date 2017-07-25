@@ -21,19 +21,16 @@
 
 
     <!-- ionic/angularjs js -->
-
-
    <script src="lib/ionic/release/js/ionic.bundle.min.js"></script>
 
+    <!-- cordova script (this will be a 404 during development) -->
+
+    <script src="cordova.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="cordova_plugins.js"></script>
 
 
-
-
-  <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
-
-
-
-
+    <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
 
 
     <!--custom libs modificadas no instalables por bower-->
@@ -50,24 +47,13 @@
     <script src="lib/Proj4Leaflet/src/proj4leaflet.js"></script>
 
 
-
-
-
-
     <script src="lib/angular-simple-logger/dist/index.js"></script>
     <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
-
     <script src="lib/underscore/underscore-min.js"></script>
-
-
-    <!-- cordova script (this will be a 404 during development) -->
-
-    <script src="cordova.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
-    <script src="cordova_plugins.js"></script>
     <script src="lib/ngstorage/ngStorage.min.js"></script>
     <script src="lib/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
     <script src="lib/ionic-cache-src/ionic-cache-src.js"></script>
+
     <!-- pouchDB -->
     <script src="lib/pouchdb/dist/pouchdb.min.js"></script>
     <script src="lib/pouchdb-collate/dist/pouchdb-collate.js"></script>

@@ -29,7 +29,7 @@
           <div class="trash_type_title">
             Residuos<br/>Mezclados
           </div>
-          <div class="trash_type_img"></div>
+          <div class="trash_type_img_noclasifica"></div>
         </div>
 
       </div>
@@ -50,14 +50,14 @@
           <div class="trash_type_title">
             Residuos Mezclados
           </div>
-          <div class="trash_type_img"></div>
+          <div class="trash_type_img_noclasifica"></div>
         </div>
 
         <div class="trash_type_second_line compostables" ng-click="clickTipoResiduo('tipo_compostable')">
           <div class="trash_type_title">
             Residuos <span style="font-size: 9px;">Compostables</span>
           </div>
-          <div class="trash_type_img"></div>
+          <div class="trash_type_img_noclasifica"></div>
         </div>
 
       </div>
@@ -77,15 +77,52 @@
           <div class="trash_type_title">
             Residuos Mezclados
           </div>
-          <div class="trash_type_img"></div>
+          <div class="trash_type_img_noclasifica"></div>
         </div>
 
         <div class="trash_type_second_line compostables" ng-click="clickTipoResiduo('tipo_compostable')">
           <div class="trash_type_title">
             Residuos <span style="font-size: 9px;">Compostables</span>
           </div>
-          <div class="trash_type_img"></div>
+          <div class="trash_type_img_noclasifica"></div>
         </div>
+
+      <div class="trash_type_second_line plasticos trash_type_margin_top" ng-click="clickTipoResiduo('tipo_reciclable')">
+        <div class="trash_type_title">
+          Plásticos
+        </div>
+        <div class="trash_type_img"></div>
+      </div>
+
+      <div class="trash_type_second_line papel_y_carton trash_type_margin_top" ng-click="clickTipoResiduo('tipo_mezclado')">
+        <div class="trash_type_title">
+          Papel y<br/> Cartón
+        </div>
+        <div class="trash_type_img"></div>
+      </div>
+
+      <div class="trash_type_second_line metal trash_type_margin_top" ng-click="clickTipoResiduo('tipo_compostable')">
+        <div class="trash_type_title">
+          Metal
+        </div>
+        <div class="trash_type_img"></div>
+      </div>
+
+      <br/>
+
+      <div class="trash_type_second_line vidrio trash_type_margin_top" ng-click="clickTipoResiduo('tipo_reciclable')">
+        <div class="trash_type_title">
+          Vidrio
+        </div>
+        <div class="trash_type_img_grey"></div>
+      </div>
+
+      <div class="trash_type_second_line residuos_peligrosos trash_type_margin_top" ng-click="clickTipoResiduo('tipo_mezclado')">
+        <div class="trash_type_title">
+          Residuos peligrosos
+        </div>
+        <div class="trash_type_img_noclasifica"></div>
+      </div>
 
         <div class="avanzada_txt">
           Se suman otros recipientes específicos, preparando la
@@ -108,7 +145,7 @@
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('reciclables')">
 
-                      <div class="material">
+                      <div class="material plasticos">
                         <div class="material_title">
                           Plástico
                         </div>
@@ -117,13 +154,13 @@
                         </div>
                       </div>
 
-                      <div class="material">
+                      <div class="material papel_y_carton">
                         <div class="material_title notxt">
                           Papel y Cartón
                         </div>
                       </div>
 
-                      <div class="material">
+                      <div class="material vidrio">
                         <div class="material_title">
                           Vidrios
                         </div>
@@ -132,7 +169,7 @@
                         </div>
                       </div>
 
-                      <div class="material">
+                      <div class="material metal">
                         <div class="material_title">
                           Metales
                         </div>

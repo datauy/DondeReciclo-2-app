@@ -1,3 +1,31 @@
+.circle {
+	border-radius: 50%;
+  width: 53px;
+  height: 53px;
+  border: solid 1px #e5e5e5;
+  background-size:     50% 50%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+.program-title{
+  font-family: Roboto;
+  font-size: 10.8px;
+  font-weight: 300;
+  text-align: left;
+  color: #000000;
+  position: relative;
+  top: 12px;
+  left: 19px;
+}
+
+.container_icon{
+  position: absolute;
+  top: 14px;
+  float: right;
+  right: 25px;
+}
+
 #auspiciantes{
   width: 100%;
   height: 56.9px;
@@ -22,6 +50,30 @@
   position: absolute;
   left: 25%;
   top: 12.9px;
+}
+
+.logo_tuenvasesirve{
+  width: 55px;
+  height: 56px;
+  background-image:    url(./img/tuenvasesirve.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 30.31%;
+  top: 1px;
+}
+
+.logo_bid{
+  width: 98px;
+  height: 41px;
+  background-image:    url(./img/bid.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 14.68%;
+  top: 8.9px;
 }
 
 .logo_salus{
@@ -93,6 +145,7 @@
   color: #000000;
   position: relative;
   left: 70.5%;
+  top: -20px;
 }
 
 .residuo, .noResults{
@@ -327,12 +380,45 @@ color: #000000;
   display: inline-table;
 }
 
-.trash_type_second_line.mezclados, .trash_type_second_line.compostables{
+.trash_type_second_line.mezclados, .trash_type_second_line.compostables,
+.trash_type_second_line.papel_y_carton, .trash_type_second_line.metal,
+.trash_type_second_line.residuos_peligrosos{
+
   margin-left: 4.05%;
 }
 
 .reciclables{
   background-color: #7ed321;
+}
+
+.plasticos{
+  background-color: #dacb0f;
+}
+
+.papel_y_carton{
+  background-color: #4990e2;
+}
+
+.metal{
+  background-color: #000000;
+}
+
+.vidrio{
+  background-color: #ffffff;
+  border: solid 1px #979797;
+}
+
+.vidrio .trash_type_title{
+  color: #585858;
+}
+
+.trash_type_second_line .trash_type_title{
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.residuos_peligrosos{
+  background-color: #d52f40;
 }
 
 .trash_type_first_line.reciclables{
@@ -360,6 +446,18 @@ color: #000000;
   line-height: 1.1em;
 }
 
+.trash_type_img_noclasifica{
+  background-image:    url(./img/noclasificar.svg);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 49.3px;
+  height: 62.6px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+}
+
 .trash_type_img{
   background-image:    url(./img/clasificar.svg);
   background-size:     contain;
@@ -372,9 +470,39 @@ color: #000000;
   margin-top: 8px;
 }
 
-.trash_type_second_line .trash_type_img{
+.trash_type_img_grey{
+  background-image:    url(./img/clasificar_grey.svg);
+  background-size:     contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width: 50px;
+  height: 63px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+}
+
+.trash_type_second_line .trash_type_img, .trash_type_second_line .trash_type_img_grey,
+.trash_type_second_line .trash_type_img_noclasifica{
   width: 32.6px;
   height: 41.7px;
+  margin-top: 15px;
+}
+
+.trash_type_second_line.papel_y_carton .trash_type_img, .trash_type_second_line.residuos_peligrosos .trash_type_img_noclasifica{
+  margin-top: 3px;
+}
+
+.trash_type_margin_top{
+  margin-top: 19px;
+}
+
+.material.vidrio .material_title{
+  color: #000000;
+}
+
+.material.metal .material_txt{
+  color: #ffffff;
 }
 
 .avanzada_txt{
@@ -1460,6 +1588,7 @@ color: white !important;
   font-weight: 500;
   text-align: center;
   color: #000000;
+  font-weight: bold;
 }
 
 .cobertura_deptos{
@@ -1489,6 +1618,7 @@ color: white !important;
   font-weight: 500;
   text-align: left;
   color: #000000;
+  font-weight: bold;
 }
 
 .impulsan_txt{
@@ -1522,6 +1652,7 @@ color: white !important;
   float: left;
   display: block;
   margin-left: 7px;
+  font-weight: bold;
 }
 
 .recibe_txt{
@@ -1557,6 +1688,7 @@ color: white !important;
   float: left;
   display: block;
   margin-left: 7px;
+  font-weight: bold;
 }
 
 .norecibe_txt{
@@ -1578,6 +1710,7 @@ color: white !important;
   color: #000000;
   margin-top: 17px;
   margin-bottom: 25px;
+  font-weight: bold;
 }
 
 .condiciones_txt{
@@ -1613,6 +1746,7 @@ color: white !important;
   left: 19px;
   top: 28px;
   position: relative;
+  font-weight: bold;
 }
 
 .direccion2{
@@ -1623,7 +1757,7 @@ color: white !important;
   font-weight: 300;
   color: #000000;
   left: 19px;
-  top: 28px;
+  top: 32px;
   position: relative;
 }
 
@@ -1635,7 +1769,7 @@ color: white !important;
   font-weight: 300;
   color: #000000;
   left: 19px;
-  top: 28px;
+  top: 35px;
   position: relative;
 }
 
@@ -1705,7 +1839,7 @@ color: white !important;
   border-radius: 7px;
   background-color: #f6a623;
   position: relative;
-  top: 60px;
+  top: 55px;
   left: 19px;
   font-family: Roboto;
   font-size: 13px;

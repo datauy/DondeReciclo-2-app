@@ -91,6 +91,22 @@
       <div class="logo_scjohnson">
       </div>
     </ion-slide>
+    <ion-slide>
+      <span class="auspiciantes_txt">
+        Apoyan esta
+        iniciativa
+      </span>
+      <div class="logo_tuenvasesirve">
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <span class="auspiciantes_txt">
+        Apoyan esta
+        iniciativa
+      </span>
+      <div class="logo_bid">
+      </div>
+    </ion-slide>
   </ion-slide-box>
 
   <div class="close_auspiciantes" ng-click="close_auspiciantes();">
@@ -99,8 +115,11 @@
 
 <div id="container_details">
   <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
+    <div class="program-title">Programa</div>
     <div class="program-name">
       {{selected_container.Programa}}
+    </div>
+    <div class="container_icon circle" style="background-image: url(./img/icons/{{getIconNameFromContainerPropertyToPinDetails(selected_container.Contenedor)}});">      
     </div>
     <!--<div id="roadAddress" class="roadAddress">
     </div>-->

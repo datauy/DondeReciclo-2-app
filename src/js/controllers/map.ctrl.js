@@ -509,22 +509,44 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       return str;
     }
 
+    $scope.getIconNameFromContainerPropertyToPinDetails = function(str){
+      if(!str){
+        str = "generico";
+      }
+      str = str.toLowerCase();
+      str = str.trim();
+      str = str.replace(" ", "_");
+      str = str.replace(" ", "_");
+      str = str.replace(" ", "_");
+      str = str.replace(".", "_");
+      str = str.replace("/", "_");
+      str = str.replace("á", "a");
+      str = str.replace("%C3%A1", "a");
+      str = str.replace("%20", "_");
+      str = str.replace("boca ancha","boca_ancha");
+      str = str.replace("ó","o");
+      str = str + ".svg";
+      return str;
+    }
+
     $scope.goToCenter = function(longTo,latTo){
-      document.getElementById("distance").innerHTML="";
-      var posOptions = {timeout: 3000, enableHighAccuracy: true};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-                var latFrom  = position.coords.latitude;
-                var longFrom = position.coords.longitude;
-                $scope.getRoad(latFrom,longFrom,latTo,longTo);
-                //$scope.map.markers.now.openPopup();
-              }, function(err) {
-                //Move a little the map center because the map view is smaller (report list is displayed)
-                latTo = latTo - 0.0006;
-                MapService.centerMapOnCoords(latTo,longTo,16);
-                //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
-              });
+      $ionicPlatform.ready(function() {
+        document.getElementById("distance").innerHTML="";
+        var posOptions = {timeout: 3000, enableHighAccuracy: true};
+          $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+                  var latFrom  = position.coords.latitude;
+                  var longFrom = position.coords.longitude;
+                  $scope.getRoad(latFrom,longFrom,latTo,longTo);
+                  //$scope.map.markers.now.openPopup();
+                }, function(err) {
+                  //Move a little the map center because the map view is smaller (report list is displayed)
+                  latTo = latTo - 0.0006;
+                  MapService.centerMapOnCoords(latTo,longTo,16);
+                  //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
+                });
+      });
     };
 
     $scope.lastRoad = null;
@@ -801,7 +823,10 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           lineOptions: {
              styles: [{color: '#4c4c4c', opacity: 1, weight: 5}]
           },
-          fitSelectedRoutes: false
+          fitSelectedRoutes: false,
+          draggableWaypoints: false,
+          routeWhileDragging: false,
+          addWaypoints: false
         }).addTo(map);
         //Move a little the map center because the map view is smaller (report list is displayed)
         latTo = latTo - 0.0020;
@@ -959,6 +984,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.find_me = function(zoomDef){
+      $ionicPlatform.ready(function() {
         $scope.set_active_option("button-find-me");
         $scope.hide_special_divs();
         var posOptions = {timeout: 3000, enableHighAccuracy: true};
@@ -987,7 +1013,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                 //ErrorService.show_error_message_popup("No hemos podido geolocalizarlo. ¿Tal vez olvidó habilitar los servicios de localización en su dispositivo?")
               });
 
-          };
+          });
+      }
 
       var Location = function() {
         if ( !(this instanceof Location) ) return new Location();
