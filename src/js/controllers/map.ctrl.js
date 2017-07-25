@@ -81,7 +81,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
      }
 
     $scope.featureReports = {};
-    $scope.containers = {};
+    $scope.containers = null;
     $scope.baseURL = ConfigService.baseURL;
     $scope.user_cached_image = "";
     $scope.report_detail_id = null;
@@ -363,50 +363,55 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.loadPinsLayer = function(){
-      $scope.containers = {};
       var spinner = document.getElementById("map-spinner");
-      spinner.className = "map-spinner";
-      ContainerService.getAll().then(function (response) {
-        var pinsArray = response.data.features;
-        pinsArray.forEach(function(feature){
-          if (feature.properties) {
-            var lon = feature.geometry.coordinates[0];
-            var lat = feature.geometry.coordinates[1];
-            var icon = "./img/icons/" + $scope.getIconNameFromContainerProperty(feature.properties.Contenedor);
-            if(feature.properties.pin_url){
-              icon = feature.properties.pin_url;
+      if($scope.containers==null){
+        $scope.containers = {};
+        spinner.className = "map-spinner";
+        ContainerService.getAll().then(function (response) {
+          var pinsArray = response.data.features;
+          pinsArray.forEach(function(feature){
+            if (feature.properties) {
+              var lon = feature.geometry.coordinates[0];
+              var lat = feature.geometry.coordinates[1];
+              var icon = "./img/icons/" + $scope.getIconNameFromContainerProperty(feature.properties.Contenedor);
+              if(feature.properties.pin_url){
+                icon = feature.properties.pin_url;
+              }
+              var markerIcon = L.icon({
+                iconUrl: icon,
+                iconSize: [23, 35],
+                iconAnchor: [8, 8],
+                popupAnchor: [0, -8]
+              });
+              var layer = L.marker([lat, lon], {icon: markerIcon});
+              layer.feature = feature;
+              if(!$scope.containers["progId-" + feature.properties.ProgramaSubProgID]){
+                $scope.containers["progId-" + feature.properties.ProgramaSubProgID]=[];
+              }
+              $scope.containers["progId-" + feature.properties.ProgramaSubProgID].push(layer);
+              layer.on('click', function(e) {
+                  $scope.selected_container = ContainerService.build(e.target.feature.properties);
+                  if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
+                    $scope.selected_container.Horario = "No especifica";
+                  }
+                  $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
+                  var containerDetails = document.getElementById("container_details");
+                  containerDetails.className = "open";
+                  var backMenu = document.getElementById("navigation_back");
+                  backMenu.className="";
+                  var menu = document.getElementById("navigation_menu");
+                  menu.className = "hidden";
+                  $scope.goToCenter($scope.selected_container.lon,$scope.selected_container.lat);
+              });
             }
-            var markerIcon = L.icon({
-              iconUrl: icon,
-              iconSize: [23, 35],
-              iconAnchor: [8, 8],
-              popupAnchor: [0, -8]
-            });
-            var layer = L.marker([lat, lon], {icon: markerIcon});
-            layer.feature = feature;
-            if(!$scope.containers["progId-" + feature.properties.ProgramaSubProgID]){
-              $scope.containers["progId-" + feature.properties.ProgramaSubProgID]=[];
-            }
-            $scope.containers["progId-" + feature.properties.ProgramaSubProgID].push(layer);
-            layer.on('click', function(e) {
-                $scope.selected_container = ContainerService.build(e.target.feature.properties);
-                if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
-                  $scope.selected_container.Horario = "No especifica";
-                }
-                $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
-                var containerDetails = document.getElementById("container_details");
-                containerDetails.className = "open";
-                var backMenu = document.getElementById("navigation_back");
-                backMenu.className="";
-                var menu = document.getElementById("navigation_menu");
-                menu.className = "hidden";
-                $scope.goToCenter($scope.selected_container.lon,$scope.selected_container.lat);
-            });
-          }
+          });
+          spinner.className = "map-spinner hidden";
+          $scope.hideOffScreenPins();
         });
+      }else{
         spinner.className = "map-spinner hidden";
         $scope.hideOffScreenPins();
-      });
+      }
     }
 
     $scope.addPinsLayer = function() {
