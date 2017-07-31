@@ -390,8 +390,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
               var markerIcon = L.icon({
                 iconUrl: icon,
                 iconSize: [23, 35],
-                iconAnchor: [8, 8],
-                popupAnchor: [0, -8]
+                iconAnchor: [12, 35],
+                popupAnchor: [12, -8]
               });
               var layer = L.marker([lat, lon], {icon: markerIcon});
               layer.feature = feature;
