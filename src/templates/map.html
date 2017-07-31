@@ -7,14 +7,14 @@
     <input type="search" id="search_in_dictionary" placeholder="¿Qué querés reciclar?"
         ng-model="search_str"
         ng-change="onSearchChange()" />
-    <div id="search_magnifying"></div>
+    <div ng-click="focusOnSearch()" id="search_magnifying"></div>
     <div id="menu_line"></div>
   </div>
   <div id="navigation_back" ng-click="nav_back()" class="hidden"></div>
 </div>
 
 <div id="selected_residuo_container" class='selected_residuo hidden'>
-  <div class='residuo_name' id="selected_residuo_name"></div>
+  <div class='residuo_name' id="selected_residuo_name" ng-click="unselect_residuo()"></div>
   <div class='residuo_action' ng-click="unselect_residuo()">Cerrar</div>
   <div class='residuo_condition' id='selected_residuo_condition'></div>
 </div>
@@ -119,7 +119,7 @@
     <div class="program-name">
       {{selected_container.Programa}}
     </div>
-    <div class="container_icon circle" style="background-image: url(./img/icons/{{getIconNameFromContainerPropertyToPinDetails(selected_container.Contenedor)}});">      
+    <div class="container_icon circle" style="background-image: url(./img/icons/{{getIconNameFromContainerPropertyToPinDetails(selected_container.Contenedor)}});">
     </div>
     <!--<div id="roadAddress" class="roadAddress">
     </div>-->

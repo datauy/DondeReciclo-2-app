@@ -240,6 +240,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.onSearchChange = function () {
+      if($scope.selected_residuo){
+        $scope.unselect_residuo();
+      }
       var search = document.getElementById("search_in_dictionary");
       var search_str = search.value.trim();
       if(search_str.length>=3){
@@ -362,9 +365,16 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       })
     }
 
+    $scope.focusOnSearch = function(){
+      var input = angular.element(document.querySelector( "#search_in_dictionary"));
+      setTimeout(function () {
+          input[0].focus();
+      }, 100);
+    }
+
     $scope.loadPinsLayer = function(){
       var spinner = document.getElementById("map-spinner");
-      if($scope.containers==null){
+      //if($scope.containers==null){
         $scope.containers = {};
         spinner.className = "map-spinner";
         ContainerService.getAll().then(function (response) {
@@ -408,10 +418,10 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
           spinner.className = "map-spinner hidden";
           $scope.hideOffScreenPins();
         });
-      }else{
+      /*}else{
         spinner.className = "map-spinner hidden";
         $scope.hideOffScreenPins();
-      }
+      }*/
     }
 
     $scope.addPinsLayer = function() {
@@ -637,7 +647,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.clickTipoResiduo = function(id){
-      $scope.scrollMe(id);
+      //$scope.scrollMe(id);
     }
 
     $scope.openClasificar = function(){
