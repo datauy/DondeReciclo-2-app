@@ -107,16 +107,24 @@
       <div class="logo_bid">
       </div>
     </ion-slide>
+    <ion-slide>
+      <span class="auspiciantes_txt">
+        Apoyan esta
+        iniciativa
+      </span>
+      <div class="logo_imm">
+      </div>
+    </ion-slide>
   </ion-slide-box>
 
-  <div class="close_auspiciantes" ng-click="close_auspiciantes();">
+  <div class="close_auspiciantes" ng-click="close_auspiciantes()">
   </div>
 </div>
 
 <div id="container_details">
   <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
     <div class="program-title">Programa</div>
-    <div class="program-name">
+    <div class="program-name" ng-click="openProgramas()">
       {{selected_container.Programa}}
     </div>
     <div class="container_icon circle" style="background-image: url(./img/icons/{{getIconNameFromContainerPropertyToPinDetails(selected_container.Contenedor)}});">
@@ -136,7 +144,14 @@
     <div class="horario_txt">{{selected_container.Horario}}</div>
     <div class="recibe_img"></div>
     <div class="recibe_label">Recibe</div>
-    <div class="multimaterial">Multimaterial</div>
+    <div style="color: {{getResiduoFontColor(residuo)}}; border-color: {{getResiduoBorderColor(residuo)}}; background-color: {{getResiduoColor(residuo)}};" class="multimaterial" ng-click="openClasificar()" ng-repeat="residuo in selected_container.Recibe track by $index">{{residuo}}</div>
+    <div class="no_recibe_container" ng-if="has_no_recibe()">
+      <div class="no_recibe_img"></div>
+      <div class="no_recibe_label">No recibe</div>
+      <div style="color: {{getResiduoFontColor(residuo)}}; border-color: {{getResiduoBorderColor(residuo)}}; background-color: {{getResiduoColor(residuo)}};" class="multimaterial_no" ng-click="openClasificar()" ng-repeat="residuo in selected_container.No_recibe track by $index">{{residuo}}</div>
+    </div>
+    <div class="heightSeparator">
+    </div>
   </ion-scroll>
 </div>
 

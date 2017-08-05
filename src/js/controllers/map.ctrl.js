@@ -240,15 +240,19 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.onSearchChange = function () {
-      if($scope.selected_residuo){
-        $scope.unselect_residuo();
-      }
-      var search = document.getElementById("search_in_dictionary");
-      var search_str = search.value.trim();
-      if(search_str.length>=3){
-        $scope.searchResiduosByStr(search_str);
+      if($scope.firstTimeSelected==false){
+        if($scope.selected_residuo){
+          $scope.unselect_residuo();
+        }
+        var search = document.getElementById("search_in_dictionary");
+        var search_str = search.value.trim();
+        if(search_str.length>=3){
+          $scope.searchResiduosByStr(search_str);
+        }else{
+          $scope.hideSearchResults();
+        }
       }else{
-        $scope.hideSearchResults();
+        $scope.firstTimeSelected = false;
       }
     }
 
@@ -274,6 +278,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.selected_residuo = null;
+    $scope.firstTimeSelected = false;
 
     $scope.select_residuo = function(residuo){
       $scope.hideSearchResults();
@@ -285,6 +290,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       selectedResiduosContainer.className="selected_residuo";
       //$scope.filterPins(programas_str);
       $scope.hideOffScreenPins();
+      document.getElementById("search_in_dictionary").value = residuo.properties.Nombre;
+      $scope.firstTimeSelected = true;
     }
 
     $scope.unselect_residuo = function(residuo){
@@ -293,6 +300,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       selectedResiduosContainer.className="selected_residuo hidden";
       //$scope.showAllPins();
       $scope.hideOffScreenPins();
+      document.getElementById("search_in_dictionary").value = "";
     }
 
     $scope.filterPins = function(programas_str){
@@ -374,7 +382,6 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
 
     $scope.loadPinsLayer = function(){
       var spinner = document.getElementById("map-spinner");
-      //if($scope.containers==null){
         $scope.containers = {};
         spinner.className = "map-spinner";
         ContainerService.getAll().then(function (response) {
@@ -404,6 +411,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                   if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
                     $scope.selected_container.Horario = "No especifica";
                   }
+                  $scope.selected_container.Recibe = $scope.selected_container.Recibe.split(",");
+                  $scope.selected_container.No_recibe = $scope.selected_container.No_recibe.split(",");
                   $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
                   var containerDetails = document.getElementById("container_details");
                   containerDetails.className = "open";
@@ -412,16 +421,97 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                   var menu = document.getElementById("navigation_menu");
                   menu.className = "hidden";
                   $scope.goToCenter($scope.selected_container.lon,$scope.selected_container.lat);
+                  $ionicScrollDelegate.resize();
               });
             }
           });
           spinner.className = "map-spinner hidden";
           $scope.hideOffScreenPins();
         });
-      /*}else{
-        spinner.className = "map-spinner hidden";
-        $scope.hideOffScreenPins();
-      }*/
+    }
+
+    $scope.getResiduoColor = function(residuo){
+      var colors =
+      {
+        "Botellas plásticas":"#dacb0f",
+        "Latas":"#000000",
+        "Botellas de vidrio":"#ffffff",
+        "Materiales reciclables":"#7ed321",
+        "Aceite comestible usado":"#d52f40",
+        "Mediamentos vencidos":"#d52f40",
+        "Envases de medicamentos":"#7ed321",
+        "Celulares":"#d52f40",
+        "Periféricos":"#d52f40",
+        "Computadoras en funcionamiento":"#d52f40",
+        "Lámparas bajo consumo":"#d52f40",
+        "Pilas":"#d52f40",
+        "Baterías de uso doméstico":"#d52f40",
+        "Papel y cartón":"#4990e2"
+      };
+      if(colors[residuo]){
+        return colors[residuo];
+      }else{
+        return "#ffffff"
+      }
+    }
+
+    $scope.getResiduoBorderColor = function(residuo){
+      var colors =
+      {
+        "Botellas plásticas":"#dacb0f",
+        "Latas":"#000000",
+        "Botellas de vidrio":"#000000",
+        "Materiales reciclables":"#7ed321",
+        "Aceite comestible usado":"#d52f40",
+        "Mediamentos vencidos":"#d52f40",
+        "Envases de medicamentos":"#7ed321",
+        "Celulares":"#d52f40",
+        "Periféricos":"#d52f40",
+        "Computadoras en funcionamiento":"#d52f40",
+        "Lámparas bajo consumo":"#d52f40",
+        "Pilas":"#d52f40",
+        "Baterías de uso doméstico":"#d52f40",
+        "Papel y cartón":"#4990e2"
+      };
+      if(colors[residuo]){
+        return colors[residuo];
+      }else{
+        return "#ffffff"
+      }
+    }
+
+    $scope.getResiduoFontColor = function(residuo){
+      var colors =
+      {
+        "Botellas plásticas":"#ffffff",
+        "Latas":"#ffffff",
+        "Botellas de vidrio":"#000000",
+        "Materiales reciclables":"#ffffff",
+        "Aceite comestible usado":"#ffffff",
+        "Mediamentos vencidos":"#ffffff",
+        "Envases de medicamentos":"#ffffff",
+        "Celulares":"#ffffff",
+        "Periféricos":"#ffffff",
+        "Computadoras en funcionamiento":"#ffffff",
+        "Lámparas bajo consumo":"#ffffff",
+        "Pilas":"#ffffff",
+        "Baterías de uso doméstico":"#ffffff",
+        "Papel y cartón":"#ffffff"
+      };
+      if(colors[residuo]){
+        return colors[residuo];
+      }else{
+        return "#ffffff"
+      }
+    }
+
+    $scope.has_no_recibe = function(){
+        if($scope.selected_container && $scope.selected_container.No_recibe &&
+          $scope.selected_container.No_recibe.length>0 && $scope.selected_container.No_recibe!=""){
+          return true;
+        }else{
+          return false;
+        }
     }
 
     $scope.addPinsLayer = function() {
@@ -633,8 +723,10 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     };
 
     $scope.openProgramas = function(){
-      $scope.main_menu_modal.hide();
-      $scope.main_menu_modal.remove();
+      if($scope.main_menu_modal){
+        $scope.main_menu_modal.hide();
+        $scope.main_menu_modal.remove();
+      }
       $ionicModal.fromTemplateUrl('templates/programas.html', {
         scope: $scope,
         hardwareBackButtonClose: true,
@@ -651,8 +743,10 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.openClasificar = function(){
-      $scope.main_menu_modal.hide();
-      $scope.main_menu_modal.remove();
+      if($scope.main_menu_modal){
+        $scope.main_menu_modal.hide();
+        $scope.main_menu_modal.remove();
+      }
       $ionicModal.fromTemplateUrl('templates/clasificar.html', {
         scope: $scope,
         hardwareBackButtonClose: true,
@@ -854,13 +948,21 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.getDistanceFromRoad = function(){
-      var distanceContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h3')[0];
-      document.getElementById("distance").innerHTML = "Distancia: " + distanceContainer.innerHTML;
+      try {
+        var distanceContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h3')[0];
+        document.getElementById("distance").innerHTML = "Distancia: " + distanceContainer.innerHTML;
+      }
+      catch(err) {
+      }
     }
 
     $scope.getAddressFromRoad = function(){
-      var addressContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h2')[0];
-      document.getElementById("roadAddress").innerHTML = addressContainer.innerHTML;
+      try {
+        var addressContainer = document.getElementsByClassName("leaflet-routing-alt")[0].getElementsByTagName('h2')[0];
+        document.getElementById("roadAddress").innerHTML = addressContainer.innerHTML;
+      }
+      catch(err) {
+      }
     }
 
     // Suggestion

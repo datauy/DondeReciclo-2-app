@@ -11,7 +11,8 @@
       </div>
       <div class="clasificar_txt">
         Proponemos 3 niveles para que clasifiques tus residuos en casa,
-        en función del compromiso que puedas asumir y las soluciones que tenés a tu alcance:
+        en función del compromiso que puedas asumir y las soluciones que tengas a tu alcance.
+        Esta clasificación se basa en la <a style="color: black; text-decoration: underline;" ng-click="gotoLink('http://www.unit.org.uy/normalizacion/norma/100000838/')">norma técnica UNIT de Identificación y Clasificación de Residuos nro. 1239:2017.</a>
       </div>
       <div class="clasif_basic_title">
         Clasificación básica:
@@ -141,6 +142,7 @@
                       ng-class="{active: isGroupShown('reciclables')}">
               <div class="envase_img"></div>
               <div class="envase_name">Materiales reciclables</div>
+              <div class="acordion_action"></div>
             </ion-item>
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('reciclables')">
@@ -217,6 +219,7 @@
                       ng-class="{active: isGroupShown('mezclados')}">
               <div class="envase_img"></div>
               <div class="envase_name">Residuos Mezclados</div>
+              <div class="acordion_action"></div>
             </ion-item>
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('mezclados')">
@@ -282,6 +285,7 @@
                       ng-class="{active: isGroupShown('compostables')}">
               <div class="envase_img"></div>
               <div class="envase_name">Residuos Compostables</div>
+              <div class="acordion_action"></div>
             </ion-item>
             <ion-item class="item-accordion"
                       ng-show="isGroupShown('compostables')">
@@ -305,19 +309,25 @@
                       </div>
 
                       <div class="envase_txt">
-                        Restos de alimentos, residuos vegetales de mantenimiento de jardines
+                        Todos los residuos provenientes de alimentos vegetales y jardinería.
                         <br/></br>
-                        Cuidado: no disponer residuos peligrosos. Ejemplo: insecticidas
-                        <br/><br/>
-                        <a style="color: white;" ng-click="gotoLink('http://www.cempre.org.uy/index.php?option=com_content&view=article&id=80&Itemid=98')">
-                        Más información sobre "Compostaje en casa"
+                        Cuidado: no disponer residuos peligrosos como insecticidas.
+                        <br/></br>
+                        <a style="color: white; text-decoration: underline;" ng-click="gotoLink('http://www.cempre.org.uy/index.php?option=com_content&view=article&id=80&Itemid=98')">
+                          Más información sobre "Compostaje en casa"
                         </a>
                       </div>
 
             </ion-item>
          </div>
-
-    </ion-list>
-
+      </ion-list>
+      <div style="padding-top: 20px;" class="clasificar_title">
+        ¿Querés aprender más?
+      </div>
+      <div class="clasificar_txt">
+        Consultá la <a style="color: black; text-decoration: underline;" ng-click="gotoLink('http://www.cempre.org.uy/index.php?option=com_content&view=article&id=76&Itemid=84')">guía de buenas prácticas de CEMPRE.</a>
+      </div>
+      <div class="heightSeparator">
+      </div>
     </ion-content>
 </ion-modal-view>
