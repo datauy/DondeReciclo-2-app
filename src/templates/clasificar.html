@@ -136,8 +136,9 @@
       </div>
 
       <ion-list>
+        <div class="anchor_hash" id="tipo_reciclable"></div>
          <div class="tipo_envase reciclables">
-            <ion-item id="tipo_reciclable" class="item-stable"
+            <ion-item class="item-stable"
                       ng-click="toggleGroup('reciclables')"
                       ng-class="{active: isGroupShown('reciclables')}">
               <div class="envase_img"></div>
@@ -213,7 +214,8 @@
             </ion-item>
          </div>
 
-         <div id="tipo_mezclado" class="tipo_envase mezclados">
+         <div class="anchor_hash" id="tipo_mezclado"></div>
+         <div  class="tipo_envase mezclados">
             <ion-item class="item-stable"
                       ng-click="toggleGroup('mezclados')"
                       ng-class="{active: isGroupShown('mezclados')}">
@@ -279,7 +281,8 @@
             </ion-item>
          </div>
 
-         <div id="tipo_compostable" class="tipo_envase compostables">
+         <div class="anchor_hash" id="tipo_compostable"></div>
+         <div class="tipo_envase compostables">
             <ion-item class="item-stable"
                       ng-click="toggleGroup('compostables')"
                       ng-class="{active: isGroupShown('compostables')}">
