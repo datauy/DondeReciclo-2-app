@@ -1,5 +1,5 @@
 <ion-modal-view class="contact-modal">
-    <ion-content class="programas-proyect-scroll">
+    <ion-content class="programas-proyect-scroll"  delegate-handle="content">
       <div class="top_menu">
         <div id="navigation_menu">
           <div id="lines_button" ng-click="openMainMenuFromItem()">
@@ -17,6 +17,7 @@
       <ion-list>
           <div class="programa">
             <ion-item class="item-stable"
+                      id="tuenvasesirve"
                       ng-click="toggleGroup('tuenvasesirve')"
                       ng-class="{active: isGroupShown('tuenvasesirve')}">
               <div class="program_name">Tu Envase Sirve</div>
@@ -104,6 +105,7 @@
 
          <div class="programa">
             <ion-item class="item-stable"
+                      id="laenergiasetransforma"
                       ng-click="toggleGroup('laenergiasetransforma')"
                       ng-class="{active: isGroupShown('laenergiasetransforma')}">
               <div class="program_name">La Energía se Transforma</div>
@@ -179,6 +181,7 @@
 
          <div class="programa">
             <ion-item class="item-stable"
+                      id="medicamentos"
                       ng-click="toggleGroup('medicamentos')"
                       ng-class="{active: isGroupShown('medicamentos')}">
               <div class="program_name">Plan de Eliminación Segura de Envases de Medicamentos</div>
@@ -235,6 +238,7 @@
 
          <div class="programa">
             <ion-item class="item-stable"
+                      id="computadorasycelulares"
                       ng-click="toggleGroup('computadorasycelulares')"
                       ng-class="{active: isGroupShown('computadorasycelulares')}">
               <div class="program_name">Computadoras y Celulares</div>
@@ -335,6 +339,7 @@
 
          <div class="programa">
             <ion-item class="item-stable"
+                      id="juntalamparas"
                       ng-click="toggleGroup('juntalamparas')"
                       ng-class="{active: isGroupShown('juntalamparas')}">
               <div class="program_name">Juntalámparas</div>
@@ -410,6 +415,7 @@
 
          <div class="programa">
            <ion-item class="item-stable"
+                     id="podasyescombros_im"
                      ng-click="toggleGroup('podasyescombros_im')"
                      ng-class="{active: isGroupShown('podasyescombros_im')}">
              <div class="program_name">Residuos Voluminosos, podas y escombros</div>

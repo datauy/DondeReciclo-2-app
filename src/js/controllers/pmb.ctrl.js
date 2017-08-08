@@ -92,10 +92,10 @@ function($scope,
   };
 
   $scope.searchLocation = function(query) {
-    console.log("Se ejecuto: " + query);
+    //console.log("Se ejecuto: " + query);
     var promiseSearch;
     if (query && query.length>=2) {
-      console.log("Y entró: " + query);
+      //console.log("Y entró: " + query);
 
 
       if ($scope.searchMode == "calle.lugar") {

@@ -505,6 +505,27 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       }
     }
 
+    $scope.clickOnProgramaFromPinDetails = function(){
+      //clickTipoResiduo('tipo_reciclable','reciclables')
+      var acordionId =
+      {
+        "Tu Envase Sirve / PGE":"tuenvasesirve",
+        "La Energía se Transforma":"laenergiasetransforma",
+        "Ecofarma":"medicamentos",
+        "Antel Integra":"computadorasycelulares",
+        "Juntalámparas":"juntalamparas",
+        "Mi Barrio Clasifica":"general",
+        "Reciclo NFU":"general",
+        "Podas y escombros":"podasyescombros_im",
+      };
+      var programaName = $scope.selected_container.Programa;
+      if(acordionId[programaName] && acordionId[programaName]!="general"){
+        $scope.openProgramasAndScroll(acordionId[programaName]);
+      }else{
+        $scope.openProgramas();
+      }
+    }
+
     $scope.has_no_recibe = function(){
         if($scope.selected_container && $scope.selected_container.No_recibe &&
           $scope.selected_container.No_recibe.length>0 && $scope.selected_container.No_recibe!=""){
@@ -738,8 +759,45 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       });
     }
 
-    $scope.clickTipoResiduo = function(id){
-      //$scope.scrollMe(id);
+    $scope.$on('modal.shown', function() {
+      if($scope.item_modal.id){
+        var id = $scope.item_modal.id;
+        var id_array = id.split("-");
+        if(id_array[1]){
+          //setTimeout(function () {
+            $scope.acordionOpenAndScrollTo(id_array[1],id_array[1]);
+          //}, 100);
+        }
+      }
+
+
+    });
+
+    $scope.openProgramasAndScroll = function(id){
+      if($scope.main_menu_modal){
+        $scope.main_menu_modal.hide();
+        $scope.main_menu_modal.remove();
+      }
+      $ionicModal.fromTemplateUrl('templates/programas.html', {
+        scope: $scope,
+        hardwareBackButtonClose: true,
+        animation: 'none',
+        id: "ProgramsModal-"+id,
+        //focusFirstInput: true
+      }).then(function(modal) {
+          $scope.item_modal = modal;
+          $scope.item_modal.show();
+
+      });
+    }
+
+    $scope.clickTipoResiduo = function(id,group){
+      $scope.acordionOpenAndScrollTo(id,group);
+    }
+
+    $scope.acordionOpenAndScrollTo = function(id,group){
+      $scope.toggleGroup(group);
+      $scope.scrollMe(id);
     }
 
     $scope.openClasificar = function(){

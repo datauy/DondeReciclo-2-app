@@ -14,8 +14,8 @@
 
 .item-stable.item.active .acordion_action{
 	background-image:    url(./img/colapse.svg);
-	width: 25px;
-	height: 23px;
+	width: 21px;
+  height: 19px;
 }
 
 .programa .item-stable.item .acordion_action{
@@ -26,8 +26,8 @@
 
 .programa .item-stable.item.active .acordion_action{
 	background-image:    url(./img/colapse2.svg);
-	width: 25px;
-	height: 23px;
+	width: 21px;
+  height: 19px;
 }
 
 .acordion_action{
@@ -1646,19 +1646,20 @@ color: white !important;
 }
 
 .cobertura_title{
-  width: 63px;
-  height: 16px;
+  /*width: 63px;*/
+  /*height: 16px;*/
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
-  text-align: center;
+  text-align: left;
   color: #000000;
   font-weight: bold;
+	line-height: normal;
 }
 
 .cobertura_deptos{
   width: 100%;
-  margin-top: 15px;
+  margin-top: 0px;
 }
 
 .depto{
@@ -1767,15 +1768,15 @@ color: white !important;
 }
 
 .condiciones_title{
-  height: 16px;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
   text-align: left;
   color: #000000;
   margin-top: 17px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   font-weight: bold;
+	line-height: normal;
 }
 
 .condiciones_txt{
