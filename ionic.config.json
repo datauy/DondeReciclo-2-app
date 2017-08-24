@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/im",
-      "proxyUrl": "http://desa.imm.gub.uy:8080"
+      "proxyUrl": "http://www.montevideo.gub.uy/"
     },
     {
       "path": "/data",
