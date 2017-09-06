@@ -147,6 +147,30 @@
   top: 16.9px;
 }
 
+.logo_mvotma{
+	width: 89px;
+  height: 39px;
+  background-image:    url(./img/mvotma.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 17.81%;
+  top: 9px;
+}
+
+.logo_ciu{
+	width: 71px;
+  height: 39px;
+  background-image:    url(./img/ciu.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 21.87%;
+  top: 7px;
+}
+
 .logo_salus{
   width: 60px;
   height: 40px;

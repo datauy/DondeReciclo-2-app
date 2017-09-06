@@ -147,7 +147,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         defaults: {
           tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           //tileLayer: 'http://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png',
-          minZoom: 12,
+          minZoom: 6,
           maxZoom: 18,
           zoomControlPosition: 'topleft',
         },
