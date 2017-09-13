@@ -446,7 +446,17 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         "Lámparas bajo consumo":"#d52f40",
         "Pilas":"#d52f40",
         "Baterías de uso doméstico":"#d52f40",
-        "Papel y cartón":"#4990e2"
+        "Papel y cartón":"#4990e2",
+        "CPU":"#d52f40",
+        "Torres o notebook P4 (similar) o superior":"#d52f40",
+        "Monitores LCD o LED":"#d52f40",
+        "Periféricos (ratones/teclados/parlantes)":"#d52f40",
+        "Partes (discos duros/tarjetas de video/tarjetas de sonido)":"#d52f40",
+        "Baterías":"#d52f40",
+        "Impresoras":"#d52f40",
+        "Monitores CRT":"#d52f40",
+        "Escanner":"#d52f40",
+        "UPS":"#d52f40"
       };
       if(colors[residuo]){
         return colors[residuo];
@@ -471,7 +481,17 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         "Lámparas bajo consumo":"#d52f40",
         "Pilas":"#d52f40",
         "Baterías de uso doméstico":"#d52f40",
-        "Papel y cartón":"#4990e2"
+        "Papel y cartón":"#4990e2",
+        "CPU":"#d52f40",
+        "Torres o notebook P4 (similar) o superior":"#d52f40",
+        "Monitores LCD o LED":"#d52f40",
+        "Periféricos (ratones/teclados/parlantes)":"#d52f40",
+        "Partes (discos duros/tarjetas de video/tarjetas de sonido)":"#d52f40",
+        "Baterías":"#d52f40",
+        "Impresoras":"#d52f40",
+        "Monitores CRT":"#d52f40",
+        "Escanner":"#d52f40",
+        "UPS":"#d52f40"
       };
       if(colors[residuo]){
         return colors[residuo];
@@ -496,7 +516,17 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
         "Lámparas bajo consumo":"#ffffff",
         "Pilas":"#ffffff",
         "Baterías de uso doméstico":"#ffffff",
-        "Papel y cartón":"#ffffff"
+        "Papel y cartón":"#ffffff",
+        "CPU":"#ffffff",
+        "Torres o notebook P4 (similar) o superior":"#ffffff",
+        "Monitores LCD o LED":"#ffffff",
+        "Periféricos (ratones/teclados/parlantes)":"#ffffff",
+        "Partes (discos duros/tarjetas de video/tarjetas de sonido)":"#ffffff",
+        "Baterías":"#ffffff",
+        "Impresoras":"#ffffff",
+        "Monitores CRT":"#ffffff",
+        "Escanner":"#ffffff",
+        "UPS":"#ffffff"
       };
       if(colors[residuo]){
         return colors[residuo];

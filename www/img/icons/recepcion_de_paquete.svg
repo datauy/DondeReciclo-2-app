@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="30px" viewBox="0 0 41 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <pattern id="pattern-1" width="4.8" height="4.8" x="0.0235294118" y="13.2" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-2" transform="scale(0.1,0.1)"></use>
+        </pattern>
+        <image id="image-2" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAV9JREFUaAXt2O0NgjAQBmBrt4DoDiawEHEQB1F3MK7BHKxR+2oKQfnseXCX0B/SEr3zucZIz+R57nZ+OOfuZVmeMcWaOEyWZVdjTBHicMW3aZpekMQnOyVJcqiq6hmSUq6Ig3iIyxnf+iRH7iSc8e1SleJCWGyvZsQboBlRA7QiWgCNiB+ANkQnQBOiF6AFMQjQgBgFSEdMAkhGTAZIRcwCSETMBkhDRAEkIaIBUhAkgAQEGbA2AgCDL0Edax2KrO8e3JCcCsDn10CgK/HQ2I0IZ+w9KucXBfo4mGJNHA79JfSBQhzO+FtfKFS567rEb2LrC3VV/vse507Uf2ScSQDiil8DOJOEHeFAtAAaET8AbYhOgCZEL0ALYhCgATEKkI6YBJCMmAyQipgFkIiYDZCGiAJIQkQDpCBIAAkIMmBtBAD/OMizPe+jQBh9j+JbX+hTn+a1r1K437wrfvYd/wV+UgblD/bGFgAAAABJRU5ErkJggg=="></image>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Iconos" transform="translate(-660.000000, -97.000000)">
+            <g id="Group" transform="translate(660.000000, 97.000000)">
+                <polygon id="Path-16" fill="#A67D36" points="0.0612362132 9.17050781 15.1777487 0.147070312 40.486553 0.147070312 29.0595272 9.17050781"></polygon>
+                <polygon id="Path-18" fill="#775B2A" points="28.9564855 29.4386719 40.2845962 19.5020736 40.2845962 0.3140625 28.9564855 9.10813474"></polygon>
+                <polygon id="Path-19" points="15.3016932 0.0817382813 15.3016932 9.13027 0.475463867 9.13027"></polygon>
+                <polygon id="Path-20" fill="#D49D3F" points="8.32930262 4.39335938 35.3168084 4.39335938 31.960004 6.82265625 4.48849667 6.82265625"></polygon>
+                <path d="" id="Path-21" stroke="#979797" stroke-width="1.20000005"></path>
+                <polygon id="Path-22" fill="#8F6721" points="29.0065344 29.4243164 28.6756233 29.4243164 0.237142749 29.4243164 0.237142749 9.14383885 29.0065344 9.14383885"></polygon>
+                <polygon id="Path" fill="url(#pattern-1)" points="26.5294118 21.5694656 26.5294118 18 4.82352941 18 4.82352941 21.6"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
