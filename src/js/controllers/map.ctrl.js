@@ -900,7 +900,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.openContact = function(){
-      $scope.subject = "Feedback";
+      $scope.subject = "Cempre";
       if($scope.item_modal!=null){
         $scope.item_modal.hide();
         $scope.item_modal.remove();
