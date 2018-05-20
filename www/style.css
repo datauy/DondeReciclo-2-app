@@ -171,6 +171,8 @@
   top: 7px;
 }
 
+
+
 .logo_salus{
   width: 60px;
   height: 40px;
@@ -1629,25 +1631,13 @@ color: white !important;
 }
 
 .programa_img{
-  background-size:     cover;
-  background-repeat:   no-repeat;
-  background-position: center center;
-}
-
-#antel_img{
-  width: 48px;
-  height: 21px;
-  background-image:    url(./img/antel.svg);
-  float:right;
+	float:right;
   margin-top: -15px;
 }
 
-#ute_img{
-  width: 57px;
-  height: 21px;
-  background-image:    url(./img/ute.svg);
-  float:right;
-  margin-top: -15px;
+.programa_img img{
+	height: 21px;
+	width: auto;
 }
 
 .programa{
@@ -2982,4 +2972,51 @@ body {
   color: #FFFFFF;
   font-size: 16pt;
   font-weight: bolder;
+}
+
+.container_patrocinador{
+	width: 100%;
+	height: 100%;
+}
+
+.div_patrocinador{
+	margin: 0 auto 0 auto;
+}
+
+.logo_generico{
+	position: absolute;
+	top: 10px;
+	left: 45%;
+	width: 55%;
+	height: 35px;
+}
+
+.apoyan_container{
+	position: absolute;
+	top: 0;
+	left: 0%;
+	width: 45%;
+	height: 100%;
+}
+
+.auspiciantes_txt{
+  width: 87px;
+  height: 30px;
+  font-family: Roboto;
+  font-size: 13px;
+  line-height: 1.15;
+  letter-spacing: 1.1px;
+  text-align: left;
+  color: #434343;
+	float: right;
+}
+
+.logo_generico img {
+    width: auto;
+    height: 35px;
+		margin: 0 auto;0 auto;
+		position: absolute;
+		top: 0;
+		left: 50%;
+	  transform: translateX(-50%);
 }
