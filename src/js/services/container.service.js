@@ -1,6 +1,6 @@
 pmb_im.services.factory('ContainerService', ['$http', 'leafletData','ConfigService', function($http, leafletData, ConfigService) {
 
-  var baseURL = ConfigService.baseURL + "/datauy/get_containers_json/" + "all";
+  var baseURL = ConfigService.baseURL + "/sites/default/files/json/containers.json";
 
 
   /**

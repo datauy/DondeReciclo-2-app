@@ -12,6 +12,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
   'PMBService',
   'LocationsService',
   'ContainerService',
+  'PatrocinadorService',
+  'ProgramaService',
   'MapService',
   'FaqService',
   'CategoriesService',
@@ -48,6 +50,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     PMBService,
     LocationsService,
     ContainerService,
+    PatrocinadorService,
+    ProgramaService,
     MapService,
     FaqService,
     CategoriesService,
@@ -93,6 +97,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.search_str = "";
     $scope.residuosArray = [];
     $scope.select_residuo = null;
+    $scope.programas = null;
+    $scope.patrocinadores = null;
 
     $scope.actualSliderIndex=0;
 
@@ -101,7 +107,42 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       $scope.set_network_events();
       $scope.find_me(16);
       $scope.walkthrough();
+      if($scope.programas==null){
+        $scope.getProgramas();
+      }
+      if($scope.patrocinadores==null){
+        $scope.getPatrocinadores();
+      }
     });
+
+    $scope.getPatrocinadores = function(){
+      PatrocinadorService.getAll().then(function (response) {
+        var patrocinadoresArray = response.data;
+        $scope.patrocinadores = patrocinadoresArray;
+      });
+    };
+
+    $scope.getProgramas = function(){
+      ProgramaService.getAll().then(function (response) {
+        var programasArray = response.data;
+        $scope.programas = programasArray;
+      });
+    };
+
+    $scope.getProgramaImpulsanStr = function(impulsanArray){
+      var str = "";
+      impulsanArray.forEach(function(auspiciante){
+        str = str+ " " +auspiciante.value + ",";
+      })
+      str = str.replace(/(^,)|(,$)/g, "");
+      return str;
+    };
+
+    $scope.getDrupalURL = function(url){
+      var publicURL = ConfigService.baseURL + ConfigService.publicURL;
+      url = url.replace("public://",publicURL);
+      return url;
+    };
 
 
     $ionicPlatform.onHardwareBackButton(function() {
@@ -411,8 +452,8 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
                   if($scope.selected_container.Horario==null||$scope.selected_container.Horario==undefined||$scope.selected_container.Horario==""){
                     $scope.selected_container.Horario = "No especifica";
                   }
-                  $scope.selected_container.Recibe = $scope.selected_container.Recibe.split(",");
-                  $scope.selected_container.No_recibe = $scope.selected_container.No_recibe.split(",");
+                  $scope.selected_container.Recibe = $scope.selected_container.Recibe;
+                  $scope.selected_container.No_recibe = $scope.selected_container.No_recibe;
                   $scope.selected_container.setLatLng(e.target.feature.geometry.coordinates[1],e.target.feature.geometry.coordinates[0]);
                   var containerDetails = document.getElementById("container_details");
                   containerDetails.className = "open";
@@ -496,7 +537,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       if(colors[residuo]){
         return colors[residuo];
       }else{
-        return "#ffffff"
+        return "#000000"
       }
     }
 
@@ -531,28 +572,31 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       if(colors[residuo]){
         return colors[residuo];
       }else{
-        return "#ffffff"
+        return "#000000"
       }
+    }
+
+    $scope.getToggleGroupNamefromProgramName = function(programName){
+      var str = programName.replace(/\s/g,'');
+      str = str.toLowerCase();
+      str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+      return str;
     }
 
     $scope.clickOnProgramaFromPinDetails = function(){
       //clickTipoResiduo('tipo_reciclable','reciclables')
-      var acordionId =
+      var acordionExceptionsId =
       {
-        "Tu Envase Sirve / PGE":"tuenvasesirve",
-        "La Energía se Transforma":"laenergiasetransforma",
-        "Ecofarma":"medicamentos",
-        "Antel Integra":"computadorasycelulares",
-        "Juntalámparas":"juntalamparas",
-        "Mi Barrio Clasifica":"general",
+        //"Mi Barrio Clasifica":"general",
         "Reciclo NFU":"general",
-        "Podas y escombros":"podasyescombros_im",
+        //"Podas y escombros":"podasyescombros_im",
       };
       var programaName = $scope.selected_container.Programa;
-      if(acordionId[programaName] && acordionId[programaName]!="general"){
-        $scope.openProgramasAndScroll(acordionId[programaName]);
-      }else{
+      if(acordionExceptionsId[programaName] && acordionExceptionsId[programaName]=="general"){
         $scope.openProgramas();
+      }else{
+        var toggleName = $scope.getToggleGroupNamefromProgramName(programaName);
+        $scope.openProgramasAndScroll(toggleName);
       }
     }
 

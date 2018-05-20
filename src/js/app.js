@@ -17,7 +17,7 @@ pmb_im.app = angular.module('pmb_im', ['ionic','ionic.wizard','ion-autocomplete'
 })
 
 .constant('ApiDataEndpoint', {
-  url: 'http://dondereciclo.datauy.org'
+  url: 'http://dr_v2_backend.development.datauy.org'
 })
 
 

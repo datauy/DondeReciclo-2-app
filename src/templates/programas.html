@@ -15,465 +15,60 @@
       </div>
 
       <ion-list>
-          <div class="programa">
+          <div class="programa" ng-repeat="programa in programas track by $index">
             <ion-item class="item-stable"
                       id="tuenvasesirve"
-                      ng-click="toggleGroup('tuenvasesirve')"
-                      ng-class="{active: isGroupShown('tuenvasesirve')}">
-              <div class="program_name">Tu Envase Sirve</div>
-              <div class="programa_short_txt">Plan de Gestión de Envases</div>
+                      ng-click="toggleGroup('{{getToggleGroupNamefromProgramName(programa.nombre)}}')"
+                      ng-class="{active: isGroupShown('{{getToggleGroupNamefromProgramName(programa.nombre)}}')}">
+              <div class="program_name">{{programa.nombre}}</div>
+              <div class="programa_short_txt">{{programa.nombre_corto}}</div>
+              <div ng-if="programa.logo!=null" class="programa_img"><img src="{{getDrupalURL(programa.logo.uri)}}"/></div>
               <div class="acordion_action"></div>
             </ion-item>
             <ion-item class="item-accordion"
-                      ng-show="isGroupShown('tuenvasesirve')">
+                      ng-show="isGroupShown('{{getToggleGroupNamefromProgramName(programa.nombre)}}')">
                       <div class="cobertura_title">Cobertura</div>
                       <div class="cobertura_deptos">
-                        <div class="depto">
-                          Canelones
-                        </div>
-                        <div class="depto">
-                          Flores
-                        </div>
-                        <div class="depto">
-                          Maldonado
-                        </div>
-                        <br/>
-                        <div class="depto">
-                          Montevideo
-                        </div>
-                        <div class="depto">
-                          Rivera
-                        </div>
-                        <div class="depto">
-                          Rocha
+                        <div class="depto" ng-repeat="depto in programa.cobertura">
+                          {{depto.value}}
                         </div>
                       </div>
                       <div class="impulsan_title">Impulsan</div>
                       <div class="impulsan_txt">
-                        Cámara de Industrias, Intendencias,<br/>
-                        MIDES, MVOTMA
+                        {{getProgramaImpulsanStr(programa.impulsan)}}
                       </div>
                       <div class="recibe">
                         <div class="recibe_logo"></div>
                         <div class="recibe_title">Recibe</div>
                       </div>
                       <div class="recibe_txt">
-                        En los contenedores de "Tu envase sirve" podés depositar
-                        materiales reciclables (envases de plástico, vidrio, cartón, nylon, aluminio, etc).
+                        {{programa.recibe}}
                       </div>
                       <div class="norecibe">
                         <div class="norecibe_logo"></div>
                         <div class="norecibe_title">Que no recibe</div>
                       </div>
                       <div class="norecibe_txt">
-                        Residuos orgánicos, residuos no reciclables.
+                        {{programa.no_recibe}}
                       </div>
                       <div class="condiciones_title">Condiciones de recepción:</div>
                       <div class="condiciones_txt">
-                        Podrás depositar todos los envases que en tu vida cotidiana generás como parte del consumo.
-                        NO importa el material si es plástico, cartón, papel o metal y tampoco importa si el envase es rígido
-                        (ej: envase de bebida) o flexible (bolsa de galletitas).
-                        Podrás también depositar en los contenedores periódicos, papeles, cartón, objetos de vidrio, plástico o
-                        metal que no sean envases y que quieras descartar siempre y cuando no sean voluminosos.
-                        <br/><br/>
-                        Todos los envases que contengan líquido deben ir escurridos y secos.
+                        {{programa.condiciones_de_recepcion}}
                       </div>
                       <div class="condiciones_title">Más información:</div>
-                      <div class="condiciones_txt"><span ng-click="gotoLink('http://www.tuenvasesirve.uy')">http://www.tuenvasesirve.uy</span></div>
+                      <div class="condiciones_txt"><span ng-click="gotoLink('{{programa.mas_informacion.url}}')">{{programa.mas_informacion.title}}</span></div>
                       <div class="condiciones_title">Contacto</div>
-                      <div class="condiciones_txt">1950 3000 opción 3</div>
+                      <div class="condiciones_txt">{{programa.contacto}}</div>
                       <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
                       <div class="condiciones_txt">
-                        Los envases llegan mezclados a las plantas de clasificación construidas por el plan o por las intendencias
-                        y allí se los separa por tipo de material. Por ejemplo si son de plástico, vidrio, metal, cartón o
-                        papel irán a distintos destinos. La mayoría de materiales clasificados son comercializados en la
-                        industria nacional que fabrica diversos productos a partir del material reciclado, permitiendo así
-                        sustituir materia prima virgen por la generada a partir de residuos.
+                          {{programa.ciclo_vida_residuos}}
                       </div>
                       <div class="condiciones_title">Beneficios sociales y ambientales</div>
                       <div class="condiciones_txt">
-                        Los materiales reciclables captados por el Plan de Gestión de envases son trasladados a plantas
-                        de clasificación de materiales donde trabajan más de 200 ex clasificadores urbanos, en condiciones
-                        de trabajo dignas, en los 6 departamentos donde se aplica.
-                        <br/><br/>
-                        El reciclaje de residuos es actualmente un imperativo impostergable. Los costos ambientales y sociales
-                        de la gestión tradicional de residuos consistente en su enterramiento son varias veces mayores que los
-                        sistemas eficientes de recuperación y reciclaje de materiales.
+                          {{programa.beneficios_sociales_ambientales}}
                       </div>
             </ion-item>
           </div>
-
-         <div class="programa">
-            <ion-item class="item-stable"
-                      id="laenergiasetransforma"
-                      ng-click="toggleGroup('laenergiasetransforma')"
-                      ng-class="{active: isGroupShown('laenergiasetransforma')}">
-              <div class="program_name">La Energía se Transforma</div>
-              <div class="programa_short_txt">Plan Reciclaje de Aceite</div>
-              <div class="acordion_action"></div>
-            </ion-item>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown('laenergiasetransforma')">
-                      <div class="cobertura_title">Cobertura</div>
-                      <div class="cobertura_deptos">
-                        <div class="depto">
-                          Canelones
-                        </div>
-                        <div class="depto">
-                          Maldonado
-                        </div>
-                        <div class="depto">
-                          Montevideo
-                        </div>
-                      </div>
-                      <div class="impulsan_title">Impulsan</div>
-                      <div class="impulsan_txt">
-                        ALUR, COUSA, Intendencias
-                      </div>
-                      <div class="recibe">
-                        <div class="recibe_logo"></div>
-                        <div class="recibe_title">Recibe</div>
-                      </div>
-                      <div class="recibe_txt">
-                        Aceite vegetal usado
-                      </div>
-                      <div class="norecibe">
-                      <div class="norecibe_logo"></div>
-                      <div class="norecibe_title">Que no recibe</div>
-                      </div>
-                      <div class="norecibe_txt">
-                        CUIDADO!! NO recibe aceite mineral usado!
-                      </div>
-                      <div class="condiciones_title">Condiciones de recepción:</div>
-                      <div class="condiciones_txt">
-                        Maquinas de recepción especial. Se debe depositar el aceite en recipientes especiales que se deben
-                        pedir previamente en los puntos de entrega la primera vez que se utilizan.                       </div>
-                      <div class="condiciones_txt">
-                        ALUR y COUSA en conjunto con las Intendencias de Montevideo, Canelones y Maldonado instalaron 22
-                        contenedores inteligentes (ubicaciones de los mismos en la app).
-                      </div>
-                      <div class="condiciones_txt">
-                        Mediante el Proyecto “LA ENERGÍA SE TRANSFORMA” se puede reciclar aceite de fritura y transformarlo
-                        en biodiesel. Así evitamos verterlo en el desagüe y preservamos un recurso tan vital como el agua.
-                        Además estamos cuidando el aire, reduciendo en más de un 80% las emisiones de gases de efecto
-                        invernadero en comparación con el gasoil derivado del petróleo.
-                      </div>
-                      <div class="condiciones_title">Más información:</div>
-                      <div class="condiciones_txt"><span ng-click="gotoLink('http://www.alur.com.uy/la-energia-se-transforma/')">http://www.alur.com.uy/la-energia-se-transforma/</span></div>
-                      <div class="condiciones_title">Contacto</div>
-                      <div class="condiciones_txt">la.energia.se.transforma@alur.com.uy</div>
-                      <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
-                      <div class="condiciones_txt">
-                        El contenedor que recibe el aceite informa sobre su nivel de llenado, optimizando la
-                        logística de recolección. Alur lo transporta y lleva a sus plantas ubicadas en Montevideo
-                        donde transforma el aceite usado en biodiesel, que se mezcla con gasoil, y es distribuido en
-                        todo el país como fuente de energía.
-                      </div>
-                      <div class="condiciones_title">Beneficios sociales y ambientales</div>
-                      <div class="condiciones_txt">
-                        Este plan nos ayuda a cuidar el agua y el aire aportando energía valiosa para las comunidades.
-                        <br/><br/>
-                        Entre 2014 y 2017 se recolectaron y reciclaron 1.000.000 de litros de aceite que evitaron la
-                        contaminación de 1.000 millones de litros de agua si hubiesen sido dispuestos al saneamiento público.
-                      </div>
-            </ion-item>
-         </div>
-
-         <div class="programa">
-            <ion-item class="item-stable"
-                      id="medicamentos"
-                      ng-click="toggleGroup('medicamentos')"
-                      ng-class="{active: isGroupShown('medicamentos')}">
-              <div class="program_name">Plan de Eliminación Segura de Envases de Medicamentos</div>
-              <div class="programa_short_txt">Ecofarma</div>
-              <div style="top: 42px;" class="acordion_action"></div>
-            </ion-item>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown('medicamentos')">
-                      <div class="cobertura_title">Cobertura</div>
-                    <div class="cobertura_deptos">
-                      <div class="depto">
-                        Montevideo
-                      </div>
-                      <div class="depto">
-                        Juan Lacaze
-                      </div>
-                    </div>
-                    <div class="impulsan_title">Impulsan</div>
-                    <div class="impulsan_txt">
-                      Farmared - Logired
-                    </div>
-                    <div class="recibe">
-                      <div class="recibe_logo"></div>
-                      <div class="recibe_title">Recibe</div>
-                    </div>
-                    <div class="recibe_txt">
-                      Envases de medicamentos y medicamentos vencidos o fuera de uso.
-                    </div>
-                    <div class="condiciones_title">Condiciones de recepción:</div>
-                    <div class="condiciones_txt">
-                      Medicamentos vencidos o en desuso, tanto líquidos como sólidos, en sus recipientes o blisters
-                      idealmente. Sin bolsa y con las cajas aplastadas.
-                    </div>
-                    <div class="condiciones_title">Más información:</div>
-                    <div class="condiciones_txt"><span ng-click="gotoLink('http://www.plesem.com.uy/pagina.php?id=Farmacias')">http://www.plesem.com.uy/pagina.php?id=Farmacias</span></div>
-                    <div class="condiciones_title">Contacto</div>
-                    <div class="condiciones_txt">info@farmared.com.uy</div>
-                    <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
-                    <div class="condiciones_txt">
-                      Las cajas de cartón son enviadas a empresas de reciclaje de materiales celulósicos.
-                    </div>
-                    <div class="condiciones_title">Beneficios sociales y ambientales</div>
-                    <div class="condiciones_txt">
-                      Los medicamentos son un residuos particular que no debe ser incluído en un curso de agua por
-                      su potencial contaminante, o sea no se deben eliminar por las cloacas. Así también los envases o
-                      restos de medicamento no usados, que son descartados sin cuidado, pueden reutilizarse
-                      sin prevenciones dando lugar a diversos problemas de salud.
-                      <br/><br/>
-                      ECOFARMA/PLESEM es el plan de eliminación segura de residuos de envases de medicamentos, brindando
-                      soluciones ambientalmente adecuadas a los residuos derivados del post-consumo de medicamentos.
-                    </div>
-            </ion-item>
-         </div>
-
-         <div class="programa">
-            <ion-item class="item-stable"
-                      id="computadorasycelulares"
-                      ng-click="toggleGroup('computadorasycelulares')"
-                      ng-class="{active: isGroupShown('computadorasycelulares')}">
-              <div class="program_name">Computadoras</div>
-              <div class="programa_short_txt">Antel Integra</div>
-              <div class="programa_img" id="antel_img"></div>
-              <div class="acordion_action"></div>
-            </ion-item>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown('computadorasycelulares')">
-                      <div class="cobertura_title">Cobertura</div>
-                      <div style="margin-top: 15px;" class="condiciones_txt">
-                        Todo el país
-                      </div>
-                      <div class="impulsan_title">Impulsan</div>
-                      <div class="impulsan_txt">
-                        ANTEL
-                      </div>
-                      <div class="recibe">
-                      <div class="recibe_logo"></div>
-                      <div class="recibe_title">Recibe</div>
-                      </div>
-                      <div class="recibe_txt">
-                        Equipos informáticos en desuso (CPU/torres P4, monitores LCD o LED, periféricos: ratones, teclados,
-                        parlantes y otras partes: discos duros, tarjetas de video, tarjetas de sonido), que sean donados por
-                        empresas y particulares interesados en sumarse al proyecto.
-                      </div>
-                      <div class="norecibe">
-                      <div class="norecibe_logo"></div>
-                      <div class="norecibe_title">Que no recibe</div>
-                      </div>
-                      <div class="norecibe_txt">
-                        No recibe computadoras o periféricos dañados o más antiguos de lo explicitado,
-                        ni celulares, baterías, impresoras, monitores CRT, scanners y UPS.
-                      </div>
-                      <div class="condiciones_title">Condiciones de recepción:</div>
-                      <div class="condiciones_txt">
-                        Las donaciones de computadoras  serán recibidas en el  Centro de Reciclaje ubicado en la calle
-                        Av.Uruguay 1177 Piso 2 entre Cuareim y Av.Rondeau de lunes a viernes en el horario de 9:00 a
-                        17:00. También en todos los centros de recepción de paquetes del Correo Uruguayo, que hace en
-                        envío a Antel sin costo. Si la donación supera los 10 equipos, se retiran a domicilio, previa
-                        coordinación de día y hora.
-                      </div>
-                      <div class="condiciones_title">Más información:</div>
-                      <div class="condiciones_txt"><span ng-click="gotoLink('http://www.antel.com.uy/institucional/antel-integra/proyectos-principales/proyecto-antel-integra')">http://www.antel.com.uy/institucional/antel-integra/proyectos-principales/proyecto-antel-integra</span></div>
-                      <div class="condiciones_title">Contacto</div>
-                      <div class="condiciones_txt">Tel: 0800 2824, *2824 o en antelintegra@antel.com.uy</div>
-                      <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
-                      <div class="condiciones_txt">
-                        Antel cuenta con un Centro de Reciclado encargado de clasificar, desarmar, limpiar y
-                        reciclar los equipos recibidos para ser donados. En este Centro se arman computadoras
-                        completas que cuenten con los requerimientos mínimos de hardware y con una imagen liviana
-                        de software libre que permita tanto navegar por internet, consultar, enviar y recibir
-                        correos electrónicos;utilizar paquetes de ofimática y visualizar archivos multimedia.
-                        <br/><br/>
-                        Las tareas de restauración son realizadas conjuntamente por personal técnico de Antel y
-                        becarios de CETP-UTU.
-                        <br/><br/>
-                        Los residuos electrónicos recolectados  se acopiarán de forma
-                        transitoria en un contenedor sobre piso de hormigón de manera que no se produzcan impactos
-                        ambientales ubicado en el predio del Cerrito de la Gerencia de Almacenamiento y Distribución.
-                        Dicha Gerencia se encuentra certificada bajo la Norma UNIT-ISO 14001 – Sistema de Gestión
-                        Ambiental y le buscará un destino final ambientalmente responsable.
-                      </div>
-                      <div class="condiciones_title">Beneficios sociales y ambientales</div>
-                      <div class="condiciones_txt">
-                        El proyecto nace con el fin de colaborar  principalmente con los hogares de menor poder
-                        adquisitivo identificados por las entidades de Gobierno (MIDES, BPS, IMs, MVOTMA, etc),
-                        proporcionándoles un PC reciclado, con software libre y acceso a Internet.
-                        <br/><br/>
-                        A través de este proyecto Antel busca: Contribuir en la universalización del acceso a Internet, sumando hogares
-                        de todo el país, mejorar las condiciones de los uruguayos y de su forma de vida, mediante la
-                        incorporación de oportunidades y conocimiento, a través de la tecnología, contribuir con la
-                        disminución de la contaminación producida por los desechos informáticos, fomentar la utilización
-                        de software libre en la sociedad uruguaya y generar oportunidades de trabajo e investigación
-                        tecnológica mediante la participación de estudiantes de UTU y de otras instituciones educativas
-                        que se integren al proyecto.
-                      </div>
-            </ion-item>
-         </div>
-
-         <div class="programa">
-            <ion-item class="item-stable"
-                      id="juntalamparas"
-                      ng-click="toggleGroup('juntalamparas')"
-                      ng-class="{active: isGroupShown('juntalamparas')}">
-              <div class="program_name">Juntalámparas</div>
-              <div class="programa_short_txt">UTE</div>
-              <div class="programa_img" id="ute_img"></div>
-              <div class="acordion_action"></div>
-            </ion-item>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown('juntalamparas')">
-                      <div class="cobertura_title">Cobertura</div>
-                      <div style="margin-top: 15px;" class="condiciones_txt">
-                        Nacional a través de los locales adheridos de Red Pagos y Abitab.
-                      </div>
-                    <div class="impulsan_title">Impulsan</div>
-                    <div class="impulsan_txt">
-                      UTE
-                    </div>
-                    <div class="recibe">
-                      <div class="recibe_logo"></div>
-                      <div class="recibe_title">Recibe</div>
-                    </div>
-                    <div class="recibe_txt">
-                      Lámparas fluorescentes compactas (“bajo consumo”). Las mismas deben estar sanas y deben
-                      ser depositadas sin ningún embalaje.
-                    </div>
-                    <div class="norecibe">
-                      <div class="norecibe_logo"></div>
-                      <div class="norecibe_title">Que no recibe</div>
-                    </div>
-                    <div class="norecibe_txt">
-                      Tuboluz, lámparas incandescentes, lámparas LED, pilas.
-                    </div>
-                    <div class="condiciones_title">Condiciones de recepción:</div>
-                    <div class="condiciones_txt">
-                      Una vez que la lámpara se agote, debes desenroscarla con mucho cuidado (siempre del casquillo)
-                      para evitar roturas. Depositalas en los contenedores que encontrarás en locales adheridos de
-                      Abitab y Redpagos.
-                    </div>
-                    <div class="condiciones_title">Más información:</div>
-                    <div class="condiciones_txt"><span ng-click="gotoLink('http://portal.ute.com.uy/planjuntalamparas_dequesetrata')">http://portal.ute.com.uy/planjuntalamparas_dequesetrata</span></div>
-                    <div class="condiciones_title">Contacto</div>
-                    <div class="condiciones_txt">
-                    0800 1930 teléfono fijo
-                    <br/>
-                    *1930 desde celular
-                    </div>
-                    <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
-                    <div class="condiciones_txt">
-                      Una vez recibidas desde los locales de Abitab y Redpagos, las lámparas fluorescentes compactas
-                      agotadas (LFCa), se colocan en un canasto de acero inoxidable en el que permanecerán durante todo
-                      el proceso. Este proceso consiste básicamente en la molienda de la lámpara y la separación del
-                      mercurio por precipitación química. Posteriormente el mercurio se encapsula en bloques de hormigón,
-                      mientras que el resto de la lámpara, previo lavado es enviado a disposición fina.
-                      <br/><br/>
-                      El vidrio y restos metálicos / electrónicos ya limpios y libres de presencia de mercurio son enviados a
-                      disposición final. La empresa Márgenes del Río S.A., ubicada en el Parque Tecnológico e Industrial del Cerro,
-                      es la responsable de realizar el tratamiento de las lámparas.
-                    </div>
-                    <div class="condiciones_title">Beneficios sociales y ambientales</div>
-                    <div class="condiciones_txt">
-                      Las lámparas fluorescentes compactas (las “bajo consumo”) son más eficientes, ahorran un 80% de
-                      electricidad con respecto a las lámparas incandescentes (las “tradicionales”) y duran 8 veces más.
-                      En su interior contienen mercurio el cual debe ser extraído para poder tratarlo adecuadamente. Si la
-                      lámpara se rompe antes de depositarla en el contenedor, el mercurio que estaba contenido en su
-                      interior es liberado al ambiente y, en grandes cantidades, puede contaminar.
-                      <br/><br/>
-                      Por estas razones es importante llevar las lámparas de bajo consumo agotadas a los locales
-                      habilitados de Abitab y Redpagos sin roturas. Esto es imprescindible para que reciban una gestión
-                      adecuada, tanto en su recolección como en el transporte, tratamiento y destino final.
-                    </div>
-            </ion-item>
-         </div>
-
-         <div class="programa">
-           <ion-item class="item-stable"
-                     id="podasyescombros_im"
-                     ng-click="toggleGroup('podasyescombros_im')"
-                     ng-class="{active: isGroupShown('podasyescombros_im')}">
-             <div class="program_name">Residuos Voluminosos, podas y escombros</div>
-             <div class="programa_short_txt">Intendencia Municipal de Montevideo</div>
-             <div class="acordion_action"></div>
-           </ion-item>
-           <ion-item class="item-accordion"
-                     ng-show="isGroupShown('podasyescombros_im')">
-                     <div class="cobertura_title">Cobertura</div>
-                     <div class="cobertura_deptos">
-                       <div class="depto">
-                         Montevideo
-                       </div>
-                     </div>
-                   <div class="impulsan_title">Impulsan</div>
-                   <div class="impulsan_txt">
-                     Intendencia Municipal de Montevideo
-                   </div>
-                   <div class="recibe">
-                     <div class="recibe_logo"></div>
-                     <div class="recibe_title">Recibe</div>
-                   </div>
-                   <div class="recibe_txt">
-                     Mobiliario, Sillones, Calefones, Heladeras, Electrónicos y otros residuos de gran tamaño.
-                   </div>
-                   <div class="norecibe">
-                     <div class="norecibe_logo"></div>
-                     <div class="norecibe_title">Que no recibe</div>
-                   </div>
-                   <div class="norecibe_txt">
-                     Residuos comunes mezclados. Materiales peligrosos (pilas, aceites, lámparas, medicamentos).
-                     Residuos comerciales. Más cantidad de lo previsto por retiro. (ver condiciones).
-                   </div>
-                   <div class="condiciones_title">Condiciones de recepción:</div>
-                   <div class="condiciones_txt">
-                     Se tomarán tus datos y deberás sacar a la vereda los residuos con un número asignado, en el día y
-                     la hora acordados con los funcionarios municipales (generalmente ese mismo día y entre 24 y 48 hs).
-                     <br/><br/>
-                     Se retira por cada domicilio, por mes, hasta 5 bolsas de escombro, 10 atados de poda, 5 objetos voluminosos.
-                     <br/><br/>
-                     Los objetos grandes no deben descartarse al lado ni dentro de los contenedores, ya que estas prácticas promueven
-                     la formación de basurales y roturas de los recipientes; además pueden ser sancionadas.
-                     <br/><br/>
-                     Otra opción que tienen los vecinos es llevar sus residuos directamente al <a style="color: black; text-decoration: underline;" ng-click="gotoLink('http://www.montevideo.gub.uy/node/24490')">Sitio de Disposición Final de Residuos</a>
-                     (ubicado en Felipe Cardoso 3220). En el ingreso hay dispuestas volquetas para que se pueda descargar sin costo,
-                     todos los días entre las 7 y las 21 horas.
-                     <br/><br/>
-                     Recordá que hay muchos artículos que para ti son desechables pero pueden ser recuperados por otras
-                     personas. En Uruguay existen varias asociaciones que reparan muebles y electrodomésticos, y pueden
-                     beneficiarse de lo que ya no querés tener en tu hogar.
-                   </div>
-                   <div class="condiciones_title">Más información:</div>
-                   <div class="condiciones_txt"><span ng-click="gotoLink('http://www.montevideo.gub.uy/servicios-y-sociedad/limpieza/servicio-de-recoleccion-de-residuos-grandes-escombros-muebles-electrodomesticos-y-poda')">http://www.montevideo.gub.uy/servicios-y-sociedad/limpieza/servicio-de-recoleccion-de-residuos-grandes-escombros-muebles-electrodomesticos-y-poda</span></div>
-                   <div class="condiciones_title">Contacto</div>
-                   <div class="condiciones_txt">
-                     1950 3000 opción 3, de 8 a 18 horas o también podés realizar la <a style="color: black; text-decoration: underline;" ng-click="gotoLink('http://www.montevideo.gub.uy/formularios/reclamo-0?tipo=Limpieza%20/%20Basura%2C%20escombros%20y%20ferias&codigo_sur=31')">solicitud en línea.</a>
-                   </div>
-                   <div class="condiciones_title">Ciclo de vida de los residuos entregados</div>
-                   <div class="condiciones_txt">
-                     Poda: Es llevado a la planta de TRESOR (Tratamiento de Residuos Orgánicos), donde se realiza un
-                     compost utilizado en la parquización de Montevideo.
-                     <br/><br/>
-                     Escombros: Son empleados como relleno en la operativa del Relleno Sanitario
-                     <br/><br/>
-                     Electrodomésticos voluminosos: Son almacenados y entregados a gestores o destinos habilitados para
-                     este tipo de materiales.
-                   </div>
-                   <div class="condiciones_title">Beneficios sociales y ambientales</div>
-                   <div class="condiciones_txt">
-                     Este manejo permite optimizar el funcionamiento del sistema de contenedores urbanos de residuos y
-                     mejorar el destino final de los residuos voluminosos, evitando en muchos casos su enterramiento en el
-                     Sitio de Disposición Final.
-                   </div>
-           </ion-item>
-        </div>
-
     </ion-list>
 
     <div class="heightSeparator">
