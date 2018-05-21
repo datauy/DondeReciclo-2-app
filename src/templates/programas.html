@@ -15,8 +15,8 @@
       </div>
 
       <ion-list>
-          <div class="programa" ng-repeat="programa in programas track by $index">
-            <ion-item class="item-stable"
+          <div ng-if="programa.mostrar.value==1" class="programa" ng-repeat="programa in programas track by $index">
+            <ion-item ng-if="programa.mostrar.value==1" class="item-stable"
                       id="tuenvasesirve"
                       ng-click="toggleGroup('{{getToggleGroupNamefromProgramName(programa.nombre)}}')"
                       ng-class="{active: isGroupShown('{{getToggleGroupNamefromProgramName(programa.nombre)}}')}">
@@ -25,7 +25,7 @@
               <div ng-if="programa.logo!=null" class="programa_img"><img src="{{getDrupalURL(programa.logo.uri)}}"/></div>
               <div class="acordion_action"></div>
             </ion-item>
-            <ion-item class="item-accordion"
+            <ion-item ng-if="programa.mostrar.value==1" class="item-accordion"
                       ng-show="isGroupShown('{{getToggleGroupNamefromProgramName(programa.nombre)}}')">
                       <div class="cobertura_title">Cobertura</div>
                       <div class="cobertura_deptos">

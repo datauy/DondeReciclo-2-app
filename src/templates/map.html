@@ -84,7 +84,7 @@
               iniciativa
             </span>
           </div>
-          <div class="logo_generico">
+          <div ng-if="patrocinador.logo.uri!=null" class="logo_generico">
             <img src="{{getDrupalURL(patrocinador.logo.uri)}}" />
           </div>
         </div>
@@ -98,6 +98,7 @@
 
 <div id="container_details">
   <ion-scroll id="details_scroll" scrollX="false" scrollY="true">
+    <div ng-click="nav_back()" class="close_container"></div>
     <div class="program-title">Programa</div>
     <div class="program-name" ng-click="clickOnProgramaFromPinDetails()">
       {{selected_container.Programa}}

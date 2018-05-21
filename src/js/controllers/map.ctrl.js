@@ -424,7 +424,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     $scope.loadPinsLayer = function(){
       var spinner = document.getElementById("map-spinner");
         $scope.containers = {};
-        spinner.className = "map-spinner";
+        if(spinner!=null){
+          spinner.className = "map-spinner";
+        }
         ContainerService.getAll().then(function (response) {
           var pinsArray = response.data.features;
           pinsArray.forEach(function(feature){
@@ -466,7 +468,9 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
               });
             }
           });
-          spinner.className = "map-spinner hidden";
+          if(spinner!=null){
+            spinner.className = "map-spinner hidden";
+          }
           $scope.hideOffScreenPins();
         });
     }
@@ -834,7 +838,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
     }
 
     $scope.$on('modal.shown', function() {
-      if($scope.item_modal.id){
+      if($scope.item_modal && $scope.item_modal.id){
         var id = $scope.item_modal.id;
         var id_array = id.split("-");
         if(id_array[1]){
