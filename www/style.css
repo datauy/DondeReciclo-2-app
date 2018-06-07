@@ -1,3 +1,10 @@
+.modal {
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+}
+
 .anchor_hash{
 	position: absolute;
 	left: 0;
@@ -105,10 +112,36 @@
 .about_container .logo_imm,
 .about_container .logo_salus,
 .about_container .logo_scjohnson,
+.about_container .logo_mvotma,
+.about_container .logo_ciu
 {
 	position: relative;
 	top:auto;
 	left: auto;
+}
+
+.logo_mvotma{
+	width: 89px;
+  height: 39px;
+  background-image:    url(./img/mvotma.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 17.81%;
+  top: 9px;
+}
+
+.logo_ciu{
+	width: 71px;
+  height: 39px;
+  background-image:    url(./img/ciu.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 21.87%;
+  top: 7px;
 }
 
 .logo_tuenvasesirve{

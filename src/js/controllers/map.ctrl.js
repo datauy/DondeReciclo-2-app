@@ -100,7 +100,7 @@ pmb_im.controllers.controller('MapController', ['$scope', '$sce', '_',
       DBService.initDB();
       $scope.set_network_events();
       $scope.find_me(16);
-      $scope.walkthrough();
+      //$scope.walkthrough();
     });
 
 
