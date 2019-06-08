@@ -217,6 +217,18 @@
   top: 8px;
 }
 
+.logo_ciu{
+	width: 71px;
+  height: 39px;
+  background-image:    url(./img/conaprole.png);
+  background-size:     100% 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  position: absolute;
+  right: 21.87%;
+  top: 7px;
+}
+
 .residuo_name, .noResults{
   font-family: Roboto;
   font-size: 15px;
